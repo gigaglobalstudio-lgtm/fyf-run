@@ -1,9 +1,14 @@
+// 프로덕션용 Postgres 스키마. Vercel 배포 시 이 파일로 교체.
+// 사용법: DATABASE_URL에 Neon/Supabase Postgres URL 설정 후
+//   cp prisma/schema.production.prisma prisma/schema.prisma
+//   npx prisma db push
+
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
