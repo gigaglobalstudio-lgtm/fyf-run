@@ -3,6 +3,9 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import ProductCard from '@/components/ProductCard';
 
+export const dynamic = 'force-dynamic';
+
+
 export default async function CharacterDetailPage({
   params,
 }: {

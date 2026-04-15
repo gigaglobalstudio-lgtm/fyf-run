@@ -3,6 +3,9 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import AddToCartSection from './AddToCartSection';
 
+export const dynamic = 'force-dynamic';
+
+
 export default async function ProductPage({
   params,
 }: {

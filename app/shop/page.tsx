@@ -2,6 +2,9 @@ import { db } from '@/lib/db';
 import ProductCard from '@/components/ProductCard';
 import Link from 'next/link';
 
+export const dynamic = 'force-dynamic';
+
+
 export default async function ShopPage({
   searchParams,
 }: {

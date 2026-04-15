@@ -3,6 +3,9 @@ import { redirect } from 'next/navigation';
 import { db } from '@/lib/db';
 import LogoutButton from './LogoutButton';
 
+export const dynamic = 'force-dynamic';
+
+
 export default async function MyPage() {
   const crew = await getCurrentCrew();
   if (!crew) redirect('/crew/login');

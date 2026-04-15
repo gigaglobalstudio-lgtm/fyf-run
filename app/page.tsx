@@ -1,5 +1,8 @@
 import Link from 'next/link';
 import { db } from '@/lib/db';
+
+export const dynamic = 'force-dynamic';
+
 import { getNextDropTime, getCurrentDropNumber } from '@/lib/drop';
 import Countdown from '@/components/Countdown';
 import ProductCard from '@/components/ProductCard';
