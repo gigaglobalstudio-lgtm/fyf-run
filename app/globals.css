@@ -1,0 +1,99 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-purple: #5B2A86;
+  --color-neon: #39FF14;
+  --color-asphalt: #0A0A0A;
+  --color-asphalt2: #1A1A1A;
+  --color-brick: #8B3A3A;
+  --color-border: #2a2a2a;
+  --color-fg: #E8E8E8;
+  --color-muted: #888888;
+  --color-mint: #3EE8B0;
+  --color-blue-hologram: #6FB6FF;
+
+  --font-sans: 'Malgun Gothic', 'Noto Sans KR', -apple-system, sans-serif;
+  --font-mono: Consolas, 'JetBrains Mono', monospace;
+}
+
+html, body {
+  background: #050505;
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+  line-height: 1.5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a { color: inherit; text-decoration: none; }
+
+button { font-family: inherit; cursor: pointer; }
+
+.mono { font-family: var(--font-mono); }
+
+.btn-neon {
+  background: var(--color-neon);
+  color: var(--color-asphalt);
+  padding: 14px 26px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  font-size: 12px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.btn-neon:hover { transform: translateY(-2px); }
+.btn-neon:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--color-fg);
+  color: var(--color-fg);
+  padding: 14px 26px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  font-size: 12px;
+}
+.btn-outline:hover { border-color: var(--color-neon); color: var(--color-neon); }
+
+.badge {
+  padding: 3px 8px;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  display: inline-block;
+}
+.badge-neon { background: var(--color-neon); color: var(--color-asphalt); }
+.badge-purple { background: var(--color-purple); color: white; }
+.badge-brick { background: var(--color-brick); color: white; }
+
+.section-title {
+  font-size: 12px;
+  letter-spacing: 4px;
+  color: var(--color-muted);
+  margin-bottom: 20px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+input, select, textarea {
+  background: #0d0d0d;
+  border: 1px solid var(--color-border);
+  color: var(--color-fg);
+  padding: 12px;
+  font-size: 14px;
+  width: 100%;
+  font-family: inherit;
+}
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--color-neon);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--color-asphalt); }
+::-webkit-scrollbar-thumb { background: var(--color-purple); }
+::-webkit-scrollbar-thumb:hover { background: var(--color-neon); }

@@ -1,0 +1,91 @@
+// 프로덕션용 Postgres 스키마. Vercel 배포 시 이 파일로 교체.
+// 사용법: DATABASE_URL에 Neon/Supabase Postgres URL 설정 후
+//   cp prisma/schema.production.prisma prisma/schema.prisma
+//   npx prisma db push
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Crew {
+  id          Int      @id @default(autoincrement())
+  crewNumber  String   @unique
+  email       String   @unique
+  password    String
+  crewName    String
+  favChar     String
+  runStyle    String
+  points      Int      @default(0)
+  rank        String   @default("ROOKIE")
+  createdAt   DateTime @default(now())
+  orders      Order[]
+}
+
+model Product {
+  id            Int       @id @default(autoincrement())
+  slug          String    @unique
+  name          String
+  line          String
+  character     String?
+  price         Int
+  description   String
+  story         String
+  material      String
+  weight        String
+  badge         String?
+  stockLow      Boolean   @default(false)
+  sizes         String
+  colors        String
+  image         String
+  featured      Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  orderItems    OrderItem[]
+}
+
+model Order {
+  id          Int         @id @default(autoincrement())
+  orderNumber String      @unique
+  crewId      Int
+  crew        Crew        @relation(fields: [crewId], references: [id])
+  total       Int
+  status      String      @default("PLACED")
+  shippingName String
+  shippingPhone String
+  shippingAddr String
+  paymentMethod String
+  createdAt   DateTime    @default(now())
+  items       OrderItem[]
+}
+
+model OrderItem {
+  id        Int     @id @default(autoincrement())
+  orderId   Int
+  order     Order   @relation(fields: [orderId], references: [id])
+  productId Int
+  product   Product @relation(fields: [productId], references: [id])
+  size      String
+  color     String
+  qty       Int
+  price     Int
+}
+
+model Character {
+  id          Int     @id @default(autoincrement())
+  slug        String  @unique
+  name        String
+  korName     String
+  role        String
+  icon        String
+  color       String
+  age         Int
+  height      String
+  origin      String
+  quote       String
+  originStory String
+  unlocked    Boolean @default(true)
+}
