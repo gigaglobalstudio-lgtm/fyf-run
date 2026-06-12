@@ -138,13 +138,10 @@ export const PRODUCTS: Product[] = [
       },
     ],
     detailImages: [
-      "/detail/vest/01.jpg",
       "/detail/vest/02.jpg",
       "/detail/vest/03.jpg",
       "/detail/vest/04.jpg",
-      "/detail/vest/05.jpg",
       "/detail/vest/06.jpg",
-      "/detail/vest/07.jpg",
     ],
     specs: [
       ["소재", "나일론 / 통풍 메쉬"],
@@ -203,13 +200,10 @@ export const PRODUCTS: Product[] = [
       },
     ],
     detailImages: [
-      "/detail/singlet/01.jpg",
-      "/detail/singlet/02.jpg",
       "/detail/singlet/03.jpg",
       "/detail/singlet/04.jpg",
       "/detail/singlet/05.jpg",
       "/detail/singlet/06.jpg",
-      "/detail/singlet/07.jpg",
     ],
     specs: [
       ["소재", "폴리에스터 메쉬 100%"],
@@ -581,7 +575,6 @@ export const PRODUCTS: Product[] = [
         body: "땀이 가장 많이 차는 발등에 메쉬 조직 — 장거리에서 발이 익는 걸 막는다.",
       },
     ],
-    detailImages: ["/detail/socks/01.jpg", "/detail/socks/02.jpg"],
     specs: [
       ["소재", "면 70% / 폴리 25% / 스판 5%"],
       ["길이", "미들컷 (복사뼈 위 10cm)"],
@@ -601,6 +594,8 @@ export const PRODUCTS: Product[] = [
     crewComment: "막을 거면 제대로 막아. 물집부터.",
   },
 ];
+// NOTE: crew-socks의 기존 상세 이미지 2장은 중국어 사입처 원본이라 제외했다.
+// 자체 촬영/생성 컷 확보 전까지 양말 상세는 타이포 피처로만 구성.
 
 export function getProduct(slug: string): Product | undefined {
   return PRODUCTS.find((p) => p.slug === slug);

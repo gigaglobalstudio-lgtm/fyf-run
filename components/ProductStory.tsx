@@ -88,19 +88,29 @@ export function ProductStory({ product }: { product: Product }) {
         </div>
       </div>
 
-      {/* ── 기성 상세 보드 (센터 칼럼) ── */}
+      {/* ── 디테일 컷 (룩북 칼럼) ── */}
       {product.detailImages && product.detailImages.length > 0 && (
-        <div className="mx-auto max-w-4xl px-5 pb-24">
-          <div className="overflow-hidden rounded-2xl shadow-[0_24px_80px_-32px_rgba(10,10,10,0.25)]">
+        <div className="mx-auto max-w-3xl px-5 pb-28">
+          <div className="mb-12 flex items-center gap-6">
+            <p className="shrink-0 text-xs font-bold uppercase tracking-[0.3em] text-ink/40">
+              Look Closer — 디테일 컷
+            </p>
+            <div className="h-px flex-1 bg-ink/10" />
+          </div>
+          <div className="space-y-10">
             {product.detailImages.map((src, i) => (
-              <Image
+              <div
                 key={src}
-                src={src}
-                alt={`${product.name} 상세 ${i + 1}`}
-                width={1200}
-                height={1400}
-                className="h-auto w-full"
-              />
+                className="overflow-hidden rounded-xl ring-1 ring-ink/5"
+              >
+                <Image
+                  src={src}
+                  alt={`${product.name} 상세 ${i + 1}`}
+                  width={1200}
+                  height={1400}
+                  className="h-auto w-full"
+                />
+              </div>
             ))}
           </div>
         </div>
