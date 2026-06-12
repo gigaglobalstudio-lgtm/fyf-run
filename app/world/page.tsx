@@ -20,15 +20,17 @@ export default function WorldPage() {
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="/crew/crew-cover.png"
+            src="/crew/crew-cover.jpg"
             alt=""
             fill
             priority
             sizes="100vw"
-            className="object-cover opacity-50"
+            className="object-cover opacity-80"
           />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-b from-ink/50 via-ink/75 to-ink" />
+        <div className="absolute inset-0 bg-gradient-to-b from-ink/20 via-ink/45 to-ink" />
+        {/* 텍스트 가독용 좌측 보조 그라데이션 */}
+        <div className="absolute inset-0 bg-gradient-to-r from-ink/55 via-transparent to-transparent" />
         <div className="relative mx-auto max-w-7xl px-5 py-24 md:py-36">
           <EcgLine className="h-6 w-40 text-flow" animate />
           <h1 className="font-display mt-4 text-6xl leading-[0.95] md:text-8xl">

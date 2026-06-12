@@ -236,7 +236,7 @@ export default function Home() {
               className="group relative min-h-80 overflow-hidden rounded-3xl border border-darkline"
             >
               <Image
-                src="/crew/crew-cover.png"
+                src="/crew/crew-cover.jpg"
                 alt="FYF 크루 — 카티보, 렌, 로코, 블록"
                 fill
                 sizes="(max-width: 1024px) 100vw, 55vw"
