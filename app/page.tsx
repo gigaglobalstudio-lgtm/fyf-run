@@ -14,8 +14,8 @@ export default function Home() {
       {/* ── HERO ─────────────────────────────────── */}
       <section className="relative flex min-h-[92svh] items-end overflow-hidden">
         <Image
-          src="/hero/hero-night-crew.png"
-          alt="밤의 도시를 달리는 FYF 크루"
+          src="/hero/hero-night-crew.jpg"
+          alt="밤의 도시를 달리는 FYF 크루 — 남녀 혼성 4인"
           fill
           priority
           sizes="100vw"
