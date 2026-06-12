@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Marquee } from "@/components/Marquee";
 import { ProductCard } from "@/components/ProductCard";
+import { MvPlayer } from "@/components/MvPlayer";
 import { EcgLine } from "@/components/EcgLogo";
 import { PRODUCTS, CREW, formatKRW, getProduct } from "@/lib/products";
 
@@ -282,6 +283,42 @@ export default function Home() {
                 </Link>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── MV ───────────────────────────────────── */}
+      <section className="border-t border-darkline bg-ink">
+        <div className="mx-auto max-w-7xl px-5 py-20">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <p className="font-display text-sm tracking-[0.25em] text-volt">
+                BUNKER SOUND
+              </p>
+              <h2 className="font-display mt-2 text-4xl md:text-5xl">
+                FYF 뮤직비디오
+              </h2>
+            </div>
+            <Link
+              href="/world/story"
+              className="text-sm font-bold text-paper/70 underline underline-offset-4 hover:text-paper"
+            >
+              스토리 &amp; MV 전체 →
+            </Link>
+          </div>
+          <div className="mt-10 grid gap-6 lg:grid-cols-2">
+            <MvPlayer
+              src="/mv/gabojago.mp4"
+              poster="/mv/gabojago-poster.jpg"
+              title="가보자고"
+              sub="FYF OFFICIAL MV — 크루의 낮, 순천 골목에서"
+            />
+            <MvPlayer
+              src="/mv/zombie-eyes.mp4"
+              poster="/mv/zombie-eyes-poster.jpg"
+              title="ZOMBIE EYES"
+              sub="FYF OFFICIAL MV — 카티보의 밤, 메트로놈을 노려보다"
+            />
           </div>
         </div>
       </section>

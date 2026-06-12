@@ -2,7 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { EcgLine } from "@/components/EcgLogo";
-import { CREW, SEASON1, CAFE_MENU, NEXT_CREW } from "@/lib/products";
+import { WorldNav } from "@/components/WorldNav";
+import { CREW } from "@/lib/products";
 
 export const metadata: Metadata = {
   title: "BUNKER-VERSE — FYF",
@@ -13,6 +14,8 @@ export const metadata: Metadata = {
 export default function WorldPage() {
   return (
     <div className="bg-ink text-paper">
+      <WorldNav />
+
       {/* ── Intro (공식 커버 아트) ── */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
@@ -26,7 +29,7 @@ export default function WorldPage() {
           />
         </div>
         <div className="absolute inset-0 bg-gradient-to-b from-ink/50 via-ink/75 to-ink" />
-        <div className="relative mx-auto max-w-7xl px-5 py-28 md:py-40">
+        <div className="relative mx-auto max-w-7xl px-5 py-24 md:py-36">
           <EcgLine className="h-6 w-40 text-flow" animate />
           <h1 className="font-display mt-4 text-6xl leading-[0.95] md:text-8xl">
             BUNKER-
@@ -46,6 +49,20 @@ export default function WorldPage() {
           <p className="font-display mt-10 text-2xl tracking-wide text-volt">
             DON&apos;T FOLLOW. FIND YOUR FLOW.
           </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link
+              href="/world/story"
+              className="rounded-2xl border border-paper/40 px-6 py-3.5 text-sm font-extrabold text-paper transition hover:bg-white/10"
+            >
+              시즌 1 스토리 &amp; MV →
+            </Link>
+            <Link
+              href="/world/cafe"
+              className="rounded-2xl border border-paper/40 px-6 py-3.5 text-sm font-extrabold text-paper transition hover:bg-white/10"
+            >
+              벙커 카페 →
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -149,148 +166,6 @@ export default function WorldPage() {
                   />
                 </div>
               </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── 시즌 1 스토리 ── */}
-      <section className="border-t border-darkline">
-        <div className="mx-auto max-w-7xl px-5 py-20">
-          <p className="font-display text-sm tracking-[0.25em] text-volt">
-            SEASON 01 — BUNKER OPENS
-          </p>
-          <h2 className="font-display mt-2 text-4xl md:text-5xl">
-            내 속도는 내가 정한다
-          </h2>
-          <p className="mt-4 max-w-2xl leading-relaxed text-paper/70">
-            그들은 빠른 러너도, 완벽한 영웅도 아니다. 도시 기준에서는 이상하고
-            불규칙한 존재들이다. 하지만 그 불규칙함이 모였을 때, 도시는 처음으로
-            흔들리기 시작한다.
-          </p>
-
-          <div className="mt-10 grid gap-3 md:grid-cols-2">
-            {SEASON1.map(([title, body], i) => (
-              <div
-                key={title}
-                className="flex gap-4 rounded-2xl border border-darkline bg-coal p-5"
-              >
-                <p className="font-display text-2xl text-paper/25">
-                  {String(i + 1).padStart(2, "0")}
-                </p>
-                <div>
-                  <p className="font-extrabold text-paper">{title}</p>
-                  <p className="mt-1 text-sm leading-relaxed text-paper/60">
-                    {body}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <p className="font-display mt-10 text-center text-xl tracking-wide text-paper/60">
-            마지막 장면. FYF 카페의 간판이 켜진다 —{" "}
-            <span className="text-volt">Don&apos;t follow. Find your Flow.</span>
-          </p>
-        </div>
-      </section>
-
-      {/* ── 벙커 카페 ── */}
-      <section className="border-t border-darkline">
-        <div className="mx-auto max-w-7xl px-5 py-20">
-          <div className="overflow-hidden rounded-3xl border border-darkline">
-            <Image
-              src="/crew/crew-cafe.png"
-              alt="FYF 벙커 카페 앞의 크루"
-              width={1344}
-              height={736}
-              className="h-auto w-full object-cover"
-            />
-          </div>
-
-          <div className="mt-14 grid items-start gap-10 lg:grid-cols-2">
-            <div>
-              <p className="font-display text-sm tracking-[0.25em] text-flow">
-                BUNKER CAFE, SUNCHEON
-              </p>
-              <h2 className="font-display mt-2 text-4xl md:text-5xl">
-                매일 찾는 한 잔,
-                <br />
-                묵직하게, 깔끔하게
-              </h2>
-              <p className="mt-4 max-w-md leading-relaxed text-paper/70">
-                낮의 FYF는 평범한 카페처럼 보인다. 하지만 메뉴판을 아는 사람은
-                안다 — 각 잔이 누구의 리듬인지. Run your pace. Find your flow.
-              </p>
-              <div className="mt-8 space-y-7">
-                {CAFE_MENU.map((cat) => (
-                  <div key={cat.category}>
-                    <p className="font-display text-sm tracking-[0.2em] text-volt">
-                      {cat.category}
-                    </p>
-                    <ul className="mt-2 divide-y divide-darkline">
-                      {cat.items.map(([name, price]) => (
-                        <li
-                          key={name}
-                          className="flex items-baseline justify-between gap-4 py-2.5"
-                        >
-                          <span className="text-sm font-bold text-paper/85">
-                            {name}
-                          </span>
-                          <span className="shrink-0 text-sm font-extrabold text-paper/60">
-                            {price}원
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="overflow-hidden rounded-3xl border border-darkline lg:sticky lg:top-24">
-              <Image
-                src="/cafe/menu-board.jpg"
-                alt="FYF CAFE 공식 메뉴판 — 크루 4인"
-                width={1200}
-                height={1697}
-                className="h-auto w-full"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── 시즌 2 신규 크루 티저 ── */}
-      <section className="border-t border-darkline">
-        <div className="mx-auto max-w-7xl px-5 py-20">
-          <p className="font-display text-sm tracking-[0.25em] text-volt">
-            SEASON 02 — TEASER
-          </p>
-          <h2 className="font-display mt-2 text-4xl md:text-5xl">
-            새로운 러너들이 온다
-          </h2>
-          <p className="mt-4 max-w-xl leading-relaxed text-paper/70">
-            벙커의 문은 네 명에서 끝나지 않는다.{" "}
-            {NEXT_CREW.map((c) => c.en).join(" · ")} — 각자의 결핍과 각자의
-            리듬을 가진 새 크루가 준비 중이다.
-          </p>
-          <div className="mt-8 overflow-hidden rounded-3xl border border-darkline">
-            <Image
-              src="/crew/next-crew.jpg"
-              alt={`시즌 2 신규 크루 티저 — ${NEXT_CREW.map((c) => `${c.en}(${c.desc})`).join(", ")}`}
-              width={1600}
-              height={1066}
-              className="h-auto w-full"
-            />
-          </div>
-          <div className="mt-5 flex flex-wrap gap-2">
-            {NEXT_CREW.map((c) => (
-              <span
-                key={c.en}
-                className="rounded-full border border-darkline bg-coal px-4 py-2 text-xs font-extrabold text-paper/70"
-              >
-                {c.en} — {c.desc} · COMING SOON
-              </span>
             ))}
           </div>
         </div>
