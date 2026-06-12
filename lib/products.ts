@@ -10,7 +10,7 @@ export type Product = {
   nameKo: string;
   price: number;
   listPrice: number;
-  category: "cap" | "top" | "bottom" | "outer";
+  category: "cap" | "top" | "bottom" | "outer" | "gear";
   categoryKo: string;
   tagline: string;
   description: string;
@@ -23,7 +23,7 @@ export type Product = {
   storyTitle: string;
   storyBody: string;
   features: Feature[];
-  detailImage?: string; // 상세 인포그래픽/추가 컷
+  detailImages?: string[]; // 기성 상세페이지 섹션 이미지 스택
   lifestyleImage?: string;
   specs: [string, string][];
   sizeChart: { cols: string[]; rows: string[][] };
@@ -44,11 +44,11 @@ export const PRODUCTS: Product[] = [
     description:
       "처음 러닝을 시작하는 사람의 첫 장비. 매트 블랙 5패널 위에 심박 그래프 하나. 페이스는 시계가 정하지 않는다. 네 심장이 정한다.",
     details: [
-      "매트 블랙 5패널 구조",
+      "약 40g 초경량 — 쓴 듯 안 쓴 듯",
       "전면 화이트 하트비트 ECG 로고",
-      "측면 FYF 워드마크",
-      "레이저 컷 통기홀",
-      "후면 드로스트링 루프 — 야간 러닝 시 라이트 클립 호환",
+      "측면 에어홀 통기",
+      "속건 땀밴드 — 내부 흡습 속건 처리",
+      "후면 조절형 스트링 (56–60cm)",
       "경량 속건 원단 (UPF 50+)",
     ],
     sizes: ["FREE"],
@@ -61,25 +61,28 @@ export const PRODUCTS: Product[] = [
     features: [
       {
         num: "01",
-        heading: "심박 그래프 로고",
-        body: "전면의 ECG 라인은 장식이 아니라 선언이다. 평균 페이스가 아니라 내 심박으로 달린다는 것. 자수가 아닌 고밀도 전사 프린트로 세탁 후에도 갈라지지 않는다.",
+        heading: "약 40g 초경량",
+        body: "긴 거리를 가도 압박감이 없는 무게. 쓰고 있다는 사실을 잊게 만드는 게 좋은 러닝캡의 첫 번째 조건이다.",
       },
       {
         num: "02",
-        heading: "레이저 컷 통기홀",
-        body: "새벽 5km에서 머리가 끓는 건 통기 때문이다. 바늘 봉제 대신 레이저 컷팅으로 구멍 가장자리가 말끔하고, 땀이 차는 정수리 라인을 따라 배치했다.",
+        heading: "측면 에어홀 통기",
+        body: "새벽 5km에서 머리가 끓는 건 통기 때문이다. 측면 에어홀이 열기를 빼내고, 땀이 차는 정수리 라인을 식힌다.",
       },
       {
         num: "03",
-        heading: "후면 드로스트링 루프",
-        body: "사이즈 조절 스트랩이 아니라 루프형 드로스트링. 야간 러닝 시 클립 라이트를 걸 수 있고, 흔들림 없이 머리에 붙는다. 56–60cm 무단 조절.",
+        heading: "속건 땀밴드 + 조절형 스트링",
+        body: "내부 밴드는 땀을 빠르게 말리고, 후면 스트링은 56–60cm 무단 조절. 야간 러닝 시 클립 라이트를 걸 수 있는 루프형이다.",
       },
     ],
-    detailImage: "/products/fyf-performance-cap-detail.png",
-    lifestyleImage: "/hero/cap-worn.png",
+    detailImages: [
+      "/detail/cap/board.jpg",
+      "/products/fyf-performance-cap-detail.png",
+    ],
+    lifestyleImage: "/detail/cap/wearing.jpg",
     specs: [
       ["소재", "폴리에스터 100% (속건 립스탑)"],
-      ["무게", "약 62g"],
+      ["무게", "약 40g"],
       ["자외선 차단", "UPF 50+"],
       ["조절 범위", "56–60cm 드로스트링"],
       ["세탁", "중성세제 손세탁, 그늘 건조"],
@@ -93,6 +96,205 @@ export const PRODUCTS: Product[] = [
     crewComment: "야, 그냥 뛰어. 모자 하나면 돼.",
   },
   {
+    slug: "race-vest",
+    name: "FYF Race Vest",
+    nameKo: "레이스 베스트",
+    price: 69000,
+    listPrice: 89900,
+    category: "gear",
+    categoryKo: "기어",
+    tagline: "필요한 것만, 몸에 가볍게.",
+    description:
+      "물통, 젤, 휴대폰, 키까지 — 몸 가까이 수납하는 러닝 베스트. 답답한 배낭 대신, 달리는 장비만 빠르게 꺼낼 수 있는 구조.",
+    details: [
+      "250ml 플라스크 포켓 ×2 (전면)",
+      "통풍 메쉬 등판 — 땀 배출 구조",
+      "2-WAY 체스트 스트랩 — 흔들림 제로",
+      "지퍼 포켓 — 소지품 안전 수납",
+      "BLACK / LIGHT GRAY 2색",
+    ],
+    sizes: ["FREE"],
+    color: "Black / Light Gray",
+    image: "/products/race-vest.jpg",
+    badge: "NEW",
+    storyTitle: "배낭은 러닝을 모른다",
+    storyBody:
+      "10km를 넘기는 순간 주머니로는 부족해진다. 그렇다고 배낭을 메면 어깨가 먼저 지친다. Race Vest는 몸에 밀착되는 250ml 플라스크 2개와 지퍼 포켓으로, 보급을 멈추지 않는 러닝으로 바꾼다. 마라톤·트레일 입문자의 첫 베스트.",
+    features: [
+      {
+        num: "01",
+        heading: "전면 플라스크 포켓 ×2",
+        body: "달리면서 한 손으로 꺼내고 꽂는 각도. 출렁임을 잡는 탄성 밴드로 물이 반쯤 남아도 흔들리지 않는다.",
+      },
+      {
+        num: "02",
+        heading: "통풍 메쉬 등판",
+        body: "등 전체가 오픈 메쉬 — 베스트의 고질병인 등판 찜통을 구조로 해결했다. 한여름 LSD에서도 등이 마른다.",
+      },
+      {
+        num: "03",
+        heading: "2-WAY 체스트 스트랩",
+        body: "가슴 폭에 맞춰 위아래로 이동하는 스트랩 2개. 바운싱을 잡아 체감 무게를 절반으로 줄인다.",
+      },
+    ],
+    detailImages: [
+      "/detail/vest/01.jpg",
+      "/detail/vest/02.jpg",
+      "/detail/vest/03.jpg",
+      "/detail/vest/04.jpg",
+      "/detail/vest/05.jpg",
+      "/detail/vest/06.jpg",
+      "/detail/vest/07.jpg",
+    ],
+    specs: [
+      ["소재", "나일론 / 통풍 메쉬"],
+      ["수납", "250ml 플라스크 ×2 + 지퍼 포켓 + 등판 포켓"],
+      ["스트랩", "2-WAY 조절 체스트 스트랩"],
+      ["컬러", "BLACK / LIGHT GRAY"],
+      ["세탁", "손세탁, 그늘 건조"],
+      ["제조", "기가글로벌스튜디오 / 한국"],
+    ],
+    sizeChart: {
+      cols: ["사이즈", "가슴둘레", "무게"],
+      rows: [["FREE", "80–110cm (스트랩 조절)", "약 180g"]],
+    },
+    crewPick: "LEN",
+    crewComment: "빠른 길 말고, 안 들키는 길. 보급은 계획이야.",
+  },
+  {
+    slug: "race-singlet",
+    name: "FYF Race Singlet",
+    nameKo: "레이스 싱글렛",
+    price: 49000,
+    listPrice: 59000,
+    category: "top",
+    categoryKo: "탑",
+    tagline: "여름 러닝, 한 장으로 선명하게.",
+    description:
+      "톡톡 메쉬 조직과 넓은 레이서백 라인. 핫핑크에 네온 옐로 포인트 — 트랙에서 가장 멀리서도 보이는 한 장.",
+    details: [
+      "톡톡 메쉬 조직 — 최대 통기",
+      "레이서백 — 어깨 가동범위 확보",
+      "넓은 암홀 — 마찰 최소화",
+      "네온 그래픽 — 야간·새벽 시인성",
+    ],
+    sizes: ["S", "M", "L", "XL"],
+    color: "Hot Pink / Neon",
+    image: "/products/race-singlet.jpg",
+    badge: "NEW",
+    storyTitle: "눈에 띄는 게 전략이다",
+    storyBody:
+      "레이스 사진 속에서 너를 못 찾는 이유 — 다 같은 검정을 입어서다. Race Singlet은 반대로 간다. 핫핑크 바탕에 네온 옐로 사선, 민트 도트. 5,000명 속에서도 네 리듬이 보인다.",
+    features: [
+      {
+        num: "01",
+        heading: "톡톡 메쉬 조직",
+        body: "구멍이 보일 만큼 성긴 메쉬가 바람을 통과시킨다. 한여름 대회에서 체온이 페이스를 깎는 걸 막는 첫 번째 장치.",
+      },
+      {
+        num: "02",
+        heading: "레이서백 + 넓은 암홀",
+        body: "어깨뼈가 자유로운 레이서백 재단. 팔 스윙이 커지는 스퍼트 구간에서도 겨드랑이가 쓸리지 않는다.",
+      },
+      {
+        num: "03",
+        heading: "네온 그래픽",
+        body: "핑크×옐로×민트 — 새벽과 야간 도로에서 차가 먼저 본다. 안전이 곧 디자인이다.",
+      },
+    ],
+    detailImages: [
+      "/detail/singlet/01.jpg",
+      "/detail/singlet/02.jpg",
+      "/detail/singlet/03.jpg",
+      "/detail/singlet/04.jpg",
+      "/detail/singlet/05.jpg",
+      "/detail/singlet/06.jpg",
+      "/detail/singlet/07.jpg",
+    ],
+    specs: [
+      ["소재", "폴리에스터 메쉬 100%"],
+      ["핏", "레이스 핏 (몸에 가깝게)"],
+      ["기능", "최대 통기 / 속건 / 네온 시인성"],
+      ["컬러", "핫핑크 / 네온 옐로 / 민트 도트"],
+      ["세탁", "찬물 단독, 건조기 금지"],
+      ["제조", "기가글로벌스튜디오 / 한국"],
+    ],
+    sizeChart: {
+      cols: ["사이즈", "가슴단면", "총장"],
+      rows: [
+        ["S", "46cm", "65cm"],
+        ["M", "49cm", "68cm"],
+        ["L", "52cm", "71cm"],
+        ["XL", "55cm", "74cm"],
+      ],
+    },
+    crewPick: "CATTIVO",
+    crewComment: "가보자고. 어차피 다 쳐다봐.",
+  },
+  {
+    slug: "flow-shorts",
+    name: "FYF Flow Shorts",
+    nameKo: "플로우 쇼츠",
+    price: 42000,
+    listPrice: 52900,
+    category: "bottom",
+    categoryKo: "바텀",
+    tagline: "뛰는 순간, 바지는 잊혀져야 합니다.",
+    description:
+      "가볍게 뛰고, 빠르게 마르는 러닝 쇼츠. 경량 그리드 원단에 휴대폰 수납 포켓, 메쉬 허리밴드까지 — 러닝 중 거슬리는 요소를 전부 뺐다.",
+    details: [
+      "경량 그리드 원단 — 얇고 산뜻한 조직감",
+      "휴대폰 수납 포켓 — 뒷밸런스 안정 수납",
+      "레이저 컷 마감 — 봉제선 최소화",
+      "메쉬 허리밴드 — 편안한 압박과 통기",
+      "블랙·화이트·민트·핑크·네이비 5컬러 (대표: 블랙)",
+    ],
+    sizes: ["S", "M", "L", "XL"],
+    color: "5 Colors",
+    image: "/products/flow-shorts.jpg",
+    badge: "NEW",
+    storyTitle: "거슬림 제로 설계",
+    storyBody:
+      "러닝 중 바지를 의식하는 순간 페이스는 깨진다. Flow Shorts는 원단, 통기, 수납, 허리밴드 — 거슬리는 요소를 줄이기 위해서만 설계됐다. 가볍고 통기감 있는 원단, 짧고 깔끔한 기장, 필요한 수납, 편안한 허리 밴드. 그게 전부고, 그게 핵심이다.",
+    features: [
+      {
+        num: "01",
+        heading: "경량 그리드 원단",
+        body: "얇고 산뜻한 조직감으로 움직임이 가볍다. 젖어도 피부에 붙지 않는 그리드 표면 구조.",
+      },
+      {
+        num: "02",
+        heading: "휴대폰 수납 포켓",
+        body: "러닝 중 흔들리지 않는 뒷포켓 — 폰을 넣고 달려도 출렁임이 허리를 끌어내리지 않는 위치에 달았다.",
+      },
+      {
+        num: "03",
+        heading: "레이저 컷 마감 + 메쉬 허리밴드",
+        body: "불필요한 봉제선을 줄여 마찰을 없애고, 허리는 면압을 분산하는 메쉬 밴드로 편안하게 잡아준다.",
+      },
+    ],
+    detailImages: ["/detail/shorts/01.jpg", "/detail/shorts/02.jpg"],
+    specs: [
+      ["소재", "폴리에스터 경량 그리드"],
+      ["기장", "3인치 (짧고 깔끔한 기장)"],
+      ["수납", "후면 휴대폰 포켓 + 사이드 포켓"],
+      ["컬러", "블랙 / 화이트 / 민트 / 핑크 / 네이비"],
+      ["세탁", "찬물 단독, 건조기 금지"],
+      ["제조", "기가글로벌스튜디오 / 한국"],
+    ],
+    sizeChart: {
+      cols: ["사이즈", "허리둘레", "힙둘레", "총장"],
+      rows: [
+        ["S", "66–72cm", "96cm", "34cm"],
+        ["M", "72–78cm", "101cm", "35cm"],
+        ["L", "78–84cm", "106cm", "36cm"],
+        ["XL", "84–90cm", "111cm", "37cm"],
+      ],
+    },
+    crewPick: "ROCO",
+    crewComment: "천천히 가도 돼. 가벼우면 멀리 가.",
+  },
+  {
     slug: "flow-singlet",
     name: "Flow Singlet",
     nameKo: "플로우 싱글렛",
@@ -102,7 +304,7 @@ export const PRODUCTS: Product[] = [
     categoryKo: "탑",
     tagline: "공기보다 가볍게.",
     description:
-      "레이스 데이를 위한 초경량 메시 싱글렛. 몸이 사라지고 리듬만 남는 순간을 위해 만들었다.",
+      "데일리 트레이닝을 위한 초경량 메시 싱글렛. 몸이 사라지고 리듬만 남는 순간을 위해 만들었다.",
     details: [
       "초경량 테크니컬 메시 (98g, M 기준)",
       "좌측 가슴 ECG 펄스 로고",
@@ -112,7 +314,6 @@ export const PRODUCTS: Product[] = [
     sizes: ["S", "M", "L", "XL"],
     color: "Matte Black",
     image: "/products/flow-singlet.png",
-    badge: "NEW",
     storyTitle: "98g의 자유",
     storyBody:
       "레이스 막판 3km, 몸에 닿는 모든 것이 무게가 된다. Flow Singlet은 M 사이즈 기준 98g — 입었다는 감각 자체를 지웠다. 남는 건 호흡과 심박, 두 가지뿐이다.",
@@ -120,17 +321,17 @@ export const PRODUCTS: Product[] = [
       {
         num: "01",
         heading: "투존 메시 구조",
-        body: "등판과 옆구리는 오픈 메시, 가슴판은 미들 메시. 바람이 통과하는 곳과 형태를 잡아야 하는 곳을 나눴다. 10km 이후에도 천이 몸에 감기지 않는다.",
+        body: "등판과 옆구리는 오픈 메시, 가슴판은 미들 메시. 바람이 통과하는 곳과 형태를 잡아야 하는 곳을 나눴다.",
       },
       {
         num: "02",
         heading: "플랫락 봉제",
-        body: "겨드랑이 쓸림은 봉제선이 만든다. 전 구간 플랫락 스티치로 솔기 단차를 없앴고, 하프 풀코스에서도 바셀린 없이 달릴 수 있다.",
+        body: "겨드랑이 쓸림은 봉제선이 만든다. 전 구간 플랫락 스티치로 솔기 단차를 없앴다.",
       },
       {
         num: "03",
         heading: "쿨링 드라이 원단",
-        body: "땀을 0.8초 만에 흡수해 바깥면으로 밀어내는 모세관 구조. 젖어도 무거워지지 않고, 한여름 새벽 러닝에서 체온을 1–2도 낮게 유지한다.",
+        body: "땀을 빠르게 흡수해 바깥면으로 밀어내는 모세관 구조. 젖어도 무거워지지 않는다.",
       },
     ],
     specs: [
@@ -175,7 +376,7 @@ export const PRODUCTS: Product[] = [
     image: "/products/flow-tee.png",
     storyTitle: "100번 입는 티셔츠",
     storyBody:
-      "특별한 날의 장비보다 매일의 장비가 어렵다. Flow Tee는 주 5회 세탁을 견디는 내구 원단과, 러닝이 끝나고 카페에 앉아도 어색하지 않은 세미 루즈핏으로 만들었다. 러닝과 일상의 경계를 지운 한 장.",
+      "특별한 날의 장비보다 매일의 장비가 어렵다. Flow Tee는 주 5회 세탁을 견디는 내구 원단과, 러닝이 끝나고 카페에 앉아도 어색하지 않은 세미 루즈핏으로 만들었다.",
     features: [
       {
         num: "01",
@@ -240,17 +441,17 @@ export const PRODUCTS: Product[] = [
       {
         num: "01",
         heading: "3포켓 시스템",
-        body: "양측 사이드 메시 포켓은 달리는 중에도 한 손으로 젤을 꺼낼 수 있는 각도로 비스듬히 재단했다. 후면 지퍼 포켓은 6.7인치 폰까지 흔들림 없이 고정.",
+        body: "양측 사이드 메시 포켓은 달리는 중에도 한 손으로 젤을 꺼낼 수 있는 각도로 비스듬히 재단했다.",
       },
       {
         num: "02",
         heading: "단계 압박 설계",
-        body: "허벅지 중앙부는 강하게, 무릎 위와 허리는 부드럽게. 근육 진동을 잡아 후반 피로를 늦추되 혈류는 막지 않는 압박 맵핑.",
+        body: "허벅지 중앙부는 강하게, 무릎 위와 허리는 부드럽게. 근육 진동을 잡아 후반 피로를 늦춘다.",
       },
       {
         num: "03",
         heading: "무봉제 웨이스트 밴드",
-        body: "위장을 누르는 고무 밴드 대신 9cm 광폭 무봉제 밴드 + 내장 드로코드. 장거리에서 복부 압박감 없이 흘러내리지도 않는다.",
+        body: "위장을 누르는 고무 밴드 대신 9cm 광폭 무봉제 밴드 + 내장 드로코드.",
       },
     ],
     specs: [
@@ -294,7 +495,6 @@ export const PRODUCTS: Product[] = [
     sizes: ["S", "M", "L", "XL"],
     color: "Matte Black",
     image: "/products/noise-spark-windbreaker.png",
-    badge: "NEW",
     storyTitle: "카티보가 도시를 흔드는 법",
     storyBody:
       "시즌 1, 카티보가 달리면 도시의 센서가 오작동한다 — Noise Spark. 이 재킷의 리플렉티브 ECG 로고는 밤의 헤드라이트를 받으면 심박 그래프처럼 번쩍인다. 도시의 감시는 피하고, 시야에는 잡히는 모순. 그게 FYF다.",
@@ -302,22 +502,22 @@ export const PRODUCTS: Product[] = [
       {
         num: "01",
         heading: "리플렉티브 노이즈 로고",
-        body: "낮에는 무광 블랙에 묻혀 보이지 않다가, 야간 차량 헤드라이트에 ECG 라인이 발광한다. 새벽 러너의 안전이 디자인이 되는 방식.",
+        body: "낮에는 무광 블랙에 묻혀 보이지 않다가, 야간 차량 헤드라이트에 ECG 라인이 발광한다.",
       },
       {
         num: "02",
         heading: "115g 포켓터블 셸",
-        body: "자체 체스트 포켓에 말아 넣으면 주먹 크기. 출발할 때 쌀쌀하고 5km 뒤 더운 한국의 봄가을 새벽에 답이 되는 무게다.",
+        body: "자체 체스트 포켓에 말아 넣으면 주먹 크기. 한국의 봄가을 새벽에 답이 되는 무게다.",
       },
       {
         num: "03",
         heading: "백 벤틸레이션",
-        body: "등판 상단의 히든 벤트가 달릴 때마다 열기를 배출한다. 윈드브레이커의 고질병인 '비닐하우스 등판'을 구조로 해결했다.",
+        body: "등판 상단의 히든 벤트가 달릴 때마다 열기를 배출한다. '비닐하우스 등판'을 구조로 해결했다.",
       },
       {
         num: "04",
         heading: "DWR 발수 코팅",
-        body: "가랑비와 새벽 안개까지는 이 한 장으로 충분하다. 물방울이 스미지 않고 구른다. (폭우용 방수 재킷은 아니다 — 정직하게.)",
+        body: "가랑비와 새벽 안개까지는 이 한 장으로 충분하다. (폭우용 방수 재킷은 아니다 — 정직하게.)",
       },
     ],
     specs: [
@@ -339,6 +539,66 @@ export const PRODUCTS: Product[] = [
     },
     crewPick: "CATTIVO",
     crewComment: "조용히 살 거면 여기 왜 왔냐?",
+  },
+  {
+    slug: "crew-socks",
+    name: "FYF Crew Socks",
+    nameKo: "크루 삭스",
+    price: 12900,
+    listPrice: 16900,
+    category: "gear",
+    categoryKo: "기어",
+    tagline: "발이 편해야 끝까지 간다.",
+    description:
+      "쿠션 존과 아치 서포트를 갖춘 미들컷 러닝 양말. 블랙·레드·화이트·네이비·그레이 5색.",
+    details: [
+      "발볼 아치 서포트 밴드",
+      "뒤꿈치·앞꿈치 쿠션 존",
+      "통기 메쉬 발등",
+      "미끄럼 방지 힐 탭",
+      "5컬러 (블랙/레드/화이트/네이비/그레이)",
+    ],
+    sizes: ["M (240–260)", "L (260–280)"],
+    color: "5 Colors",
+    image: "/products/crew-socks.jpg",
+    storyTitle: "물집은 장비 탓이다",
+    storyBody:
+      "러닝을 멈추게 하는 건 심폐가 아니라 발바닥일 때가 많다. 물집, 쓸림, 눌림 — 전부 양말에서 시작된다. Crew Socks는 마찰 구간에 쿠션을, 흔들리는 아치에 서포트 밴드를 박았다. ₩12,900로 끝나는 가장 싼 부상 방지책.",
+    features: [
+      {
+        num: "01",
+        heading: "쿠션 존 설계",
+        body: "뒤꿈치와 앞꿈치 착지 구간에만 파일 쿠션을 넣어, 두껍지 않으면서 충격을 줄인다.",
+      },
+      {
+        num: "02",
+        heading: "아치 서포트 밴드",
+        body: "발 중앙을 감싸는 탄성 밴드가 양말의 뒤틀림을 잡는다. 젖어도 헛돌지 않는다.",
+      },
+      {
+        num: "03",
+        heading: "통기 메쉬 발등",
+        body: "땀이 가장 많이 차는 발등에 메쉬 조직 — 장거리에서 발이 익는 걸 막는다.",
+      },
+    ],
+    detailImages: ["/detail/socks/01.jpg", "/detail/socks/02.jpg"],
+    specs: [
+      ["소재", "면 70% / 폴리 25% / 스판 5%"],
+      ["길이", "미들컷 (복사뼈 위 10cm)"],
+      ["기능", "쿠션 존 / 아치 서포트 / 힐 탭"],
+      ["컬러", "블랙 / 레드 / 화이트 / 네이비 / 그레이"],
+      ["세탁", "세탁기 사용 가능"],
+      ["제조", "기가글로벌스튜디오 / 한국"],
+    ],
+    sizeChart: {
+      cols: ["사이즈", "발 길이"],
+      rows: [
+        ["M", "240–260mm"],
+        ["L", "260–280mm"],
+      ],
+    },
+    crewPick: "BLOCK",
+    crewComment: "막을 거면 제대로 막아. 물집부터.",
   },
 ];
 
@@ -366,6 +626,7 @@ export type CrewMember = {
   menu: string;
   color: string;
   image: string;
+  modelSheet: string;
 };
 
 export const CREW: CrewMember[] = [
@@ -386,6 +647,7 @@ export const CREW: CrewMember[] = [
     menu: "카티보 스파크 에이드",
     color: "#8b5cf6",
     image: "/crew/cattivo-sheet.png",
+    modelSheet: "/crew/sheets/cattivo-model.jpg",
   },
   {
     name: "렌",
@@ -404,6 +666,7 @@ export const CREW: CrewMember[] = [
     menu: "렌 블루라임 소다",
     color: "#22c55e",
     image: "/crew/len-sheet.png",
+    modelSheet: "/crew/sheets/len-model.jpg",
   },
   {
     name: "로코",
@@ -422,6 +685,7 @@ export const CREW: CrewMember[] = [
     menu: "로코 딥 콜드브루",
     color: "#2f6bff",
     image: "/crew/roco-sheet.png",
+    modelSheet: "/crew/sheets/roco-model.jpg",
   },
   {
     name: "블록",
@@ -440,6 +704,7 @@ export const CREW: CrewMember[] = [
     menu: "블록 아메리카노",
     color: "#ef4444",
     image: "/crew/block-sheet.png",
+    modelSheet: "/crew/sheets/block-model.jpg",
   },
 ];
 
@@ -463,12 +728,80 @@ export const SEASON1 = [
   ["Find Your Flow", "도시 전체의 리듬이 불규칙해진다. 메트로놈은 오류라고 부르고, FYF는 자유라고 부른다."],
 ] as const;
 
-// ── 벙커 카페 메뉴 ──
+// ── FYF CAFE 실제 메뉴 (공식 메뉴판 기준) ──
 export const CAFE_MENU = [
-  { menu: "블록 아메리카노", desc: "가장 기본, 가장 단단한 메뉴.", note: "HOT 2,000 / ICE 2,300", color: "#ef4444" },
-  { menu: "카티보 스파크 에이드", desc: "톡 쏘고 강렬한 탄산. 색감이 가장 튀어야 한다.", note: "시그니처", color: "#8b5cf6" },
-  { menu: "렌 블루라임 소다", desc: "파란 루트 라인을 떠올리게 하는 시원한 메뉴.", note: "비주얼 컵", color: "#22c55e" },
-  { menu: "로코 딥 콜드브루", desc: "묵직하고 진한 맛. 천천히 오래 가는 메뉴.", note: "러너 타깃", color: "#2f6bff" },
-  { menu: "벙커 라떼", desc: "낮에는 부드럽고, 밤에는 진한 FYF 대표 시그니처.", note: "카페 대표", color: "#b7ff2e" },
-  { menu: "메트로놈 디카페인", desc: "빌런 이름을 위트 있게 활용한 메뉴.", note: "“잠은 자야지”", color: "#9ca3af" },
+  {
+    category: "COFFEE",
+    items: [
+      ["HOT 아메리카노", "2,000"],
+      ["ICE 아메리카노", "2,300"],
+      ["HOT 아메리카노 (산미)", "2,500"],
+      ["ICE 아메리카노 (산미)", "2,800"],
+    ],
+  },
+  {
+    category: "LATTE",
+    items: [
+      ["HOT 카페라떼", "3,500"],
+      ["ICE 카페라떼", "3,800"],
+      ["ICE 바닐라라떼", "4,300"],
+      ["ICE 카라멜마끼아또", "4,200"],
+      ["ICE 초코라떼", "4,200"],
+      ["ICE 말차라떼", "4,500"],
+    ],
+  },
+  {
+    category: "ADE & TEA",
+    items: [
+      ["레몬에이드", "4,300"],
+      ["복숭아 아이스티", "3,500"],
+      ["러너스 자몽 블랙티", "4,800"],
+    ],
+  },
+  {
+    category: "SIGNATURE ★",
+    items: [["FYF 플로우 레몬 아메리카노", "4,800"]],
+  },
+];
+
+// ── FYF RUN MAP — 러닝 코스 ──
+export type Course = {
+  no: string;
+  title: string;
+  sub: string;
+  image: string;
+};
+
+export const COURSES_JEONNAM: Course[] = [
+  { no: "01", title: "순천 오천그린광장", sub: "그린아일랜드 · 동천 — 왕복 약 4.0K · EASY", image: "/course/jeonnam/01.jpg" },
+  { no: "02", title: "순천만국가정원", sub: "국가정원 일원 — 정원런", image: "/course/jeonnam/02.jpg" },
+  { no: "03", title: "순천만습지", sub: "갈대밭 · 용산전망대 방면", image: "/course/jeonnam/03.jpg" },
+  { no: "04", title: "봉화산 둘레길", sub: "순천 도심 숲길런", image: "/course/jeonnam/04.jpg" },
+  { no: "05", title: "광양 서천변공원", sub: "서천 수변런", image: "/course/jeonnam/05.jpg" },
+  { no: "06", title: "배알도 · 망덕포구", sub: "광양 바다 보며 달리기", image: "/course/jeonnam/06.jpg" },
+  { no: "07", title: "마동저수지", sub: "잔잔한 수변 루프", image: "/course/jeonnam/07.jpg" },
+  { no: "08", title: "여수 오동도", sub: "방파제 · 동백숲런", image: "/course/jeonnam/08.jpg" },
+  { no: "09", title: "여수해양공원", sub: "바다 야경런", image: "/course/jeonnam/09.jpg" },
+  { no: "10", title: "소호동동다리", sub: "여수 소호 수변데크런", image: "/course/jeonnam/10.jpg" },
+];
+
+export const COURSES_KOREA: Course[] = [
+  { no: "01", title: "여의도 한강공원", sub: "서울 — 루프 약 4.6K · EASY · 전국 대표 한강런", image: "/course/korea/01.jpg" },
+  { no: "02", title: "남산북측순환로", sub: "서울 — 왕복 약 5.0K · MEDIUM · 도심 숲길런", image: "/course/korea/02.jpg" },
+  { no: "03", title: "광안리 · 민락수변", sub: "부산 — 왕복 약 5.3K · EASY · 바다 야경런", image: "/course/korea/03.jpg" },
+  { no: "04", title: "송도센트럴파크", sub: "인천 — 순환 약 3.6K · EASY · 도시공원 루프런", image: "/course/korea/04.jpg" },
+  { no: "05", title: "의암호 공지천", sub: "춘천 — 왕복 약 7.4K · EASY+ · 호수 바람런", image: "/course/korea/05.jpg" },
+  { no: "06", title: "경포호", sub: "강릉 — 순환 약 4.3K · EASY · 호수 벚꽃런", image: "/course/korea/06.jpg" },
+  { no: "07", title: "보문호반길", sub: "경주 — 순환 약 8.0K · MEDIUM · 호반 장거리런", image: "/course/korea/07.jpg" },
+  { no: "08", title: "수성못", sub: "대구 — 순환 약 2.0K · EASY · 도심 짧은 루프런", image: "/course/korea/08.jpg" },
+  { no: "09", title: "갑천 · 엑스포다리", sub: "대전 — 순환 약 4.3K · EASY · 도심 강변런", image: "/course/korea/09.jpg" },
+  { no: "10", title: "사려니숲길", sub: "제주 — 편도 약 6.2K · MEDIUM · 숲길 힐링런", image: "/course/korea/10.jpg" },
+];
+
+// ── 시즌 2 신규 크루 (티저) ──
+export const NEXT_CREW = [
+  { en: "MIA", desc: "Cute Sprinter" },
+  { en: "BOA", desc: "Mechanic" },
+  { en: "LUMI", desc: "Raincoat" },
+  { en: "VIVI", desc: "Retro Arcade" },
 ];

@@ -27,6 +27,12 @@ export async function Header() {
             WORLD
           </Link>
           <Link
+            href="/course"
+            className="text-sm font-bold tracking-widest text-paper/80 transition hover:text-paper"
+          >
+            COURSE
+          </Link>
+          <Link
             href="/shop#cap"
             className="text-sm font-bold tracking-widest text-flow transition hover:text-paper"
           >

@@ -125,7 +125,7 @@ export default function Home() {
             </Link>
           </div>
           <div className="mt-10 grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-4">
-            {PRODUCTS.slice(0, 4).map((p) => (
+            {PRODUCTS.slice(0, 8).map((p) => (
               <ProductCard key={p.slug} product={p} />
             ))}
           </div>
@@ -165,6 +165,44 @@ export default function Home() {
               세계관 읽기
             </Link>
           </div>
+        </div>
+      </section>
+
+      {/* ── RUN MAP 배너 ─────────────────────────── */}
+      <section className="border-t border-darkline bg-ink">
+        <div className="mx-auto grid max-w-7xl items-center gap-10 px-5 py-20 lg:grid-cols-[1fr_380px]">
+          <div>
+            <p className="font-display text-sm tracking-[0.25em] text-volt">
+              FYF RUN MAP
+            </p>
+            <h2 className="font-display mt-2 text-4xl leading-tight md:text-5xl">
+              오늘 어디 뛸지
+              <br />
+              크루가 그려놨다
+            </h2>
+            <p className="mt-4 max-w-md leading-relaxed text-paper/70">
+              순천 오천그린광장 4K부터 여수 밤바다, 전국 TOP 10까지 — 출발지,
+              반환점, 노면, 주의사항이 담긴 코스 카드 20장.
+            </p>
+            <Link
+              href="/course"
+              className="mt-7 inline-block rounded-2xl bg-volt px-7 py-4 text-sm font-extrabold text-ink transition hover:brightness-110"
+            >
+              코스 전체 보기 →
+            </Link>
+          </div>
+          <Link
+            href="/course"
+            className="group relative aspect-[4/5] overflow-hidden rounded-3xl border border-darkline"
+          >
+            <Image
+              src="/course/jeonnam/01.jpg"
+              alt="FYF RUN MAP 01 — 순천 오천그린광장"
+              fill
+              sizes="(max-width: 1024px) 100vw, 380px"
+              className="object-cover transition duration-500 group-hover:scale-[1.03]"
+            />
+          </Link>
         </div>
       </section>
 

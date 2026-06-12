@@ -31,18 +31,21 @@ export function ProductStory({ product }: { product: Product }) {
         </p>
       </div>
 
-      {/* ── 캡 전용: 디테일 인포그래픽 ── */}
-      {product.detailImage && (
-        <div className="mt-6 overflow-hidden rounded-3xl border border-line bg-white">
+      {/* ── 기성 상세페이지 섹션 스택 ── */}
+      {product.detailImages?.map((src, i) => (
+        <div
+          key={src}
+          className="mt-6 overflow-hidden rounded-3xl border border-line bg-white"
+        >
           <Image
-            src={product.detailImage}
-            alt={`${product.name} 디테일`}
+            src={src}
+            alt={`${product.name} 상세 ${i + 1}`}
             width={1200}
-            height={1200}
+            height={1400}
             className="h-auto w-full"
           />
         </div>
-      )}
+      ))}
 
       {/* ── 피처 블록 ── */}
       <div className="mt-6 space-y-6">
