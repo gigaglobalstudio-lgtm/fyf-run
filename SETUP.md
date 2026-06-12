@@ -13,17 +13,17 @@
 4. 애플리케이션 유형: **웹 애플리케이션**
 5. **승인된 리디렉션 URI**에 두 개 추가:
    - `http://localhost:3000/api/auth/callback/google`
-   - `https://<배포도메인>/api/auth/callback/google`
+   - `https://fyf-run.vercel.app/api/auth/callback/google`
 6. 생성된 **클라이언트 ID** → `AUTH_GOOGLE_ID`, **클라이언트 보안 비밀** → `AUTH_GOOGLE_SECRET`
 
 ## 2. Kakao 로그인 키 (5분)
 
 1. https://developers.kakao.com → 내 애플리케이션 → **애플리케이션 추가** (앱 이름 `FYF`, 회사명 기가글로벌스튜디오)
-2. **앱 설정 > 플랫폼 > Web** 사이트 도메인 등록: `http://localhost:3000`, `https://<배포도메인>`
+2. **앱 설정 > 플랫폼 > Web** 사이트 도메인 등록: `http://localhost:3000`, `https://fyf-run.vercel.app`
 3. **제품 설정 > 카카오 로그인** 활성화 ON
 4. **Redirect URI** 등록:
    - `http://localhost:3000/api/auth/callback/kakao`
-   - `https://<배포도메인>/api/auth/callback/kakao`
+   - `https://fyf-run.vercel.app/api/auth/callback/kakao`
 5. **동의항목**: 닉네임, 프로필 사진 → "필수 동의"로 설정 (이메일은 비즈앱 전환 후에만 가능 — 코드가 이미 이메일 없이 동작하게 되어 있음)
 6. **앱 설정 > 앱 키**의 **REST API 키** → `AUTH_KAKAO_ID`
 7. **제품 설정 > 카카오 로그인 > 보안**에서 Client Secret 생성·활성화 → `AUTH_KAKAO_SECRET`
@@ -61,3 +61,4 @@ TOSS_SECRET_KEY=               (선택 — 비우면 샌드박스)
 - [ ] 개인정보처리방침 / 이용약관 페이지
 - [ ] 재고/배송 관리 (초기엔 수동으로 충분)
 - [ ] AUTH_SECRET를 Vercel에 반드시 설정 (미설정 시 폴백 키 사용 — 보안 취약)
+
