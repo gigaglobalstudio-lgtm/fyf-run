@@ -3,210 +3,260 @@ import Link from "next/link";
 import { EcgLine } from "./EcgLogo";
 import { getCrew, type Product } from "@/lib/products";
 
-/** 한국식 롱폼 상세페이지 — 구매 영역 아래 풀폭 렌더 */
+/**
+ * 프리미엄 에디토리얼 상세페이지.
+ * 페이지 컨테이너 밖(풀폭)에서 렌더 — 각 섹션이 자체 폭을 관리한다.
+ */
 export function ProductStory({ product }: { product: Product }) {
   const crew = getCrew(product.crewPick);
-  // 피처별 디테일 줌 컷 — 한 장의 제품 이미지를 다른 부위로 확대
-  const zoomPositions = ["50% 20%", "50% 50%", "50% 80%", "30% 40%"];
 
   return (
-    <section className="mt-24" id="detail">
-      {/* ── 섹션 헤더 ── */}
-      <div className="flex items-center gap-4">
-        <EcgLine className="h-5 w-16 text-flow" />
-        <h2 className="font-display text-3xl tracking-wide">PRODUCT STORY</h2>
-        <span className="text-sm text-ink/40">상세 정보</span>
-      </div>
-
-      {/* ── 스토리 밴드 (다크) ── */}
-      <div className="mt-8 overflow-hidden rounded-3xl bg-ink px-6 py-16 text-paper md:px-16 md:py-20">
-        <p className="font-display text-sm tracking-[0.25em] text-volt">
-          {product.name.toUpperCase()}
-        </p>
-        <h3 className="font-display mt-3 text-4xl leading-tight md:text-5xl">
-          {product.storyTitle}
-        </h3>
-        <p className="mt-6 max-w-2xl text-base leading-relaxed text-paper/75 md:text-lg">
-          {product.storyBody}
-        </p>
-      </div>
-
-      {/* ── 기성 상세페이지 섹션 스택 ── */}
-      {product.detailImages?.map((src, i) => (
-        <div
-          key={src}
-          className="mt-6 overflow-hidden rounded-3xl border border-line bg-white"
-        >
-          <Image
-            src={src}
-            alt={`${product.name} 상세 ${i + 1}`}
-            width={1200}
-            height={1400}
-            className="h-auto w-full"
-          />
+    <section id="detail" className="bg-paper">
+      {/* ── 섹션 도입부 ── */}
+      <div className="mx-auto max-w-7xl px-5">
+        <div className="flex items-center gap-6 border-t border-ink/10 pt-14">
+          <p className="text-xs font-bold uppercase tracking-[0.3em] text-ink/40">
+            Product Story
+          </p>
+          <div className="h-px flex-1 bg-ink/10" />
+          <EcgLine className="h-4 w-14 text-ink/30" />
         </div>
-      ))}
+      </div>
 
-      {/* ── 피처 블록 ── */}
-      <div className="mt-6 space-y-6">
-        {product.features.map((f, i) => (
-          <div
-            key={f.num}
-            className={`grid items-stretch gap-0 overflow-hidden rounded-3xl border border-line bg-white md:grid-cols-2 ${
-              i % 2 === 1 ? "md:[&>*:first-child]:order-2" : ""
-            }`}
-          >
-            <div className="relative aspect-[4/3] overflow-hidden bg-[#ecebe6] md:aspect-auto md:min-h-72">
+      {/* ── 오프닝 스테이트먼트 (다크 풀블리드) ── */}
+      <div className="mt-14 bg-ink py-24 text-paper md:py-32">
+        <div className="mx-auto max-w-3xl px-5 text-center">
+          <p className="text-xs font-bold uppercase tracking-[0.35em] text-paper/40">
+            {product.name}
+          </p>
+          <h2 className="font-display mt-6 text-4xl leading-[1.05] md:text-6xl">
+            {product.storyTitle}
+          </h2>
+          <div className="mx-auto mt-8 h-px w-12 bg-flow" />
+          <p className="mx-auto mt-8 max-w-xl text-base leading-loose text-paper/70 md:text-lg">
+            {product.storyBody}
+          </p>
+        </div>
+      </div>
+
+      {/* ── 피처 챕터 (스티키 이미지 + 타이포 리스트) ── */}
+      <div className="mx-auto max-w-7xl px-5 py-24 md:py-32">
+        <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-20">
+          <div className="lg:sticky lg:top-24 lg:h-fit">
+            <div className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-[#ecebe6]">
               <Image
                 src={product.image}
-                alt={f.heading}
+                alt={product.name}
                 fill
-                sizes="(max-width: 768px) 100vw, 50vw"
+                sizes="(max-width: 1024px) 100vw, 45vw"
                 className="object-cover"
-                style={{
-                  objectPosition: zoomPositions[i % zoomPositions.length],
-                  transform: `scale(${1.3 + (i % 2) * 0.3})`,
-                }}
               />
             </div>
-            <div className="flex flex-col justify-center p-8 md:p-12">
-              <p className="font-display text-5xl text-ink/10">{f.num}</p>
-              <h4 className="mt-2 text-xl font-extrabold text-ink">
-                {f.heading}
-              </h4>
-              <p className="mt-3 leading-relaxed text-ink/65">{f.body}</p>
+            <p className="mt-4 text-xs uppercase tracking-[0.25em] text-ink/40">
+              {product.name} — {product.color}
+            </p>
+          </div>
+
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.3em] text-ink/40">
+              Details that matter
+            </p>
+            <h3 className="font-display mt-3 text-3xl text-ink md:text-4xl">
+              디테일이 페이스를 만든다
+            </h3>
+            <div className="mt-10">
+              {product.features.map((f) => (
+                <div
+                  key={f.num}
+                  className="group grid grid-cols-[auto_1fr] gap-6 border-t border-ink/10 py-9 first:border-t-0 first:pt-0 md:gap-10"
+                >
+                  <p className="font-display text-5xl leading-none text-ink/10 transition group-hover:text-flow/60 md:text-6xl">
+                    {f.num}
+                  </p>
+                  <div>
+                    <h4 className="text-lg font-extrabold tracking-tight text-ink">
+                      {f.heading}
+                    </h4>
+                    <p className="mt-2.5 max-w-md leading-relaxed text-ink/55">
+                      {f.body}
+                    </p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
-        ))}
+        </div>
       </div>
 
-      {/* ── 착용/라이프스타일 컷 ── */}
-      {product.lifestyleImage && (
-        <div className="relative mt-6 overflow-hidden rounded-3xl">
-          <Image
-            src={product.lifestyleImage}
-            alt={`${product.name} 착용 컷`}
-            width={1200}
-            height={900}
-            className="h-auto w-full object-cover"
-          />
-          <div className="absolute inset-0 flex items-end bg-gradient-to-t from-ink/70 to-transparent p-8 md:p-12">
-            <p className="font-display text-2xl text-paper md:text-4xl">
-              NIGHT RUN, SUNCHEON
-            </p>
+      {/* ── 기성 상세 보드 (센터 칼럼) ── */}
+      {product.detailImages && product.detailImages.length > 0 && (
+        <div className="mx-auto max-w-4xl px-5 pb-24">
+          <div className="overflow-hidden rounded-2xl shadow-[0_24px_80px_-32px_rgba(10,10,10,0.25)]">
+            {product.detailImages.map((src, i) => (
+              <Image
+                key={src}
+                src={src}
+                alt={`${product.name} 상세 ${i + 1}`}
+                width={1200}
+                height={1400}
+                className="h-auto w-full"
+              />
+            ))}
           </div>
         </div>
       )}
 
-      {/* ── 크루 추천 ── */}
-      <div
-        className="mt-6 grid items-center gap-0 overflow-hidden rounded-3xl md:grid-cols-[280px_1fr]"
-        style={{ backgroundColor: "#141414" }}
-      >
-        <div className="relative aspect-square bg-white">
+      {/* ── 라이프스타일 풀블리드 ── */}
+      {product.lifestyleImage && (
+        <div className="relative">
           <Image
-            src={crew.image}
-            alt={`${crew.name} 캐릭터 시트`}
-            fill
-            sizes="280px"
-            className="object-contain p-3"
+            src={product.lifestyleImage}
+            alt={`${product.name} 착용 컷`}
+            width={2048}
+            height={1152}
+            className="h-[70svh] w-full object-cover"
           />
+          <div className="absolute inset-0 flex items-end bg-gradient-to-t from-ink/70 via-ink/10 to-transparent">
+            <div className="mx-auto w-full max-w-7xl px-5 pb-14">
+              <p className="text-xs font-bold uppercase tracking-[0.35em] text-paper/60">
+                Worn by runners
+              </p>
+              <p className="font-display mt-3 text-3xl text-paper md:text-5xl">
+                NIGHT RUN, SUNCHEON
+              </p>
+            </div>
+          </div>
         </div>
-        <div className="p-8 md:p-12">
-          <p
-            className="font-display text-sm tracking-[0.25em]"
-            style={{ color: crew.color }}
-          >
-            CREW&apos;S PICK — {crew.label}
-          </p>
-          <p className="font-display mt-3 text-3xl leading-snug text-paper md:text-4xl">
-            “{product.crewComment}”
-          </p>
-          <p className="mt-4 text-sm leading-relaxed text-paper/60">
-            {crew.name} · {crew.role} — {crew.ability}: {crew.abilityDesc}
-          </p>
-          <Link
-            href="/world#crew"
-            className="mt-6 inline-block rounded-xl border border-paper/30 px-5 py-2.5 text-xs font-extrabold text-paper transition hover:bg-white/10"
-          >
-            크루 전체 보기 →
-          </Link>
+      )}
+
+      {/* ── 크루 픽 (다크 풀블리드) ── */}
+      <div className="bg-ink py-24 text-paper md:py-28">
+        <div className="mx-auto grid max-w-5xl items-center gap-10 px-5 md:grid-cols-[220px_1fr] md:gap-16">
+          <div className="mx-auto w-44 md:w-full">
+            <div className="relative aspect-square overflow-hidden rounded-2xl bg-white">
+              <Image
+                src={crew.image}
+                alt={`${crew.name} 캐릭터 시트`}
+                fill
+                sizes="220px"
+                className="object-contain p-3"
+              />
+            </div>
+            <p
+              className="mt-3 text-center text-xs font-bold uppercase tracking-[0.25em]"
+              style={{ color: crew.color }}
+            >
+              {crew.label} — {crew.role}
+            </p>
+          </div>
+          <div className="text-center md:text-left">
+            <p className="text-xs font-bold uppercase tracking-[0.35em] text-paper/40">
+              Crew&apos;s Pick
+            </p>
+            <p className="font-display mt-5 text-3xl leading-snug md:text-5xl">
+              “{product.crewComment}”
+            </p>
+            <p className="mt-6 text-sm leading-relaxed text-paper/50">
+              {crew.ability} — {crew.abilityDesc}
+            </p>
+            <Link
+              href="/world#crew"
+              className="mt-8 inline-block border-b border-paper/30 pb-0.5 text-sm font-bold text-paper/80 transition hover:border-paper hover:text-paper"
+            >
+              크루 전체 보기
+            </Link>
+          </div>
         </div>
       </div>
 
-      {/* ── 스펙 + 사이즈 ── */}
-      <div className="mt-6 grid gap-6 md:grid-cols-2">
-        <div className="rounded-3xl border border-line bg-white p-8">
-          <h4 className="font-display text-xl tracking-wide text-ink">SPECS</h4>
-          <dl className="mt-5 divide-y divide-line text-sm">
-            {product.specs.map(([k, v]) => (
-              <div key={k} className="flex justify-between gap-6 py-3">
-                <dt className="shrink-0 font-bold text-ink/50">{k}</dt>
-                <dd className="text-right font-medium text-ink">{v}</dd>
-              </div>
-            ))}
-          </dl>
-        </div>
+      {/* ── 스펙 + 사이즈 (헤어라인 테이블) ── */}
+      <div className="mx-auto max-w-5xl px-5 py-24 md:py-28">
+        <div className="grid gap-16 md:grid-cols-2 md:gap-12">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.3em] text-ink/40">
+              Specifications
+            </p>
+            <dl className="mt-6">
+              {product.specs.map(([k, v]) => (
+                <div
+                  key={k}
+                  className="flex justify-between gap-8 border-t border-ink/10 py-3.5 text-sm"
+                >
+                  <dt className="shrink-0 text-ink/45">{k}</dt>
+                  <dd className="text-right font-semibold text-ink">{v}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
 
-        <div className="rounded-3xl border border-line bg-white p-8">
-          <h4 className="font-display text-xl tracking-wide text-ink">
-            SIZE GUIDE
-          </h4>
-          <table className="mt-5 w-full text-sm">
-            <thead>
-              <tr className="border-b-2 border-ink text-left">
-                {product.sizeChart.cols.map((c) => (
-                  <th key={c} className="py-2.5 pr-3 font-extrabold text-ink">
-                    {c}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-line">
-              {product.sizeChart.rows.map((row) => (
-                <tr key={row[0]}>
-                  {row.map((cell, ci) => (
-                    <td
-                      key={ci}
-                      className={`py-2.5 pr-3 ${ci === 0 ? "font-extrabold text-ink" : "text-ink/65"}`}
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.3em] text-ink/40">
+              Size Guide
+            </p>
+            <table className="mt-6 w-full text-sm">
+              <thead>
+                <tr className="border-t border-ink/10 text-left">
+                  {product.sizeChart.cols.map((c) => (
+                    <th
+                      key={c}
+                      className="py-3.5 pr-4 text-xs font-bold uppercase tracking-wider text-ink/45"
                     >
-                      {cell}
-                    </td>
+                      {c}
+                    </th>
                   ))}
                 </tr>
-              ))}
-            </tbody>
-          </table>
-          <p className="mt-4 text-xs leading-relaxed text-ink/45">
-            단면 측정 기준이며 ±1.5cm 오차가 있을 수 있습니다. 두 사이즈 사이라면
-            큰 쪽을 권장합니다.
-          </p>
+              </thead>
+              <tbody>
+                {product.sizeChart.rows.map((row) => (
+                  <tr key={row[0]} className="border-t border-ink/10">
+                    {row.map((cell, ci) => (
+                      <td
+                        key={ci}
+                        className={`py-3.5 pr-4 ${
+                          ci === 0
+                            ? "font-extrabold text-ink"
+                            : "font-medium text-ink/60"
+                        }`}
+                      >
+                        {cell}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <p className="mt-4 text-xs leading-relaxed text-ink/40">
+              단면 측정 기준 · ±1.5cm 오차 가능 · 두 사이즈 사이라면 큰 쪽을
+              권장합니다.
+            </p>
+          </div>
         </div>
-      </div>
 
-      {/* ── 배송/교환 안내 ── */}
-      <div className="mt-6 rounded-3xl border border-line bg-white p-8">
-        <h4 className="font-display text-xl tracking-wide text-ink">
-          SHIPPING &amp; RETURNS
-        </h4>
-        <div className="mt-5 grid gap-6 text-sm leading-relaxed text-ink/65 md:grid-cols-3">
+        {/* ── 배송/교환 ── */}
+        <div className="mt-20 grid gap-10 border-t border-ink/10 pt-10 text-sm leading-relaxed md:grid-cols-3">
           <div>
-            <p className="font-extrabold text-ink">배송</p>
-            <p className="mt-1.5">
+            <p className="text-xs font-bold uppercase tracking-[0.3em] text-ink/40">
+              Shipping
+            </p>
+            <p className="mt-3 text-ink/55">
               결제 후 1–3 영업일 내 출고. 5만원 이상 무료배송, 미만 3,000원.
               제주/도서산간 추가 운임.
             </p>
           </div>
           <div>
-            <p className="font-extrabold text-ink">교환/반품</p>
-            <p className="mt-1.5">
-              수령 후 7일 이내, 미착용·미세탁 상품에 한해 가능. 단순 변심 왕복
-              배송비 6,000원.
+            <p className="text-xs font-bold uppercase tracking-[0.3em] text-ink/40">
+              Returns
+            </p>
+            <p className="mt-3 text-ink/55">
+              수령 후 7일 이내, 미착용·미세탁 상품에 한해 교환/반품 가능. 단순
+              변심 왕복 배송비 6,000원.
             </p>
           </div>
           <div>
-            <p className="font-extrabold text-ink">품질보증</p>
-            <p className="mt-1.5">
+            <p className="text-xs font-bold uppercase tracking-[0.3em] text-ink/40">
+              Quality
+            </p>
+            <p className="mt-3 text-ink/55">
               봉제 불량·프린트 하자는 수령 후 30일 내 무상 교환. 정상 사용 중
               로고 박리 시 6개월 내 1회 교환.
             </p>

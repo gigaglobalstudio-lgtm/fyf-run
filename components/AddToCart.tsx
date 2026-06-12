@@ -34,10 +34,10 @@ export function AddToCart({ product }: { product: Product }) {
               key={s}
               type="button"
               onClick={() => setSize(s)}
-              className={`min-w-14 rounded-xl border px-4 py-2.5 text-sm font-bold transition ${
+              className={`min-w-14 rounded-full border px-5 py-2.5 text-sm font-bold transition ${
                 size === s
                   ? "border-ink bg-ink text-paper"
-                  : "border-line bg-white text-ink hover:border-ink/40"
+                  : "border-ink/15 bg-white text-ink hover:border-ink/50"
               }`}
             >
               {s}
@@ -48,7 +48,7 @@ export function AddToCart({ product }: { product: Product }) {
 
       <div>
         <p className="mb-2 text-sm font-bold text-ink/60">수량</p>
-        <div className="inline-flex items-center rounded-xl border border-line bg-white">
+        <div className="inline-flex items-center rounded-full border border-ink/15 bg-white">
           <button
             type="button"
             onClick={() => setQty((q) => Math.max(1, q - 1))}
@@ -79,7 +79,7 @@ export function AddToCart({ product }: { product: Product }) {
             setAdded(true);
             setTimeout(() => setAdded(false), 1600);
           }}
-          className="flex-1 rounded-2xl border-2 border-ink bg-white py-4 text-sm font-extrabold tracking-wide text-ink transition hover:bg-ink hover:text-paper"
+          className="flex-1 rounded-full border border-ink bg-transparent py-4 text-sm font-extrabold tracking-widest text-ink transition hover:bg-ink hover:text-paper"
         >
           {added ? "담았습니다 ✓" : "장바구니 담기"}
         </button>
@@ -89,7 +89,7 @@ export function AddToCart({ product }: { product: Product }) {
             add(buildItem());
             router.push("/checkout");
           }}
-          className="flex-1 rounded-2xl bg-flow py-4 text-sm font-extrabold tracking-wide text-white transition hover:brightness-110"
+          className="flex-1 rounded-full bg-ink py-4 text-sm font-extrabold tracking-widest text-paper transition hover:bg-smoke"
         >
           바로 구매
         </button>
