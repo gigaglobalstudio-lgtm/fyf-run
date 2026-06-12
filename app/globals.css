@@ -1,26 +1,82 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-ink: #0a0a0a;
+  --color-coal: #141414;
+  --color-smoke: #1d1d1d;
+  --color-paper: #f6f5f1;
+  --color-line: #e4e1d8;
+  --color-darkline: #262626;
+  --color-flow: #2f6bff;
+  --color-volt: #b7ff2e;
+  --color-kakao: #fee500;
+  --font-display: var(--font-anton);
+  --font-sans: var(--font-noto), ui-sans-serif, system-ui, -apple-system, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-ink);
+  color: var(--color-paper);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-flow);
+  color: #fff;
+}
+
+/* ── Display type ───────────────────────────── */
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: 0.01em;
+}
+
+.text-stroke {
+  -webkit-text-stroke: 1.5px rgba(246, 245, 241, 0.28);
+  color: transparent;
+}
+
+/* ── Marquee ────────────────────────────────── */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 28s linear infinite;
+}
+
+/* ── Pulse line (ECG) ───────────────────────── */
+@keyframes ecg-dash {
+  to { stroke-dashoffset: -240; }
+}
+
+.ecg-animate {
+  stroke-dasharray: 240;
+  animation: ecg-dash 2.4s linear infinite;
+}
+
+/* ── Reveal ─────────────────────────────────── */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-rise {
+  animation: rise 0.7s cubic-bezier(0.2, 0.6, 0.2, 1) both;
+}
+
+/* ── Toss payment widget container (light) ──── */
+.toss-widget-frame {
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
 }
