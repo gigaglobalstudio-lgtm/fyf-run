@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { AddToCart } from "@/components/AddToCart";
 import { ProductCard } from "@/components/ProductCard";
+import { ProductStory } from "@/components/ProductStory";
 import { EcgLine } from "@/components/EcgLogo";
 import { PRODUCTS, formatKRW, getProduct } from "@/lib/products";
 
@@ -125,6 +126,8 @@ export default async function ProductPage({
             </div>
           </div>
         </div>
+
+        <ProductStory product={product} />
 
         <div className="mt-24">
           <h2 className="font-display text-3xl">YOU MAY ALSO RUN WITH</h2>

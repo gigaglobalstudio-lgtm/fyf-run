@@ -171,40 +171,79 @@ export default function Home() {
       {/* ── CREW ─────────────────────────────────── */}
       <section className="border-t border-darkline bg-ink">
         <div className="mx-auto max-w-7xl px-5 py-20">
-          <p className="font-display text-sm tracking-[0.25em] text-flow">
-            BUNKER-VERSE CREW
-          </p>
-          <h2 className="font-display mt-2 text-4xl md:text-5xl">
-            낮에는 카페, 밤에는 벙커
-          </h2>
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {CREW.map((c) => (
-              <Link
-                key={c.en}
-                href="/world#crew"
-                className="group rounded-3xl border border-darkline bg-coal p-6 transition hover:-translate-y-1 hover:border-paper/30"
-              >
-                <div
-                  className="h-1.5 w-12 rounded-full"
-                  style={{ backgroundColor: c.color }}
-                />
-                <p className="font-display mt-5 text-3xl tracking-wide">
-                  {c.en}
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <p className="font-display text-sm tracking-[0.25em] text-flow">
+                BUNKER-VERSE CREW
+              </p>
+              <h2 className="font-display mt-2 text-4xl md:text-5xl">
+                낮에는 카페, 밤에는 벙커
+              </h2>
+            </div>
+            <Link
+              href="/world"
+              className="text-sm font-bold text-paper/70 underline underline-offset-4 hover:text-paper"
+            >
+              세계관 전체 보기 →
+            </Link>
+          </div>
+
+          <div className="mt-10 grid gap-6 lg:grid-cols-[1.15fr_1fr]">
+            {/* 공식 그룹 아트 */}
+            <Link
+              href="/world"
+              className="group relative min-h-80 overflow-hidden rounded-3xl border border-darkline"
+            >
+              <Image
+                src="/crew/crew-cover.png"
+                alt="FYF 크루 — 카티보, 렌, 로코, 블록"
+                fill
+                sizes="(max-width: 1024px) 100vw, 55vw"
+                className="object-cover transition duration-700 group-hover:scale-[1.03]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-transparent to-transparent" />
+              <div className="absolute bottom-0 p-7">
+                <p className="font-display text-3xl text-paper md:text-4xl">
+                  네 개의 심박, 하나의 벙커
                 </p>
-                <p className="mt-1 text-sm font-bold text-paper/60">
-                  {c.name} — {c.role}
+                <p className="mt-1.5 text-sm text-paper/70">
+                  순천의 밤, 메트로놈 시스템에 맞서는 4인 크루
                 </p>
-                <p
-                  className="mt-4 text-lg font-extrabold"
-                  style={{ color: c.color }}
+              </div>
+            </Link>
+
+            {/* 캐릭터 4인 카드 */}
+            <div className="grid grid-cols-2 gap-4">
+              {CREW.map((c) => (
+                <Link
+                  key={c.en}
+                  href="/world#crew"
+                  className="group overflow-hidden rounded-3xl border border-darkline bg-coal transition hover:-translate-y-1 hover:border-paper/30"
                 >
-                  “{c.quote}”
-                </p>
-                <p className="mt-3 text-xs leading-relaxed text-paper/50">
-                  {c.ability} · {c.abilityDesc}
-                </p>
-              </Link>
-            ))}
+                  <div className="relative aspect-square bg-white">
+                    <Image
+                      src={c.image}
+                      alt={`${c.name} 캐릭터`}
+                      fill
+                      sizes="(max-width: 1024px) 50vw, 20vw"
+                      className="object-contain p-2 transition duration-500 group-hover:scale-105"
+                    />
+                  </div>
+                  <div className="p-4">
+                    <p className="font-display text-xl tracking-wide">{c.en}</p>
+                    <p className="mt-0.5 text-xs font-bold text-paper/50">
+                      {c.name} · {c.role}
+                    </p>
+                    <p
+                      className="mt-2 text-sm font-extrabold leading-snug"
+                      style={{ color: c.color }}
+                    >
+                      “{c.quote}”
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </section>
