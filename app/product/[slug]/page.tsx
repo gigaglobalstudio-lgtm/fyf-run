@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { AddToCart } from "@/components/AddToCart";
 import { ProductCard } from "@/components/ProductCard";
 import { ProductStory } from "@/components/ProductStory";
+import { PulseEditorial } from "@/components/PulseEditorial";
 import { StickyBuyBar } from "@/components/StickyBuyBar";
 import { PRODUCTS, formatKRW, getProduct } from "@/lib/products";
 
@@ -129,8 +130,12 @@ export default async function ProductPage({
         </div>
       </div>
 
-      {/* ── 에디토리얼 상세 (풀폭) ── */}
-      <ProductStory product={product} />
+      {/* ── 상세 (룩북형 or 기본 에디토리얼) ── */}
+      {product.editorial ? (
+        <PulseEditorial product={product} />
+      ) : (
+        <ProductStory product={product} />
+      )}
 
       {/* ── 연관 상품 ── */}
       <div className="mx-auto max-w-7xl px-5 pb-28 pt-4">

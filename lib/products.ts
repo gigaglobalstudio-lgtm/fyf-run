@@ -4,6 +4,32 @@ export type Feature = {
   body: string;
 };
 
+// ── 에디토리얼 룩북형 상세 (Pulse 등) ──
+export type EditorialBlock =
+  | { kind: "full"; image: string; label?: string; sub?: string }
+  | { kind: "pair"; images: [string, string]; label?: string; sub?: string }
+  | { kind: "statement"; title: string; body: string };
+
+export type ModelInfoRow = {
+  who: string; // "여성 모델" / "남성 모델"
+  fitting: string; // 착용 사이즈
+  height: string;
+  bust: string;
+  waist: string;
+  hip: string;
+  weight: string;
+};
+
+export type Editorial = {
+  hero: string; // 풀블리드 인트로 컷
+  heroLabel: string;
+  blocks: EditorialBlock[];
+  flatFront: string;
+  flatBack: string;
+  modelInfo: ModelInfoRow[];
+  care: string[];
+};
+
 export type Product = {
   slug: string;
   name: string;
@@ -29,6 +55,7 @@ export type Product = {
   sizeChart: { cols: string[]; rows: string[][] };
   crewPick: string; // CREW의 en 키
   crewComment: string;
+  editorial?: Editorial; // 있으면 디서지형 룩북 상세로 렌더
 };
 
 export const PRODUCTS: Product[] = [
@@ -94,6 +121,134 @@ export const PRODUCTS: Product[] = [
     },
     crewPick: "CATTIVO",
     crewComment: "야, 그냥 뛰어. 모자 하나면 돼.",
+  },
+  {
+    slug: "pulse-sleeveless",
+    name: "Pulse Sleeveless",
+    nameKo: "펄스 슬리브리스",
+    price: 54000,
+    listPrice: 66000,
+    category: "top",
+    categoryKo: "탑",
+    tagline: "심박이 곧 핏이다.",
+    description:
+      "FYF의 시그니처 슬리브리스. 매트 블랙 한 컬러, 가슴엔 FYF 워드마크 하나. 군더더기를 모두 덜어내고 달리는 몸의 리듬만 남겼다.",
+    details: [
+      "초경량 매트 블랙 테크니컬 원단",
+      "전면 가슴 화이트 FYF 워드마크",
+      "후면 밑단 FYF 포인트",
+      "넓은 암홀 — 팔 스윙 자유도",
+      "속건 4-way 스트레치 + 무봉제 라인",
+      "남녀 공용 유니섹스 핏",
+    ],
+    sizes: ["XS", "S", "M", "L", "XL"],
+    color: "Matte Black",
+    image: "/products/pulse/flat-front.jpg",
+    badge: "NEW",
+    storyTitle: "덜어낼수록 빨라진다",
+    storyBody:
+      "Pulse는 '더 넣는' 옷이 아니다. 거추장스러운 디테일, 과한 그래픽, 불필요한 무게 — 달리는 데 방해가 되는 모든 것을 덜어냈다. 남은 건 매트 블랙 한 장과 가슴의 FYF 하나. 옷이 사라지고 심박만 남는 순간을 위해.",
+    features: [
+      {
+        num: "01",
+        heading: "한 컬러, 한 로고",
+        body: "색을 늘리지 않았다. 매트 블랙 단일 컬러에 가슴 FYF 워드마크 하나. 어떤 하의와도 붙고, 어떤 계절에도 어긋나지 않는다.",
+      },
+      {
+        num: "02",
+        heading: "넓은 암홀 설계",
+        body: "팔 스윙이 커지는 구간에서 겨드랑이가 당기지 않도록 암홀을 깊게 팠다. 레이스 막판 스퍼트에서 어깨가 자유롭다.",
+      },
+      {
+        num: "03",
+        heading: "유니섹스 핏",
+        body: "여성은 살짝 크롭되게, 남성은 적당히 길게 떨어지는 중성 패턴. 한 장으로 남녀가 같은 무드를 입는다.",
+      },
+    ],
+    specs: [
+      ["소재", "폴리에스터 90% / 스판덱스 10%"],
+      ["무게", "약 105g (M)"],
+      ["핏", "유니섹스 레귤러"],
+      ["기능", "흡습속건 / 4-way 스트레치"],
+      ["세탁", "찬물 단독, 건조기 금지"],
+      ["제조", "기가글로벌스튜디오 / 한국"],
+    ],
+    sizeChart: {
+      cols: ["사이즈", "가슴단면", "총장", "암홀"],
+      rows: [
+        ["XS", "45cm", "63cm", "23cm"],
+        ["S", "48cm", "66cm", "24cm"],
+        ["M", "51cm", "69cm", "25cm"],
+        ["L", "54cm", "72cm", "26cm"],
+        ["XL", "57cm", "75cm", "27cm"],
+      ],
+    },
+    crewPick: "CATTIVO",
+    crewComment: "조용히 살 거면 여기 왜 왔냐?",
+    editorial: {
+      hero: "/products/pulse/f-run.jpg",
+      heroLabel: "PULSE SLEEVELESS — RUN YOUR RHYTHM",
+      blocks: [
+        {
+          kind: "pair",
+          images: ["/products/pulse/f-front.jpg", "/products/pulse/f-back.jpg"],
+          label: "WOMAN FITTING",
+          sub: "S 사이즈 착용 · 168cm",
+        },
+        {
+          kind: "statement",
+          title: "달리는 몸만 남긴다",
+          body: "그래픽도, 배색도, 장식 봉제도 없다. Pulse는 시선을 빼앗지 않는다. 대신 네 움직임을 가장 정확하게 따라온다.",
+        },
+        {
+          kind: "full",
+          image: "/products/pulse/m-run.jpg",
+          label: "MAN / RUNNING",
+          sub: "M 사이즈 착용 · 181cm",
+        },
+        {
+          kind: "pair",
+          images: ["/products/pulse/m-front.jpg", "/products/pulse/m-back.jpg"],
+          label: "MAN FITTING",
+          sub: "M 사이즈 착용 · 181cm",
+        },
+        {
+          kind: "full",
+          image: "/products/pulse/fabric.jpg",
+          label: "FABRIC",
+          sub: "초경량 속건 메쉬 — 땀을 빠르게 밀어낸다",
+        },
+      ],
+      flatFront: "/products/pulse/flat-front.jpg",
+      flatBack: "/products/pulse/flat-back.jpg",
+      modelInfo: [
+        {
+          who: "여성 모델",
+          fitting: "S 착용",
+          height: "168cm",
+          bust: "82cm",
+          waist: "62cm",
+          hip: "89cm",
+          weight: "52kg",
+        },
+        {
+          who: "남성 모델",
+          fitting: "M 착용",
+          height: "181cm",
+          bust: "96cm",
+          waist: "78cm",
+          hip: "95cm",
+          weight: "73kg",
+        },
+      ],
+      care: [
+        "30℃ 이하 찬물에서 단독 손세탁 또는 약한 세탁망 사용",
+        "표백제·섬유유연제 사용 금지 (속건 기능 저하)",
+        "건조기·다리미 사용 금지, 그늘에서 평평하게 건조",
+        "프린트 부위는 뒤집어 세탁",
+        "촬영 환경과 모니터에 따라 실제 색상과 차이가 있을 수 있습니다",
+      ],
+    },
   },
   {
     slug: "race-vest",
