@@ -122,24 +122,30 @@ export function PulseEditorial({ product }: { product: Product }) {
           </p>
           <div className="h-px flex-1 bg-ink/10" />
         </div>
-        <div className="grid grid-cols-2 gap-3 md:gap-4">
-          {[e.flatFront, e.flatBack].map((src, i) => (
-            <div
-              key={i}
-              className="relative overflow-hidden rounded-2xl bg-[#ecebe6]"
-            >
-              <Image
-                src={src}
-                alt={`${product.name} ${i === 0 ? "정면" : "후면"} 제품 컷`}
-                width={1200}
-                height={1600}
-                className="h-auto w-full object-cover"
-              />
-              <span className="absolute left-3 top-3 rounded-full bg-ink/80 px-2.5 py-1 text-[10px] font-bold tracking-widest text-paper">
-                {i === 0 ? "FRONT" : "BACK"}
-              </span>
-            </div>
-          ))}
+        <div
+          className={`grid gap-3 md:gap-4 ${e.flatBack ? "grid-cols-2" : "mx-auto max-w-md grid-cols-1"}`}
+        >
+          {(e.flatBack ? [e.flatFront, e.flatBack] : [e.flatFront]).map(
+            (src, i) => (
+              <div
+                key={i}
+                className="relative overflow-hidden rounded-2xl bg-[#ecebe6]"
+              >
+                <Image
+                  src={src}
+                  alt={`${product.name} ${i === 0 ? "정면" : "후면"} 제품 컷`}
+                  width={1200}
+                  height={1600}
+                  className="h-auto w-full object-cover"
+                />
+                {e.flatBack && (
+                  <span className="absolute left-3 top-3 rounded-full bg-ink/80 px-2.5 py-1 text-[10px] font-bold tracking-widest text-paper">
+                    {i === 0 ? "FRONT" : "BACK"}
+                  </span>
+                )}
+              </div>
+            )
+          )}
         </div>
       </div>
 

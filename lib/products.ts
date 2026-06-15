@@ -25,7 +25,7 @@ export type Editorial = {
   heroLabel: string;
   blocks: EditorialBlock[];
   flatFront: string;
-  flatBack: string;
+  flatBack?: string; // 없으면 단일 플랫
   modelInfo: ModelInfoRow[];
   care: string[];
 };
@@ -121,6 +121,46 @@ export const PRODUCTS: Product[] = [
     },
     crewPick: "CATTIVO",
     crewComment: "야, 그냥 뛰어. 모자 하나면 돼.",
+    editorial: {
+      hero: "/products/cap/hero.jpg",
+      heroLabel: "PERFORMANCE CAP — FIRST CREW, FIRST CAP",
+      blocks: [
+        {
+          kind: "pair",
+          images: ["/products/cap/f-front.jpg", "/products/cap/f-back.jpg"],
+          label: "WOMAN",
+          sub: "정면 · 후면 드로스트링 루프",
+        },
+        {
+          kind: "statement",
+          title: "시작의 문턱을 낮춘다",
+          body: "러닝화는 비싸고 기록은 부담스럽다. 하지만 모자는 쓰는 순간 러너가 된다. 약 40g, 매트 블랙, 심박 라인 하나.",
+        },
+        {
+          kind: "pair",
+          images: ["/products/cap/m-front.jpg", "/products/cap/m-back.jpg"],
+          label: "MAN",
+          sub: "정면 · 후면 드로스트링 루프",
+        },
+        {
+          kind: "full",
+          image: "/products/cap/hero.jpg",
+          label: "ON THE RUN",
+          sub: "새벽 한강, 가장 가벼운 장비",
+        },
+      ],
+      flatFront: "/products/fyf-performance-cap.png",
+      modelInfo: [
+        { who: "여성 모델", fitting: "FREE 착용", height: "168cm", bust: "82cm", waist: "62cm", hip: "89cm", weight: "52kg" },
+        { who: "남성 모델", fitting: "FREE 착용", height: "181cm", bust: "96cm", waist: "78cm", hip: "95cm", weight: "73kg" },
+      ],
+      care: [
+        "중성세제로 미온수 손세탁, 챙 형태 유지하며 그늘 건조",
+        "세탁기·건조기 사용 금지 (챙 변형 위험)",
+        "땀밴드는 사용 후 가볍게 헹궈 말리면 오래 깨끗하게 유지",
+        "촬영 환경과 모니터에 따라 실제 색상과 차이가 있을 수 있습니다",
+      ],
+    },
   },
   {
     slug: "pulse-sleeveless",
@@ -312,6 +352,46 @@ export const PRODUCTS: Product[] = [
     },
     crewPick: "LEN",
     crewComment: "빠른 길 말고, 안 들키는 길. 보급은 계획이야.",
+    editorial: {
+      hero: "/products/vest/hero.jpg",
+      heroLabel: "RACE VEST — CARRY YOUR PACE",
+      blocks: [
+        {
+          kind: "pair",
+          images: ["/products/vest/f-front.jpg", "/products/vest/f-back.jpg"],
+          label: "WOMAN FITTING",
+          sub: "전면 플라스크 포켓 · 통풍 메쉬 등판",
+        },
+        {
+          kind: "statement",
+          title: "배낭은 러닝을 모른다",
+          body: "10km를 넘기면 주머니로는 부족하다. 몸에 밀착되는 250ml 플라스크 두 개와 지퍼 포켓. 손이 자유로운 러너가 끝까지 간다.",
+        },
+        {
+          kind: "pair",
+          images: ["/products/vest/m-front.jpg", "/products/vest/m-back.jpg"],
+          label: "MAN FITTING",
+          sub: "2-WAY 체스트 스트랩 · 등판 포켓",
+        },
+        {
+          kind: "full",
+          image: "/products/vest/hero.jpg",
+          label: "LONG RUN",
+          sub: "흔들림 없이, 보급을 멈추지 않고",
+        },
+      ],
+      flatFront: "/products/race-vest.jpg",
+      modelInfo: [
+        { who: "여성 모델", fitting: "FREE 착용", height: "168cm", bust: "82cm", waist: "62cm", hip: "89cm", weight: "52kg" },
+        { who: "남성 모델", fitting: "FREE 착용", height: "181cm", bust: "96cm", waist: "78cm", hip: "95cm", weight: "73kg" },
+      ],
+      care: [
+        "사용 후 플라스크를 분리하고 단독 손세탁, 그늘에서 건조",
+        "표백제·섬유유연제 사용 금지",
+        "버클·스트랩은 채운 상태로 세탁하면 손상을 줄일 수 있습니다",
+        "물통 포함 여부 및 상세 실측은 판매 옵션을 확인하세요",
+      ],
+    },
   },
   {
     slug: "race-singlet",
@@ -379,6 +459,46 @@ export const PRODUCTS: Product[] = [
     },
     crewPick: "CATTIVO",
     crewComment: "가보자고. 어차피 다 쳐다봐.",
+    editorial: {
+      hero: "/products/singlet/hero.jpg",
+      heroLabel: "RACE SINGLET — BE SEEN, BE FAST",
+      blocks: [
+        {
+          kind: "pair",
+          images: ["/products/singlet/f-front.jpg", "/products/singlet/f-back.jpg"],
+          label: "WOMAN FITTING",
+          sub: "톡톡 메쉬 · 레이서백",
+        },
+        {
+          kind: "statement",
+          title: "눈에 띄는 게 전략이다",
+          body: "레이스 사진 속에서 너를 못 찾는 이유 — 다 같은 검정을 입어서다. 핫핑크 바탕에 네온 사선. 5,000명 속에서도 네 리듬이 보인다.",
+        },
+        {
+          kind: "pair",
+          images: ["/products/singlet/m-front.jpg", "/products/singlet/m-back.jpg"],
+          label: "MAN FITTING",
+          sub: "넓은 암홀 · 네온 그래픽",
+        },
+        {
+          kind: "full",
+          image: "/products/singlet/hero.jpg",
+          label: "RACE DAY",
+          sub: "여름 레이스, 한 장으로 선명하게",
+        },
+      ],
+      flatFront: "/products/race-singlet.jpg",
+      modelInfo: [
+        { who: "여성 모델", fitting: "S 착용", height: "168cm", bust: "82cm", waist: "62cm", hip: "89cm", weight: "52kg" },
+        { who: "남성 모델", fitting: "M 착용", height: "181cm", bust: "96cm", waist: "78cm", hip: "95cm", weight: "73kg" },
+      ],
+      care: [
+        "30℃ 이하 찬물 단독 손세탁, 네온 컬러 이염 주의",
+        "표백제·섬유유연제 금지, 건조기 사용 금지",
+        "프린트·네온 패널 부위는 뒤집어 세탁",
+        "촬영 환경과 모니터에 따라 실제 색상과 차이가 있을 수 있습니다",
+      ],
+    },
   },
   {
     slug: "flow-shorts",
@@ -442,6 +562,46 @@ export const PRODUCTS: Product[] = [
     },
     crewPick: "ROCO",
     crewComment: "천천히 가도 돼. 가벼우면 멀리 가.",
+    editorial: {
+      hero: "/products/shorts/hero.jpg",
+      heroLabel: "FLOW SHORTS — NOTHING IN THE WAY",
+      blocks: [
+        {
+          kind: "pair",
+          images: ["/products/shorts/f-front.jpg", "/products/shorts/f-back.jpg"],
+          label: "WOMAN FITTING",
+          sub: "경량 그리드 원단 · 후면 수납 포켓",
+        },
+        {
+          kind: "statement",
+          title: "뛰는 순간, 바지는 잊혀져야 한다",
+          body: "원단, 통기, 수납, 허리밴드 — 거슬리는 요소만 덜어냈다. 가볍고, 짧고 깔끔하고, 필요한 만큼만 담는다. 그게 전부고 그게 핵심이다.",
+        },
+        {
+          kind: "pair",
+          images: ["/products/shorts/m-front.jpg", "/products/shorts/m-back.jpg"],
+          label: "MAN FITTING",
+          sub: "레이저 컷 마감 · 메쉬 허리밴드",
+        },
+        {
+          kind: "full",
+          image: "/products/shorts/hero.jpg",
+          label: "DAILY RUN",
+          sub: "가벼우면 멀리 간다",
+        },
+      ],
+      flatFront: "/products/flow-shorts.jpg",
+      modelInfo: [
+        { who: "여성 모델", fitting: "S 착용", height: "168cm", bust: "82cm", waist: "62cm", hip: "89cm", weight: "52kg" },
+        { who: "남성 모델", fitting: "M 착용", height: "181cm", bust: "96cm", waist: "78cm", hip: "95cm", weight: "73kg" },
+      ],
+      care: [
+        "찬물 단독 손세탁 또는 약한 세탁망 사용, 그늘 건조",
+        "표백제·섬유유연제 금지, 건조기 사용 금지",
+        "이너 팬츠가 있는 모델은 뒤집어 건조하면 위생적입니다",
+        "촬영 환경과 모니터에 따라 실제 색상과 차이가 있을 수 있습니다",
+      ],
+    },
   },
   {
     slug: "flow-singlet",
@@ -502,6 +662,46 @@ export const PRODUCTS: Product[] = [
     },
     crewPick: "LEN",
     crewComment: "가벼울수록 빨라. 데이터가 그래.",
+    editorial: {
+      hero: "/products/flowsinglet/hero.jpg",
+      heroLabel: "FLOW SINGLET — 98g OF FREEDOM",
+      blocks: [
+        {
+          kind: "pair",
+          images: ["/products/flowsinglet/f-front.jpg", "/products/flowsinglet/f-back.jpg"],
+          label: "WOMAN FITTING",
+          sub: "투존 메쉬 · 플랫락 봉제",
+        },
+        {
+          kind: "statement",
+          title: "옷이 사라지고 리듬만 남는다",
+          body: "레이스 막판 3km, 몸에 닿는 모든 것이 무게가 된다. M 기준 98g — 입었다는 감각 자체를 지웠다. 남는 건 호흡과 심박뿐이다.",
+        },
+        {
+          kind: "pair",
+          images: ["/products/flowsinglet/m-front.jpg", "/products/flowsinglet/m-back.jpg"],
+          label: "MAN FITTING",
+          sub: "오픈 메쉬 등판 · 4-way 스트레치",
+        },
+        {
+          kind: "full",
+          image: "/products/flowsinglet/hero.jpg",
+          label: "TRAINING",
+          sub: "데일리 트레이닝의 베이스",
+        },
+      ],
+      flatFront: "/products/flow-singlet.png",
+      modelInfo: [
+        { who: "여성 모델", fitting: "S 착용", height: "168cm", bust: "82cm", waist: "62cm", hip: "89cm", weight: "52kg" },
+        { who: "남성 모델", fitting: "M 착용", height: "181cm", bust: "96cm", waist: "78cm", hip: "95cm", weight: "73kg" },
+      ],
+      care: [
+        "세탁망에 넣어 찬물 단독 세탁, 그늘에서 건조",
+        "표백제·섬유유연제 금지, 건조기 사용 금지",
+        "메쉬 조직 보호를 위해 거친 표면과의 마찰 주의",
+        "촬영 환경과 모니터에 따라 실제 색상과 차이가 있을 수 있습니다",
+      ],
+    },
   },
   {
     slug: "flow-tee",
@@ -562,6 +762,46 @@ export const PRODUCTS: Product[] = [
     },
     crewPick: "BLOCK",
     crewComment: "유행 안 타는 게 제일 단단한 거야.",
+    editorial: {
+      hero: "/products/tee/hero.jpg",
+      heroLabel: "FLOW TEE — THE EVERYDAY BASE",
+      blocks: [
+        {
+          kind: "pair",
+          images: ["/products/tee/f-front.jpg", "/products/tee/f-back.jpg"],
+          label: "WOMAN FITTING",
+          sub: "퀵드라이 평직 · 세미 루즈핏",
+        },
+        {
+          kind: "statement",
+          title: "100번 입는 티셔츠",
+          body: "특별한 날의 장비보다 매일의 장비가 어렵다. 주 5회 세탁을 견디는 내구 원단, 카페에 앉아도 어색하지 않은 핏. 러닝과 일상의 경계를 지운 한 장.",
+        },
+        {
+          kind: "pair",
+          images: ["/products/tee/m-front.jpg", "/products/tee/m-back.jpg"],
+          label: "MAN FITTING",
+          sub: "변형 방지 넥 바인딩 · 흡습속건",
+        },
+        {
+          kind: "full",
+          image: "/products/tee/hero.jpg",
+          label: "EVERYDAY",
+          sub: "달릴 때도, 걸을 때도",
+        },
+      ],
+      flatFront: "/products/flow-tee.png",
+      modelInfo: [
+        { who: "여성 모델", fitting: "S 착용", height: "168cm", bust: "82cm", waist: "62cm", hip: "89cm", weight: "52kg" },
+        { who: "남성 모델", fitting: "M 착용", height: "181cm", bust: "96cm", waist: "78cm", hip: "95cm", weight: "73kg" },
+      ],
+      care: [
+        "찬물 단독 세탁 권장, 그늘에서 건조",
+        "표백제·섬유유연제 금지, 건조기 사용 금지",
+        "프린트 부위는 뒤집어 세탁하면 오래 유지됩니다",
+        "촬영 환경과 모니터에 따라 실제 색상과 차이가 있을 수 있습니다",
+      ],
+    },
   },
   {
     slug: "flow-half-tights",
@@ -622,6 +862,46 @@ export const PRODUCTS: Product[] = [
     },
     crewPick: "ROCO",
     crewComment: "안 멈추면 돼. 다리는 이게 잡아줘.",
+    editorial: {
+      hero: "/products/halftights/hero.jpg",
+      heroLabel: "FLOW HALF TIGHTS — HOLD YOUR LEGS",
+      blocks: [
+        {
+          kind: "pair",
+          images: ["/products/halftights/f-front.jpg", "/products/halftights/f-back.jpg"],
+          label: "WOMAN FITTING",
+          sub: "단계 압박 · 후면 지퍼 포켓",
+        },
+        {
+          kind: "statement",
+          title: "주머니가 페이스를 만든다",
+          body: "30km 이후의 러닝은 보급의 싸움이다. 양 허벅지 메쉬 포켓에 젤, 후면 지퍼 포켓에 폰까지. 손이 자유로운 러너가 끝까지 간다.",
+        },
+        {
+          kind: "pair",
+          images: ["/products/halftights/m-front.jpg", "/products/halftights/m-back.jpg"],
+          label: "MAN FITTING",
+          sub: "무봉제 웨이스트 밴드 · 단계 압박",
+        },
+        {
+          kind: "full",
+          image: "/products/halftights/hero.jpg",
+          label: "LONG RUN",
+          sub: "후반 피로를 늦추는 압박 설계",
+        },
+      ],
+      flatFront: "/products/flow-half-tights.png",
+      modelInfo: [
+        { who: "여성 모델", fitting: "S 착용", height: "168cm", bust: "82cm", waist: "62cm", hip: "89cm", weight: "52kg" },
+        { who: "남성 모델", fitting: "M 착용", height: "181cm", bust: "96cm", waist: "78cm", hip: "95cm", weight: "73kg" },
+      ],
+      care: [
+        "찬물 단독 손세탁, 그늘에서 평평하게 건조",
+        "표백제·섬유유연제 금지, 건조기 사용 금지 (탄성 저하)",
+        "벨크로·지퍼는 잠근 상태로 세탁",
+        "촬영 환경과 모니터에 따라 실제 색상과 차이가 있을 수 있습니다",
+      ],
+    },
   },
   {
     slug: "noise-spark-windbreaker",
@@ -688,6 +968,46 @@ export const PRODUCTS: Product[] = [
     },
     crewPick: "CATTIVO",
     crewComment: "조용히 살 거면 여기 왜 왔냐?",
+    editorial: {
+      hero: "/products/windbreaker/hero.jpg",
+      heroLabel: "NOISE SPARK WINDBREAKER — DISRUPT THE SYSTEM",
+      blocks: [
+        {
+          kind: "pair",
+          images: ["/products/windbreaker/f-front.jpg", "/products/windbreaker/f-back.jpg"],
+          label: "WOMAN FITTING",
+          sub: "포켓터블 셸 · 백 벤틸레이션",
+        },
+        {
+          kind: "statement",
+          title: "카티보가 도시를 흔드는 법",
+          body: "시즌 1, 카티보가 달리면 도시의 센서가 오작동한다. 이 재킷의 리플렉티브 FYF 로고는 밤의 헤드라이트에 심박처럼 번쩍인다. 감시는 피하고, 시야에는 잡히는 모순.",
+        },
+        {
+          kind: "pair",
+          images: ["/products/windbreaker/m-front.jpg", "/products/windbreaker/m-back.jpg"],
+          label: "MAN FITTING",
+          sub: "DWR 발수 · 115g 패커블",
+        },
+        {
+          kind: "full",
+          image: "/products/windbreaker/hero.jpg",
+          label: "NIGHT / SHELL",
+          sub: "바람과 가랑비, 그리고 평균으로부터",
+        },
+      ],
+      flatFront: "/products/noise-spark-windbreaker.png",
+      modelInfo: [
+        { who: "여성 모델", fitting: "S 착용", height: "168cm", bust: "82cm", waist: "62cm", hip: "89cm", weight: "52kg" },
+        { who: "남성 모델", fitting: "M 착용", height: "181cm", bust: "96cm", waist: "78cm", hip: "95cm", weight: "73kg" },
+      ],
+      care: [
+        "중성세제로 단독 세탁, 다림질 금지 (코팅 손상)",
+        "표백제·섬유유연제 금지, 건조기 사용 금지",
+        "발수 기능 저하 시 저온 다림질 대신 전용 발수 스프레이 권장",
+        "촬영 환경과 모니터에 따라 실제 색상과 차이가 있을 수 있습니다",
+      ],
+    },
   },
   {
     slug: "crew-socks",
@@ -747,10 +1067,48 @@ export const PRODUCTS: Product[] = [
     },
     crewPick: "BLOCK",
     crewComment: "막을 거면 제대로 막아. 물집부터.",
+    editorial: {
+      hero: "/products/socks/hero.jpg",
+      heroLabel: "CREW SOCKS — START FROM THE GROUND",
+      blocks: [
+        {
+          kind: "pair",
+          images: ["/products/socks/f-front.jpg", "/products/socks/f-back.jpg"],
+          label: "ON FOOT",
+          sub: "쿠션 존 · 아치 서포트 밴드",
+        },
+        {
+          kind: "statement",
+          title: "물집은 장비 탓이다",
+          body: "러닝을 멈추게 하는 건 심폐가 아니라 발바닥일 때가 많다. 마찰 구간에 쿠션을, 흔들리는 아치에 서포트 밴드를. ₩12,900로 끝나는 가장 싼 부상 방지책.",
+        },
+        {
+          kind: "pair",
+          images: ["/products/socks/m-front.jpg", "/products/socks/m-back.jpg"],
+          label: "DETAIL",
+          sub: "통기 메쉬 발등 · 미끄럼 방지 힐 탭",
+        },
+        {
+          kind: "full",
+          image: "/products/socks/hero.jpg",
+          label: "MILEAGE",
+          sub: "발이 편해야 끝까지 간다",
+        },
+      ],
+      flatFront: "/products/crew-socks.jpg",
+      modelInfo: [
+        { who: "여성 모델", fitting: "M (240–260)", height: "168cm", bust: "82cm", waist: "62cm", hip: "89cm", weight: "52kg" },
+        { who: "남성 모델", fitting: "L (260–280)", height: "181cm", bust: "96cm", waist: "78cm", hip: "95cm", weight: "73kg" },
+      ],
+      care: [
+        "세탁망에 넣어 세탁기 사용 가능, 그늘에서 건조",
+        "표백제 사용 자제, 다른 짙은 색과 분리 세탁 권장",
+        "건조기는 저온 단시간만 권장 (탄성 유지)",
+        "촬영 환경과 모니터에 따라 실제 색상과 차이가 있을 수 있습니다",
+      ],
+    },
   },
 ];
-// NOTE: crew-socks의 기존 상세 이미지 2장은 중국어 사입처 원본이라 제외했다.
-// 자체 촬영/생성 컷 확보 전까지 양말 상세는 타이포 피처로만 구성.
 
 export function getProduct(slug: string): Product | undefined {
   return PRODUCTS.find((p) => p.slug === slug);
