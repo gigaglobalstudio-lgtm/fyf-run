@@ -32,7 +32,7 @@ export function OrderHistory() {
   if (orders.length === 0) {
     return (
       <div className="rounded-2xl border border-line bg-white p-8 text-center">
-        <p className="text-sm font-bold text-ink">아직 주문 내역이 없습니다.</p>
+        <p className="text-sm font-semibold text-ink">아직 주문 내역이 없습니다.</p>
         <p className="mt-1 text-xs text-ink/50">
           첫 주문은 ₩39,000 퍼포먼스 캡을 추천합니다.
         </p>
@@ -48,11 +48,11 @@ export function OrderHistory() {
           className="rounded-2xl border border-line bg-white p-5"
         >
           <div className="flex flex-wrap items-baseline justify-between gap-2">
-            <p className="text-sm font-extrabold text-ink">
+            <p className="text-sm font-semibold text-ink">
               {o.orderName ?? o.orderId}
             </p>
             {o.totalAmount !== undefined && (
-              <p className="text-sm font-extrabold text-ink">
+              <p className="text-sm font-semibold text-ink">
                 {formatKRW(o.totalAmount)}
               </p>
             )}
@@ -74,7 +74,7 @@ export function OrderHistory() {
               href={o.receiptUrl}
               target="_blank"
               rel="noreferrer"
-              className="mt-2 inline-block text-xs font-bold text-flow underline"
+              className="mt-2 inline-block text-xs font-medium text-ink/60 underline underline-offset-2 hover:text-ink"
             >
               영수증 보기
             </a>

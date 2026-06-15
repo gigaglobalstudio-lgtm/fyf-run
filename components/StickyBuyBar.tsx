@@ -28,7 +28,7 @@ export function StickyBuyBar({ product }: { product: Product }) {
       <div className="border-t border-ink/10 bg-white/95 backdrop-blur-md">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-3">
           <div className="min-w-0">
-            <p className="truncate text-sm font-extrabold tracking-wide text-ink">
+            <p className="truncate text-sm font-semibold tracking-tight text-ink">
               {product.name}
             </p>
             <p className="text-xs text-ink/50">
@@ -42,7 +42,7 @@ export function StickyBuyBar({ product }: { product: Product }) {
                 .getElementById("buy-area")
                 ?.scrollIntoView({ behavior: "smooth", block: "start" })
             }
-            className="shrink-0 rounded-full bg-ink px-7 py-3 text-sm font-extrabold tracking-wide text-paper transition hover:bg-smoke"
+            className="shrink-0 rounded-full bg-ink px-7 py-3 text-sm font-semibold tracking-wide text-paper transition hover:bg-smoke"
           >
             구매하기
           </button>

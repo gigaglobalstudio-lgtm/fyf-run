@@ -16,7 +16,7 @@ function CourseGrid({ courses }: { courses: Course[] }) {
       {courses.map((c) => (
         <figure
           key={c.no + c.title}
-          className="group overflow-hidden rounded-3xl border border-darkline bg-coal"
+          className="group overflow-hidden rounded-2xl border border-darkline/60 bg-coal"
         >
           <div className="relative aspect-[4/5] overflow-hidden">
             <Image
@@ -30,7 +30,7 @@ function CourseGrid({ courses }: { courses: Course[] }) {
           <figcaption className="flex items-baseline gap-3 p-4">
             <span className="font-display text-xl text-paper/30">{c.no}</span>
             <span>
-              <span className="block text-sm font-extrabold text-paper">
+              <span className="block text-sm font-semibold text-paper">
                 {c.title}
               </span>
               <span className="block text-xs text-paper/50">{c.sub}</span>
@@ -46,9 +46,9 @@ export default function CoursePage() {
   return (
     <div className="bg-ink text-paper">
       <div className="mx-auto max-w-7xl px-5 py-16">
-        <EcgLine className="h-6 w-36 text-volt" animate />
-        <h1 className="font-display mt-3 text-5xl md:text-7xl">
-          FYF RUN MAP
+        <EcgLine className="h-5 w-32 text-paper/50" animate />
+        <h1 className="font-display mt-4 text-5xl md:text-7xl">
+          FYF Run Map
         </h1>
         <p className="mt-4 max-w-xl leading-relaxed text-paper/70">
           메트로놈의 공식 코스는 잊어라. 크루가 직접 달리고 그린 코스 카드 —
@@ -59,10 +59,10 @@ export default function CoursePage() {
         <section className="mt-14">
           <div className="flex items-end justify-between">
             <div>
-              <p className="font-display text-sm tracking-[0.25em] text-flow">
-                HOME COURSE
+              <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-paper/40">
+                Home Course
               </p>
-              <h2 className="font-display mt-1 text-3xl md:text-4xl">
+              <h2 className="font-display mt-2 text-3xl md:text-4xl">
                 순천 · 전남 10
               </h2>
             </div>
@@ -77,10 +77,10 @@ export default function CoursePage() {
         <section className="mt-20">
           <div className="flex items-end justify-between">
             <div>
-              <p className="font-display text-sm tracking-[0.25em] text-volt">
-                AWAY COURSE
+              <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-paper/40">
+                Away Course
               </p>
-              <h2 className="font-display mt-1 text-3xl md:text-4xl">
+              <h2 className="font-display mt-2 text-3xl md:text-4xl">
                 전국 TOP 10
               </h2>
             </div>
@@ -91,16 +91,16 @@ export default function CoursePage() {
           <CourseGrid courses={COURSES_KOREA} />
         </section>
 
-        <div className="mt-20 rounded-3xl border border-darkline bg-coal p-10 text-center">
+        <div className="mt-20 rounded-2xl border border-darkline/60 bg-coal p-10 text-center">
           <p className="font-display text-2xl md:text-3xl">
             오늘 코스 정했으면, 장비도.
           </p>
-          <p className="mt-2 text-sm text-paper/60">
+          <p className="mt-2.5 text-sm text-paper/55">
             첫 크루, 첫 모자 — ₩39,000부터.
           </p>
           <Link
             href="/shop"
-            className="mt-6 inline-block rounded-2xl bg-paper px-7 py-3.5 text-sm font-extrabold text-ink transition hover:bg-white"
+            className="mt-7 inline-block rounded-full bg-paper px-7 py-3.5 text-sm font-semibold text-ink transition hover:bg-white"
           >
             샵 보러 가기
           </Link>

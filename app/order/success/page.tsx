@@ -54,14 +54,14 @@ export default async function OrderSuccessPage({
         receiptUrl={result.receiptUrl}
       />
       <div className="mx-auto max-w-xl px-5 py-24 text-center">
-        <EcgLine className="mx-auto h-7 w-44 text-flow" animate />
-        <h1 className="font-display mt-6 text-5xl">RUN CONFIRMED</h1>
-        <p className="mt-3 text-lg font-bold">주문이 완료되었습니다.</p>
+        <EcgLine className="mx-auto h-6 w-36 text-ink/35" animate />
+        <h1 className="font-display mt-7 text-5xl">Run Confirmed</h1>
+        <p className="mt-3 text-lg font-semibold">주문이 완료되었습니다.</p>
         <p className="mt-1 text-sm text-ink/60">
           이제 따라가지 말고, 네 리듬으로.
         </p>
 
-        <dl className="mt-10 space-y-3 rounded-3xl border border-line bg-white p-7 text-left text-sm">
+        <dl className="mt-10 space-y-3 rounded-2xl border border-line bg-white p-7 text-left text-sm">
           <Row k="주문명" v={result.orderName ?? "-"} />
           <Row k="주문번호" v={result.orderId ?? "-"} />
           <Row
@@ -85,20 +85,20 @@ export default async function OrderSuccessPage({
               href={result.receiptUrl}
               target="_blank"
               rel="noreferrer"
-              className="rounded-2xl border-2 border-ink px-6 py-3.5 text-sm font-extrabold text-ink transition hover:bg-ink hover:text-paper"
+              className="rounded-full border border-ink/20 px-6 py-3.5 text-sm font-semibold text-ink transition hover:border-ink"
             >
               영수증 보기
             </a>
           )}
           <Link
             href="/mypage"
-            className="rounded-2xl border-2 border-ink px-6 py-3.5 text-sm font-extrabold text-ink transition hover:bg-ink hover:text-paper"
+            className="rounded-full border border-ink/20 px-6 py-3.5 text-sm font-semibold text-ink transition hover:border-ink"
           >
             주문 내역
           </Link>
           <Link
             href="/shop"
-            className="rounded-2xl bg-ink px-6 py-3.5 text-sm font-extrabold text-paper transition hover:bg-smoke"
+            className="rounded-full bg-ink px-6 py-3.5 text-sm font-semibold text-paper transition hover:bg-smoke"
           >
             쇼핑 계속하기
           </Link>
@@ -116,7 +116,7 @@ function Row({ k, v }: { k: string; v: string }) {
   return (
     <div className="flex justify-between gap-4">
       <dt className="shrink-0 text-ink/50">{k}</dt>
-      <dd className="break-all text-right font-bold">{v}</dd>
+      <dd className="break-all text-right font-medium">{v}</dd>
     </div>
   );
 }
@@ -125,12 +125,12 @@ function ErrorShell({ title, message }: { title: string; message: string }) {
   return (
     <div className="bg-paper text-ink">
       <div className="mx-auto max-w-xl px-5 py-28 text-center">
-        <h1 className="font-display text-4xl">PAYMENT FAILED</h1>
-        <p className="mt-4 text-lg font-bold">{title}</p>
+        <h1 className="font-display text-4xl">Payment Failed</h1>
+        <p className="mt-4 text-lg font-semibold">{title}</p>
         <p className="mt-2 text-sm text-ink/60">{message}</p>
         <Link
           href="/cart"
-          className="mt-8 inline-block rounded-2xl bg-ink px-6 py-3.5 text-sm font-extrabold text-paper transition hover:bg-smoke"
+          className="mt-8 inline-block rounded-full bg-ink px-6 py-3.5 text-sm font-semibold text-paper transition hover:bg-smoke"
         >
           장바구니로 돌아가기
         </Link>

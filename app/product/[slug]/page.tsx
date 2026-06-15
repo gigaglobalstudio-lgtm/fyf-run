@@ -80,7 +80,7 @@ export default async function ProductPage({
               {product.categoryKo} · {product.color}
             </p>
             <h1 className="font-display mt-4 text-[2.5rem] leading-[1.04] md:text-5xl">
-              {product.name.toUpperCase()}
+              {product.name}
             </h1>
             <p className="mt-2.5 text-[15px] font-medium text-ink/50">
               {product.nameKo} — {product.tagline}

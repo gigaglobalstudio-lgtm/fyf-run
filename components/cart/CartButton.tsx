@@ -23,7 +23,7 @@ export function CartButton() {
         <path d="M9 7a3 3 0 1 1 6 0" strokeLinecap="round" />
       </svg>
       {hydrated && count > 0 && (
-        <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-flow px-1 text-[10px] font-bold text-white">
+        <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-paper px-1 text-[10px] font-semibold text-ink">
           {count}
         </span>
       )}

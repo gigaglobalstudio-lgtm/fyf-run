@@ -15,11 +15,11 @@ export default async function MyPage() {
   return (
     <div className="bg-paper text-ink">
       <div className="mx-auto max-w-3xl px-5 py-16">
-        <EcgLine className="h-5 w-28 text-flow" animate />
-        <h1 className="font-display mt-3 text-5xl">MY CREW PAGE</h1>
+        <EcgLine className="h-5 w-28 text-ink/35" animate />
+        <h1 className="font-display mt-4 text-5xl">My Crew Page</h1>
 
-        <div className="mt-8 rounded-3xl border border-line bg-white p-7">
-          <p className="text-lg font-extrabold">
+        <div className="mt-8 rounded-2xl border border-line bg-white p-7">
+          <p className="text-lg font-semibold">
             {session.user.name ?? "러너"}
           </p>
           <p className="mt-1 text-sm text-ink/50">
@@ -34,14 +34,14 @@ export default async function MyPage() {
           >
             <button
               type="submit"
-              className="text-xs font-bold text-ink/40 underline underline-offset-4 hover:text-ink"
+              className="text-xs font-medium text-ink/45 underline underline-offset-4 hover:text-ink"
             >
               로그아웃
             </button>
           </form>
         </div>
 
-        <h2 className="font-display mt-12 text-2xl">ORDERS</h2>
+        <h2 className="font-display mt-12 text-2xl">Orders</h2>
         <p className="mt-1 text-xs text-ink/50">
           주문 내역 (이 브라우저에 저장된 기록)
         </p>

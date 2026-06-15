@@ -49,7 +49,7 @@ export function LoginButtons({
         >
           <button
             type="submit"
-            className="flex w-full items-center justify-center gap-2.5 rounded-2xl bg-kakao py-4 text-sm font-extrabold text-[#191919] transition hover:brightness-95"
+            className="flex w-full items-center justify-center gap-2.5 rounded-full bg-kakao py-4 text-sm font-semibold text-[#191919] transition hover:brightness-95"
           >
             <KakaoIcon />
             카카오로 시작하기
@@ -59,7 +59,7 @@ export function LoginButtons({
         <button
           type="button"
           disabled
-          className="flex w-full cursor-not-allowed items-center justify-center gap-2.5 rounded-2xl bg-kakao/30 py-4 text-sm font-extrabold text-[#191919]/40"
+          className="flex w-full cursor-not-allowed items-center justify-center gap-2.5 rounded-full bg-kakao/30 py-4 text-sm font-semibold text-[#191919]/40"
           title="카카오 개발자 키 설정 후 활성화됩니다 (SETUP.md)"
         >
           <KakaoIcon />
@@ -76,7 +76,7 @@ export function LoginButtons({
         >
           <button
             type="submit"
-            className="flex w-full items-center justify-center gap-2.5 rounded-2xl border border-line bg-white py-4 text-sm font-extrabold text-ink transition hover:bg-paper"
+            className="flex w-full items-center justify-center gap-2.5 rounded-full border border-line bg-white py-4 text-sm font-semibold text-ink transition hover:bg-paper"
           >
             <GoogleIcon />
             Google로 시작하기
@@ -86,7 +86,7 @@ export function LoginButtons({
         <button
           type="button"
           disabled
-          className="flex w-full cursor-not-allowed items-center justify-center gap-2.5 rounded-2xl border border-line bg-white/40 py-4 text-sm font-extrabold text-ink/30"
+          className="flex w-full cursor-not-allowed items-center justify-center gap-2.5 rounded-full border border-line bg-white/40 py-4 text-sm font-semibold text-ink/30"
           title="Google OAuth 키 설정 후 활성화됩니다 (SETUP.md)"
         >
           <GoogleIcon />
@@ -102,7 +102,7 @@ export function LoginButtons({
       >
         <button
           type="submit"
-          className="flex w-full items-center justify-center gap-2.5 rounded-2xl bg-ink py-4 text-sm font-extrabold text-paper transition hover:bg-smoke"
+          className="flex w-full items-center justify-center gap-2.5 rounded-full bg-ink py-4 text-sm font-semibold text-paper transition hover:bg-smoke"
         >
           데모 러너로 둘러보기
         </button>
