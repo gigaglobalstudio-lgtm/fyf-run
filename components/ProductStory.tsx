@@ -32,7 +32,7 @@ export function ProductStory({ product }: { product: Product }) {
           <h2 className="font-display mt-6 text-4xl leading-[1.05] md:text-6xl">
             {product.storyTitle}
           </h2>
-          <div className="mx-auto mt-8 h-px w-12 bg-flow" />
+          <div className="mx-auto mt-8 h-px w-12 bg-paper/25" />
           <p className="mx-auto mt-8 max-w-xl text-base leading-loose text-paper/70 md:text-lg">
             {product.storyBody}
           </p>

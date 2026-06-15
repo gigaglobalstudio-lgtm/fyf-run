@@ -10,7 +10,7 @@
   --color-flow: #2f6bff;
   --color-volt: #b7ff2e;
   --color-kakao: #fee500;
-  --font-display: var(--font-anton);
+  --font-display: var(--font-grotesk);
   --font-sans: var(--font-noto), ui-sans-serif, system-ui, -apple-system, sans-serif;
 }
 
@@ -29,14 +29,15 @@ body {
 }
 
 ::selection {
-  background: var(--color-flow);
-  color: #fff;
+  background: var(--color-ink);
+  color: var(--color-paper);
 }
 
-/* ── Display type ───────────────────────────── */
+/* ── Display type — Swiss grotesque, tight ──── */
 .font-display {
-  font-family: var(--font-display);
-  letter-spacing: 0.01em;
+  font-family: var(--font-display), var(--font-noto), system-ui, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.02em;
 }
 
 .text-stroke {

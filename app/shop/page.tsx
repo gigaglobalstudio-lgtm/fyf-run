@@ -11,11 +11,11 @@ export default function ShopPage() {
   return (
     <div className="bg-paper text-ink">
       <div className="mx-auto max-w-7xl px-5 py-16">
-        <p className="font-display text-sm tracking-[0.25em] text-flow">
-          ALL PRODUCTS
+        <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-ink/40">
+          All Products
         </p>
-        <h1 className="font-display mt-2 text-5xl md:text-6xl">SHOP</h1>
-        <p className="mt-3 text-sm text-ink/60">
+        <h1 className="font-display mt-3 text-5xl md:text-6xl">Shop</h1>
+        <p className="mt-4 text-sm text-ink/55">
           시즌 1 — 퍼포먼스 컬렉션. 5만원 이상 무료배송.
         </p>
 

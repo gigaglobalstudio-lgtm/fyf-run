@@ -7,36 +7,30 @@ export async function Header() {
   const session = await auth();
 
   return (
-    <header className="sticky top-0 z-50 border-b border-darkline bg-ink/85 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-darkline/60 bg-ink/80 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5">
         <Link href="/" aria-label="FYF 홈" className="text-paper">
           <FyfLogo />
         </Link>
 
-        <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-8 md:flex">
+        <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-9 md:flex">
           <Link
             href="/shop"
-            className="text-sm font-bold tracking-widest text-paper/80 transition hover:text-paper"
+            className="text-[13px] font-medium tracking-wide text-paper/65 transition hover:text-paper"
           >
-            SHOP
+            Shop
           </Link>
           <Link
             href="/world"
-            className="text-sm font-bold tracking-widest text-paper/80 transition hover:text-paper"
+            className="text-[13px] font-medium tracking-wide text-paper/65 transition hover:text-paper"
           >
-            WORLD
+            World
           </Link>
           <Link
             href="/course"
-            className="text-sm font-bold tracking-widest text-paper/80 transition hover:text-paper"
+            className="text-[13px] font-medium tracking-wide text-paper/65 transition hover:text-paper"
           >
-            COURSE
-          </Link>
-          <Link
-            href="/shop#cap"
-            className="text-sm font-bold tracking-widest text-flow transition hover:text-paper"
-          >
-            ₩39,000 CAP
+            Course
           </Link>
         </nav>
 

@@ -68,12 +68,8 @@ export default async function ProductPage({
               className="object-cover"
             />
             {product.badge && (
-              <span
-                className={`absolute left-5 top-5 rounded-full px-3.5 py-1.5 text-[11px] font-bold tracking-[0.15em] text-white ${
-                  product.badge === "BEST" ? "bg-ink" : "bg-flow"
-                }`}
-              >
-                {product.badge}
+              <span className="absolute left-5 top-5 rounded-full bg-ink/85 px-3.5 py-1.5 text-[10px] font-medium uppercase tracking-[0.16em] text-paper backdrop-blur">
+                {product.badge === "BEST" ? "Best" : "New"}
               </span>
             )}
           </div>
