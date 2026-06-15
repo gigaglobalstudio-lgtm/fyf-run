@@ -80,29 +80,29 @@ export default async function ProductPage({
 
           {/* 정보 (스티키) */}
           <div className="lg:sticky lg:top-24 lg:h-fit">
-            <p className="text-xs font-bold uppercase tracking-[0.3em] text-ink/40">
+            <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-ink/40">
               {product.categoryKo} · {product.color}
             </p>
-            <h1 className="font-display mt-3 text-4xl leading-[1.05] md:text-5xl">
+            <h1 className="font-display mt-4 text-[2.5rem] leading-[1.04] md:text-5xl">
               {product.name.toUpperCase()}
             </h1>
-            <p className="mt-2 text-base font-bold text-ink/55">
+            <p className="mt-2.5 text-[15px] font-medium text-ink/50">
               {product.nameKo} — {product.tagline}
             </p>
 
-            <div className="mt-7 flex items-baseline gap-3 border-t border-ink/10 pt-7">
-              <span className="text-3xl font-extrabold tracking-tight">
+            <div className="mt-8 flex items-baseline gap-3 border-t border-ink/10 pt-8">
+              <span className="text-[28px] font-semibold tracking-tight">
                 {formatKRW(product.price)}
               </span>
-              <span className="text-base text-ink/35 line-through">
+              <span className="text-sm text-ink/30 line-through">
                 {formatKRW(product.listPrice)}
               </span>
-              <span className="text-base font-extrabold text-flow">
-                {discount}%
+              <span className="text-sm font-medium text-ink/40">
+                −{discount}%
               </span>
             </div>
 
-            <p className="mt-5 max-w-md leading-relaxed text-ink/60">
+            <p className="mt-5 max-w-md leading-relaxed text-ink/55">
               {product.description}
             </p>
 
@@ -110,7 +110,7 @@ export default async function ProductPage({
               <AddToCart product={product} />
             </div>
 
-            <p className="mt-5 text-center text-[11px] font-bold uppercase tracking-[0.2em] text-ink/35">
+            <p className="mt-5 text-center text-xs tracking-wide text-ink/45">
               5만원 이상 무료배송 · 1–3일 내 출고 · 7일 무료 교환
             </p>
 
@@ -118,9 +118,9 @@ export default async function ProductPage({
               {product.details.map((d) => (
                 <li
                   key={d}
-                  className="flex gap-3 border-b border-ink/10 py-3 text-sm text-ink/65"
+                  className="flex gap-3 border-b border-ink/10 py-3 text-sm text-ink/60"
                 >
-                  <span className="text-flow">—</span>
+                  <span className="text-ink/25">—</span>
                   {d}
                 </li>
               ))}
