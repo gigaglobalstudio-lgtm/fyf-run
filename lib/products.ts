@@ -469,16 +469,16 @@ export const PRODUCTS: Product[] = [
     crewComment: "안 멈추면 돼. 다리는 이게 잡아줘.",
   },
   {
-    slug: "aetherun-tee",
-    name: "Aetherun T-Shirt",
-    nameKo: "에테룬 티셔츠",
+    slug: "aurora-tee",
+    name: "FYF Aurora Tee",
+    nameKo: "오로라 러닝 티",
     price: 44000,
     listPrice: 54000,
     category: "top",
     categoryKo: "탑",
     tagline: "어두울수록 선명하게.",
     description:
-      "창공(Aether)을 달린다 — 가슴을 가로지르는 오로라 글로우 그래픽이 새벽과 야간에 살아난다. 흡습속건 테크니컬 원단에, 빛을 받으면 떠오르는 라임 프린트를 더한 데일리 러닝 티.",
+      "밤하늘 오로라를 달린다 — 가슴을 가로지르는 FYF 오로라 글로우 그래픽이 새벽과 야간에 살아난다. 흡습속건 테크니컬 원단에, 빛을 받으면 떠오르는 라임 프린트를 더한 데일리 러닝 티.",
     details: [
       "오로라 글로우 그래픽 — 저조도 시인성 ↑",
       "라이트 리액티브 라임 프린트 — 헤드라이트에 발광",
@@ -488,12 +488,12 @@ export const PRODUCTS: Product[] = [
       "넥 변형 방지 바인딩",
     ],
     sizes: ["S", "M", "L", "XL"],
-    color: "Black / Aether Lime",
-    image: "/products/aetherun-tee.png",
+    color: "Black / Aurora Lime",
+    image: "/products/aurora-tee.png",
     badge: "NEW",
     storyTitle: "창공을 달리는 한 장",
     storyBody:
-      "모두가 검정을 입고 새벽 도로로 사라진다. AETHERUN은 반대로 간다 — 가슴을 가로지르는 라임 오로라가 가로등과 헤드라이트를 받으면 떠오른다. 멀리서도 보이는 한 장이 곧 가장 가벼운 안전장비다. 창공(Aether)의 빛을 입고, 어둠 속에서 가장 선명하게 달려라.",
+      "모두가 검정을 입고 새벽 도로로 사라진다. FYF Aurora Tee는 반대로 간다 — 가슴을 가로지르는 라임 오로라가 가로등과 헤드라이트를 받으면 떠오른다. 멀리서도 보이는 한 장이 곧 가장 가벼운 안전장비다. 오로라의 빛을 입고, 어둠 속에서 가장 선명하게 달려라.",
     features: [
       {
         num: "01",
@@ -517,7 +517,7 @@ export const PRODUCTS: Product[] = [
       ["무게", "138g (M)"],
       ["핏", "세미 루즈"],
       ["기능", "흡습속건 / 라이트 리액티브 프린트"],
-      ["컬러", "블랙 / 에테르 라임"],
+      ["컬러", "블랙 / 오로라 라임"],
       ["세탁", "찬물 단독, 건조기 금지"],
       ["제조", "기가글로벌스튜디오 / 한국"],
     ],
