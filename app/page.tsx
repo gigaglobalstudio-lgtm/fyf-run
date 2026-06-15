@@ -26,28 +26,28 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/30 to-ink/10" />
 
         <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-16 pt-40">
-          <EcgLine className="h-6 w-40 text-flow" animate />
-          <h1 className="font-display mt-4 text-[13vw] leading-[0.92] tracking-tight md:text-[8.5rem]">
-            DON&apos;T FOLLOW.
+          <EcgLine className="h-5 w-32 text-paper/50" animate />
+          <h1 className="font-display mt-6 text-[12vw] font-extrabold leading-[0.95] md:text-[7rem]">
+            Don&apos;t follow.
             <br />
-            <span className="text-flow">FIND YOUR FLOW.</span>
+            Find your Flow.
           </h1>
-          <p className="mt-5 max-w-md text-base font-medium text-paper/80 md:text-lg">
+          <p className="mt-6 max-w-md text-base font-normal text-paper/70 md:text-lg">
             따라가지 마. 네 리듬을 찾아. <br className="sm:hidden" />
             순천의 밤에서 시작한 러닝 컬처 — FYF.
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-9 flex flex-wrap gap-3">
             <Link
               href="/shop"
-              className="rounded-2xl bg-paper px-7 py-4 text-sm font-extrabold tracking-wide text-ink transition hover:bg-white"
+              className="rounded-full bg-paper px-7 py-3.5 text-sm font-semibold text-ink transition hover:bg-white"
             >
               컬렉션 보기
             </Link>
             <Link
               href="/world"
-              className="rounded-2xl border border-paper/40 px-7 py-4 text-sm font-extrabold tracking-wide text-paper backdrop-blur transition hover:border-paper hover:bg-white/10"
+              className="rounded-full border border-paper/30 px-7 py-3.5 text-sm font-semibold text-paper/90 backdrop-blur transition hover:border-paper hover:text-paper"
             >
-              BUNKER-VERSE →
+              Bunker-Verse →
             </Link>
           </div>
         </div>
@@ -58,7 +58,7 @@ export default function Home() {
       {/* ── FEATURED: PERFORMANCE CAP ────────────── */}
       <section className="bg-paper text-ink">
         <div className="mx-auto grid max-w-7xl items-center gap-10 px-5 py-20 md:grid-cols-2 md:py-28">
-          <div className="relative aspect-square overflow-hidden rounded-3xl bg-[#ecebe6]">
+          <div className="relative aspect-square overflow-hidden rounded-2xl bg-[#ecebe6]">
             <Image
               src={cap.image}
               alt={cap.name}
@@ -66,40 +66,38 @@ export default function Home() {
               sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
             />
-            <span className="absolute left-4 top-4 rounded-full bg-ink px-3 py-1.5 text-xs font-bold tracking-wider text-paper">
-              BEST
+            <span className="absolute left-4 top-4 rounded-full bg-ink/90 px-3 py-1 text-[11px] font-medium tracking-wide text-paper">
+              Best
             </span>
           </div>
           <div>
-            <p className="font-display text-sm tracking-[0.25em] text-flow">
-              FIRST CREW, FIRST CAP
+            <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-ink/40">
+              First crew, first cap
             </p>
-            <h2 className="font-display mt-3 text-5xl leading-none md:text-6xl">
-              PERFORMANCE
-              <br />
-              CAP
+            <h2 className="font-display mt-4 text-5xl leading-[0.98] md:text-6xl">
+              Performance Cap
             </h2>
-            <p className="mt-5 max-w-md leading-relaxed text-ink/70">
+            <p className="mt-5 max-w-md leading-relaxed text-ink/60">
               {cap.description}
             </p>
-            <p className="mt-6 flex items-baseline gap-3">
-              <span className="text-3xl font-extrabold">
+            <p className="mt-7 flex items-baseline gap-3">
+              <span className="text-[28px] font-semibold tracking-tight">
                 {formatKRW(cap.price)}
               </span>
-              <span className="text-lg text-ink/40 line-through">
+              <span className="text-base text-ink/35 line-through">
                 {formatKRW(cap.listPrice)}
               </span>
             </p>
-            <div className="mt-7 flex gap-3">
+            <div className="mt-8 flex gap-3">
               <Link
                 href={`/product/${cap.slug}`}
-                className="rounded-2xl bg-ink px-7 py-4 text-sm font-extrabold text-paper transition hover:bg-smoke"
+                className="rounded-full bg-ink px-7 py-3.5 text-sm font-semibold text-paper transition hover:bg-smoke"
               >
                 자세히 보기
               </Link>
               <Link
                 href="/shop"
-                className="rounded-2xl border-2 border-ink px-7 py-4 text-sm font-extrabold text-ink transition hover:bg-ink hover:text-paper"
+                className="rounded-full border border-ink/20 px-7 py-3.5 text-sm font-semibold text-ink transition hover:border-ink"
               >
                 전체 컬렉션
               </Link>
@@ -113,16 +111,16 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-5 py-20">
           <div className="flex items-end justify-between">
             <div>
-              <p className="font-display text-sm tracking-[0.25em] text-ink/40">
-                SEASON 01
+              <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-ink/40">
+                Season 01
               </p>
-              <h2 className="font-display mt-2 text-4xl md:text-5xl">
-                PERFORMANCE COLLECTION
+              <h2 className="font-display mt-3 text-4xl md:text-5xl">
+                Performance Collection
               </h2>
             </div>
             <Link
               href="/shop"
-              className="hidden text-sm font-bold text-ink underline underline-offset-4 hover:text-flow sm:block"
+              className="hidden text-sm font-medium text-ink/60 transition hover:text-ink sm:block"
             >
               전체 보기 →
             </Link>
@@ -148,22 +146,22 @@ export default function Home() {
             />
           </div>
           <div className="flex flex-col justify-center px-5 py-20 md:px-14">
-            <p className="font-display text-sm tracking-[0.25em] text-volt">
-              NIGHT RUN, SUNCHEON
+            <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-paper/40">
+              Night run, Suncheon
             </p>
-            <h2 className="font-display mt-4 text-5xl leading-[0.95] md:text-6xl">
+            <h2 className="font-display mt-4 text-5xl leading-[1.0] md:text-6xl">
               평균은
               <br />
               너를 모른다
             </h2>
-            <p className="mt-6 max-w-md leading-relaxed text-paper/70">
+            <p className="mt-6 max-w-md leading-relaxed text-paper/60">
               페이스 차트, 평균 기록, 남들의 기준. 메트로놈 시스템은 모두를
               같은 박자로 뛰게 만든다. FYF는 반대로 간다 — 네 심박이 곧 네
               리듬이다.
             </p>
             <Link
               href="/world"
-              className="mt-8 w-fit rounded-2xl border border-paper/30 px-7 py-4 text-sm font-extrabold text-paper transition hover:border-paper hover:bg-white/10"
+              className="mt-9 w-fit rounded-full border border-paper/30 px-7 py-3.5 text-sm font-semibold text-paper/90 transition hover:border-paper hover:text-paper"
             >
               세계관 읽기
             </Link>
@@ -175,28 +173,28 @@ export default function Home() {
       <section className="border-t border-darkline bg-ink">
         <div className="mx-auto grid max-w-7xl items-center gap-10 px-5 py-20 lg:grid-cols-[1fr_380px]">
           <div>
-            <p className="font-display text-sm tracking-[0.25em] text-volt">
-              FYF RUN MAP
+            <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-paper/40">
+              FYF Run Map
             </p>
-            <h2 className="font-display mt-2 text-4xl leading-tight md:text-5xl">
+            <h2 className="font-display mt-3 text-4xl leading-[1.05] md:text-5xl">
               오늘 어디 뛸지
               <br />
               크루가 그려놨다
             </h2>
-            <p className="mt-4 max-w-md leading-relaxed text-paper/70">
+            <p className="mt-5 max-w-md leading-relaxed text-paper/60">
               순천 오천그린광장 4K부터 여수 밤바다, 전국 TOP 10까지 — 출발지,
               반환점, 노면, 주의사항이 담긴 코스 카드 20장.
             </p>
             <Link
               href="/course"
-              className="mt-7 inline-block rounded-2xl bg-volt px-7 py-4 text-sm font-extrabold text-ink transition hover:brightness-110"
+              className="mt-8 inline-block rounded-full bg-paper px-7 py-3.5 text-sm font-semibold text-ink transition hover:bg-white"
             >
               코스 전체 보기 →
             </Link>
           </div>
           <Link
             href="/course"
-            className="group relative aspect-[4/5] overflow-hidden rounded-3xl border border-darkline"
+            className="group relative aspect-[4/5] overflow-hidden rounded-2xl border border-darkline/60"
           >
             <Image
               src="/course/jeonnam/01.jpg"
@@ -214,26 +212,26 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-5 py-20">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
-              <p className="font-display text-sm tracking-[0.25em] text-flow">
-                BUNKER-VERSE CREW
+              <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-paper/40">
+                Bunker-Verse Crew
               </p>
-              <h2 className="font-display mt-2 text-4xl md:text-5xl">
+              <h2 className="font-display mt-3 text-4xl md:text-5xl">
                 낮에는 카페, 밤에는 벙커
               </h2>
             </div>
             <Link
               href="/world"
-              className="text-sm font-bold text-paper/70 underline underline-offset-4 hover:text-paper"
+              className="text-sm font-medium text-paper/60 transition hover:text-paper"
             >
               세계관 전체 보기 →
             </Link>
           </div>
 
-          <div className="mt-10 grid gap-6 lg:grid-cols-[1.15fr_1fr]">
+          <div className="mt-10 grid gap-5 lg:grid-cols-[1.15fr_1fr]">
             {/* 공식 그룹 아트 */}
             <Link
               href="/world"
-              className="group relative min-h-80 overflow-hidden rounded-3xl border border-darkline"
+              className="group relative min-h-80 overflow-hidden rounded-2xl border border-darkline/60"
             >
               <Image
                 src="/crew/crew-cover.jpg"
@@ -254,12 +252,12 @@ export default function Home() {
             </Link>
 
             {/* 캐릭터 4인 카드 */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-5">
               {CREW.map((c) => (
                 <Link
                   key={c.en}
                   href="/world#crew"
-                  className="group overflow-hidden rounded-3xl border border-darkline bg-coal transition hover:-translate-y-1 hover:border-paper/30"
+                  className="group overflow-hidden rounded-2xl border border-darkline/60 bg-coal transition hover:-translate-y-1 hover:border-paper/25"
                 >
                   <div className="relative aspect-square bg-white">
                     <Image
@@ -271,12 +269,12 @@ export default function Home() {
                     />
                   </div>
                   <div className="p-4">
-                    <p className="font-display text-xl tracking-wide">{c.en}</p>
-                    <p className="mt-0.5 text-xs font-bold text-paper/50">
+                    <p className="font-display text-lg tracking-tight">{c.en}</p>
+                    <p className="mt-0.5 text-xs font-medium text-paper/45">
                       {c.name} · {c.role}
                     </p>
                     <p
-                      className="mt-2 text-sm font-extrabold leading-snug"
+                      className="mt-2 text-sm font-semibold leading-snug"
                       style={{ color: c.color }}
                     >
                       “{c.quote}”
@@ -294,16 +292,16 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-5 py-20">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
-              <p className="font-display text-sm tracking-[0.25em] text-volt">
-                BUNKER SOUND
+              <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-paper/40">
+                Bunker Sound
               </p>
-              <h2 className="font-display mt-2 text-4xl md:text-5xl">
+              <h2 className="font-display mt-3 text-4xl md:text-5xl">
                 FYF 뮤직비디오
               </h2>
             </div>
             <Link
               href="/world/story"
-              className="text-sm font-bold text-paper/70 underline underline-offset-4 hover:text-paper"
+              className="text-sm font-medium text-paper/60 transition hover:text-paper"
             >
               스토리 &amp; MV 전체 →
             </Link>

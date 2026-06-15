@@ -18,14 +18,14 @@ export function CartView() {
   if (items.length === 0) {
     return (
       <div className="py-24 text-center">
-        <p className="font-display text-3xl text-ink/20">EMPTY</p>
-        <p className="mt-3 font-bold text-ink">장바구니가 비어 있습니다.</p>
+        <p className="font-display text-3xl text-ink/20">Empty</p>
+        <p className="mt-3 font-semibold text-ink">장바구니가 비어 있습니다.</p>
         <p className="mt-1 text-sm text-ink/50">
           첫 크루, 첫 모자부터 시작해보세요.
         </p>
         <Link
           href="/shop"
-          className="mt-6 inline-block rounded-2xl bg-ink px-6 py-3.5 text-sm font-extrabold text-paper transition hover:bg-smoke"
+          className="mt-7 inline-block rounded-full bg-ink px-7 py-3.5 text-sm font-semibold text-paper transition hover:bg-smoke"
         >
           쇼핑하러 가기
         </Link>
@@ -55,7 +55,7 @@ export function CartView() {
             <div className="flex flex-1 flex-col">
               <div className="flex items-start justify-between gap-3">
                 <div>
-                  <p className="text-sm font-bold text-ink">{item.name}</p>
+                  <p className="text-sm font-semibold text-ink">{item.name}</p>
                   <p className="text-xs text-ink/50">
                     {item.nameKo} · {item.size}
                   </p>
@@ -78,7 +78,7 @@ export function CartView() {
                   >
                     −
                   </button>
-                  <span className="min-w-8 text-center text-sm font-bold text-ink">
+                  <span className="min-w-8 text-center text-sm font-medium text-ink">
                     {item.qty}
                   </span>
                   <button
@@ -90,7 +90,7 @@ export function CartView() {
                     +
                   </button>
                 </div>
-                <p className="text-sm font-extrabold text-ink">
+                <p className="text-sm font-semibold text-ink">
                   {formatKRW(item.price * item.qty)}
                 </p>
               </div>
@@ -100,33 +100,33 @@ export function CartView() {
       </ul>
 
       <aside className="h-fit rounded-2xl border border-line bg-white p-6">
-        <p className="font-display text-lg tracking-wide text-ink">SUMMARY</p>
+        <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-ink/40">Summary</p>
         <dl className="mt-4 space-y-2.5 text-sm">
           <div className="flex justify-between">
-            <dt className="text-ink/60">상품 금액</dt>
-            <dd className="font-bold text-ink">{formatKRW(total)}</dd>
+            <dt className="text-ink/55">상품 금액</dt>
+            <dd className="font-medium text-ink">{formatKRW(total)}</dd>
           </div>
           <div className="flex justify-between">
-            <dt className="text-ink/60">배송비</dt>
-            <dd className="font-bold text-ink">
+            <dt className="text-ink/55">배송비</dt>
+            <dd className="font-medium text-ink">
               {shipping === 0 ? "무료" : formatKRW(shipping)}
             </dd>
           </div>
           {shipping > 0 && (
-            <p className="text-xs text-flow">
+            <p className="text-xs text-ink/50">
               {formatKRW(FREE_SHIPPING - total)} 더 담으면 무료배송
             </p>
           )}
           <div className="flex justify-between border-t border-line pt-3 text-base">
-            <dt className="font-extrabold text-ink">총 결제 금액</dt>
-            <dd className="font-extrabold text-ink">
+            <dt className="font-semibold text-ink">총 결제 금액</dt>
+            <dd className="font-semibold text-ink">
               {formatKRW(total + shipping)}
             </dd>
           </div>
         </dl>
         <Link
           href="/checkout"
-          className="mt-5 block rounded-2xl bg-flow py-4 text-center text-sm font-extrabold text-white transition hover:brightness-110"
+          className="mt-6 block rounded-full bg-ink py-4 text-center text-sm font-semibold text-paper transition hover:bg-smoke"
         >
           결제하기
         </Link>

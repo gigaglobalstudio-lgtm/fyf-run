@@ -32,11 +32,11 @@ export default function WorldPage() {
         {/* 텍스트 가독용 좌측 보조 그라데이션 */}
         <div className="absolute inset-0 bg-gradient-to-r from-ink/55 via-transparent to-transparent" />
         <div className="relative mx-auto max-w-7xl px-5 py-24 md:py-36">
-          <EcgLine className="h-6 w-40 text-flow" animate />
-          <h1 className="font-display mt-4 text-6xl leading-[0.95] md:text-8xl">
-            BUNKER-
+          <EcgLine className="h-5 w-32 text-paper/50" animate />
+          <h1 className="font-display mt-6 text-6xl leading-[0.95] md:text-8xl">
+            Bunker-
             <br />
-            VERSE
+            Verse
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-paper/85">
             도시는 <strong className="text-paper">메트로놈 시스템</strong>이
@@ -46,21 +46,21 @@ export default function WorldPage() {
           <p className="mt-4 max-w-xl text-lg leading-relaxed text-paper/85">
             하지만 순천 어딘가, 낮에는 카페였다가 밤이 되면 벙커로 바뀌는
             공간이 있다. 거기 모인 네 명은 각자의 심박으로 달린다 — 그들이{" "}
-            <strong className="text-flow">FYF 크루</strong>다.
+            <strong className="font-semibold text-paper">FYF 크루</strong>다.
           </p>
-          <p className="font-display mt-10 text-2xl tracking-wide text-volt">
-            DON&apos;T FOLLOW. FIND YOUR FLOW.
+          <p className="font-display mt-10 text-2xl tracking-tight text-paper/90">
+            Don&apos;t follow. Find your Flow.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
               href="/world/story"
-              className="rounded-2xl border border-paper/40 px-6 py-3.5 text-sm font-extrabold text-paper transition hover:bg-white/10"
+              className="rounded-full border border-paper/30 px-6 py-3.5 text-sm font-semibold text-paper/90 transition hover:border-paper hover:text-paper"
             >
               시즌 1 스토리 &amp; MV →
             </Link>
             <Link
               href="/world/cafe"
-              className="rounded-2xl border border-paper/40 px-6 py-3.5 text-sm font-extrabold text-paper transition hover:bg-white/10"
+              className="rounded-full border border-paper/30 px-6 py-3.5 text-sm font-semibold text-paper/90 transition hover:border-paper hover:text-paper"
             >
               벙커 카페 →
             </Link>
@@ -71,10 +71,10 @@ export default function WorldPage() {
       {/* ── Crew 프로필 ── */}
       <section id="crew" className="border-t border-darkline">
         <div className="mx-auto max-w-7xl px-5 py-20">
-          <p className="font-display text-sm tracking-[0.25em] text-flow">
-            THE CREW — OFFICIAL CHARACTER SHEET
+          <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-paper/40">
+            The Crew — Official Character Sheet
           </p>
-          <h2 className="font-display mt-2 text-4xl md:text-5xl">
+          <h2 className="font-display mt-3 text-4xl md:text-5xl">
             네 개의 심박, 하나의 벙커
           </h2>
 
@@ -82,7 +82,7 @@ export default function WorldPage() {
             {CREW.map((c, i) => (
               <article
                 key={c.en}
-                className="grid items-stretch gap-0 overflow-hidden rounded-3xl border border-darkline bg-coal lg:grid-cols-[360px_1fr]"
+                className="grid items-stretch gap-0 overflow-hidden rounded-2xl border border-darkline/60 bg-coal lg:grid-cols-[360px_1fr]"
               >
                 <div className="relative aspect-square bg-white lg:aspect-auto lg:min-h-96">
                   <Image
@@ -93,7 +93,7 @@ export default function WorldPage() {
                     className="object-contain p-4"
                   />
                   <span
-                    className="absolute left-4 top-4 rounded-full px-3 py-1 text-[11px] font-extrabold text-white"
+                    className="absolute left-4 top-4 rounded-full px-3 py-1 text-[11px] font-semibold text-white"
                     style={{ backgroundColor: c.color }}
                   >
                     {String(i + 1).padStart(2, "0")} / {c.label}
@@ -108,32 +108,32 @@ export default function WorldPage() {
                     >
                       {c.en}
                     </h3>
-                    <p className="text-lg font-extrabold text-paper">
+                    <p className="text-lg font-semibold text-paper">
                       {c.name} — {c.role}
                     </p>
                   </div>
 
                   <div className="mt-6 grid gap-5 text-sm leading-relaxed md:grid-cols-2">
                     <div>
-                      <p className="font-bold tracking-widest text-paper/40">
+                      <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-paper/35">
                         외형
                       </p>
                       <p className="mt-1.5 text-paper/75">{c.appearance}</p>
                     </div>
                     <div>
-                      <p className="font-bold tracking-widest text-paper/40">
+                      <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-paper/35">
                         성격
                       </p>
                       <p className="mt-1.5 text-paper/75">{c.personality}</p>
                     </div>
                     <div>
-                      <p className="font-bold tracking-widest text-paper/40">
+                      <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-paper/35">
                         결핍
                       </p>
                       <p className="mt-1.5 text-paper/75">{c.flaw}</p>
                     </div>
                     <div>
-                      <p className="font-bold tracking-widest text-paper/40">
+                      <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-paper/35">
                         능력 — {c.ability}
                       </p>
                       <p className="mt-1.5 text-paper/75">{c.abilityDesc}</p>
@@ -144,7 +144,7 @@ export default function WorldPage() {
                     {c.quotes.map((q) => (
                       <span
                         key={q}
-                        className="rounded-full border border-darkline bg-ink px-3.5 py-1.5 text-xs font-bold text-paper/80"
+                        className="rounded-full border border-darkline/60 bg-ink px-3.5 py-1.5 text-xs font-medium text-paper/75"
                       >
                         “{q}”
                       </span>
@@ -176,8 +176,8 @@ export default function WorldPage() {
       {/* ── Manifesto + CTA ── */}
       <section className="border-t border-darkline">
         <div className="mx-auto max-w-4xl px-5 py-24 text-center">
-          <EcgLine className="mx-auto h-6 w-40 text-flow" animate />
-          <h2 className="font-display mt-6 text-3xl leading-snug md:text-5xl">
+          <EcgLine className="mx-auto h-5 w-32 text-paper/45" animate />
+          <h2 className="font-display mt-7 text-3xl leading-snug md:text-5xl">
             기록은 시스템의 언어다.
             <br />
             리듬은 너의 언어다.
@@ -190,7 +190,7 @@ export default function WorldPage() {
           </p>
           <Link
             href="/shop"
-            className="mt-10 inline-block rounded-2xl bg-paper px-8 py-4 text-sm font-extrabold text-ink transition hover:bg-white"
+            className="mt-10 inline-block rounded-full bg-paper px-8 py-4 text-sm font-semibold text-ink transition hover:bg-white"
           >
             크루 장비 보러 가기
           </Link>

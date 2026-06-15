@@ -4,16 +4,16 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const TABS = [
-  { href: "/world", label: "CREW" },
-  { href: "/world/story", label: "STORY & MV" },
-  { href: "/world/cafe", label: "CAFE" },
+  { href: "/world", label: "Crew" },
+  { href: "/world/story", label: "Story & MV" },
+  { href: "/world/cafe", label: "Cafe" },
 ];
 
 export function WorldNav() {
   const pathname = usePathname();
 
   return (
-    <div className="sticky top-16 z-40 border-b border-darkline bg-ink/90 backdrop-blur-md">
+    <div className="sticky top-16 z-40 border-b border-darkline/60 bg-ink/85 backdrop-blur-xl">
       <nav className="mx-auto flex max-w-7xl gap-1 px-5" aria-label="세계관 섹션">
         {TABS.map((t) => {
           const active = pathname === t.href;
@@ -21,10 +21,10 @@ export function WorldNav() {
             <Link
               key={t.href}
               href={t.href}
-              className={`border-b-2 px-4 py-3.5 font-display text-sm tracking-[0.15em] transition ${
+              className={`border-b px-4 py-3.5 text-[13px] font-medium tracking-wide transition ${
                 active
-                  ? "border-volt text-volt"
-                  : "border-transparent text-paper/60 hover:text-paper"
+                  ? "border-paper text-paper"
+                  : "border-transparent text-paper/55 hover:text-paper"
               }`}
             >
               {t.label}

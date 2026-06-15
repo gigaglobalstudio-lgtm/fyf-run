@@ -32,7 +32,7 @@ export function ProductStory({ product }: { product: Product }) {
           <h2 className="font-display mt-6 text-4xl leading-[1.05] md:text-6xl">
             {product.storyTitle}
           </h2>
-          <div className="mx-auto mt-8 h-px w-12 bg-flow" />
+          <div className="mx-auto mt-8 h-px w-12 bg-paper/25" />
           <p className="mx-auto mt-8 max-w-xl text-base leading-loose text-paper/70 md:text-lg">
             {product.storyBody}
           </p>
@@ -70,7 +70,7 @@ export function ProductStory({ product }: { product: Product }) {
                   key={f.num}
                   className="group grid grid-cols-[auto_1fr] gap-6 border-t border-ink/10 py-9 first:border-t-0 first:pt-0 md:gap-10"
                 >
-                  <p className="font-display text-5xl leading-none text-ink/10 transition group-hover:text-flow/60 md:text-6xl">
+                  <p className="font-display text-5xl leading-none text-ink/15 transition group-hover:text-ink/35 md:text-6xl">
                     {f.num}
                   </p>
                   <div>

@@ -14,7 +14,7 @@ export default async function CheckoutPage() {
   return (
     <div className="bg-paper text-ink">
       <div className="mx-auto max-w-2xl px-5 py-16">
-        <h1 className="font-display text-5xl">CHECKOUT</h1>
+        <h1 className="font-display text-5xl">Checkout</h1>
         <p className="mt-2 text-sm text-ink/60">
           {session?.user
             ? `${session.user.name ?? "러너"}님, 주문을 완료해주세요.`
@@ -24,7 +24,7 @@ export default async function CheckoutPage() {
         {!session?.user && (
           <Link
             href="/login"
-            className="mt-3 inline-block text-sm font-bold text-flow underline underline-offset-4"
+            className="mt-3 inline-block text-sm font-medium text-ink underline underline-offset-4 hover:text-ink/70"
           >
             로그인하고 결제하기 →
           </Link>

@@ -19,9 +19,9 @@ export default function StoryPage() {
 
       {/* ── MV ── */}
       <section className="mx-auto max-w-7xl px-5 py-16">
-        <EcgLine className="h-6 w-36 text-volt" animate />
-        <h1 className="font-display mt-3 text-5xl md:text-7xl">
-          BUNKER SOUND
+        <EcgLine className="h-5 w-32 text-paper/50" animate />
+        <h1 className="font-display mt-4 text-5xl md:text-7xl">
+          Bunker Sound
         </h1>
         <p className="mt-4 max-w-xl leading-relaxed text-paper/70">
           벙커에서 만든 사운드. FYF 공식 뮤직비디오 두 편 — 카티보의 밤과
@@ -47,10 +47,10 @@ export default function StoryPage() {
       {/* ── 시즌 1 스토리 ── */}
       <section className="border-t border-darkline">
         <div className="mx-auto max-w-7xl px-5 py-20">
-          <p className="font-display text-sm tracking-[0.25em] text-volt">
-            SEASON 01 — BUNKER OPENS
+          <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-paper/40">
+            Season 01 — Bunker Opens
           </p>
-          <h2 className="font-display mt-2 text-4xl md:text-5xl">
+          <h2 className="font-display mt-3 text-4xl md:text-5xl">
             내 속도는 내가 정한다
           </h2>
           <p className="mt-4 max-w-2xl leading-relaxed text-paper/70">
@@ -63,13 +63,13 @@ export default function StoryPage() {
             {SEASON1.map(([title, body], i) => (
               <div
                 key={title}
-                className="flex gap-4 rounded-2xl border border-darkline bg-coal p-5"
+                className="flex gap-4 rounded-2xl border border-darkline/60 bg-coal p-5"
               >
                 <p className="font-display text-2xl text-paper/25">
                   {String(i + 1).padStart(2, "0")}
                 </p>
                 <div>
-                  <p className="font-extrabold text-paper">{title}</p>
+                  <p className="font-semibold text-paper">{title}</p>
                   <p className="mt-1 text-sm leading-relaxed text-paper/60">
                     {body}
                   </p>
@@ -80,7 +80,7 @@ export default function StoryPage() {
 
           <p className="font-display mt-10 text-center text-xl tracking-wide text-paper/60">
             마지막 장면. FYF 카페의 간판이 켜진다 —{" "}
-            <span className="text-volt">Don&apos;t follow. Find your Flow.</span>
+            <span className="text-paper/85">Don&apos;t follow. Find your Flow.</span>
           </p>
         </div>
       </section>
@@ -88,10 +88,10 @@ export default function StoryPage() {
       {/* ── 시즌 2 신규 크루 티저 ── */}
       <section className="border-t border-darkline">
         <div className="mx-auto max-w-7xl px-5 py-20">
-          <p className="font-display text-sm tracking-[0.25em] text-volt">
-            SEASON 02 — TEASER
+          <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-paper/40">
+            Season 02 — Teaser
           </p>
-          <h2 className="font-display mt-2 text-4xl md:text-5xl">
+          <h2 className="font-display mt-3 text-4xl md:text-5xl">
             새로운 러너들이 온다
           </h2>
           <p className="mt-4 max-w-xl leading-relaxed text-paper/70">
@@ -99,7 +99,7 @@ export default function StoryPage() {
             {NEXT_CREW.map((c) => c.en).join(" · ")} — 각자의 결핍과 각자의
             리듬을 가진 새 크루가 준비 중이다.
           </p>
-          <div className="mt-8 overflow-hidden rounded-3xl border border-darkline">
+          <div className="mt-8 overflow-hidden rounded-2xl border border-darkline/60">
             <Image
               src="/crew/next-crew.jpg"
               alt={`시즌 2 신규 크루 티저 — ${NEXT_CREW.map((c) => `${c.en}(${c.desc})`).join(", ")}`}
@@ -112,7 +112,7 @@ export default function StoryPage() {
             {NEXT_CREW.map((c) => (
               <span
                 key={c.en}
-                className="rounded-full border border-darkline bg-coal px-4 py-2 text-xs font-extrabold text-paper/70"
+                className="rounded-full border border-darkline/60 bg-coal px-4 py-2 text-xs font-medium text-paper/65"
               >
                 {c.en} — {c.desc} · COMING SOON
               </span>
@@ -122,7 +122,7 @@ export default function StoryPage() {
           <div className="mt-12 text-center">
             <Link
               href="/world"
-              className="inline-block rounded-2xl border border-paper/30 px-7 py-3.5 text-sm font-extrabold text-paper transition hover:bg-white/10"
+              className="inline-block rounded-full border border-paper/30 px-7 py-3.5 text-sm font-semibold text-paper/90 transition hover:border-paper hover:text-paper"
             >
               ← 크루 프로필 보기
             </Link>

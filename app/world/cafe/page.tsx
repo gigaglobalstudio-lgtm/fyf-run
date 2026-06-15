@@ -17,9 +17,9 @@ export default function CafePage() {
       <WorldNav />
 
       <div className="mx-auto max-w-7xl px-5 py-16">
-        <EcgLine className="h-6 w-36 text-flow" animate />
-        <h1 className="font-display mt-3 text-5xl md:text-7xl">
-          BUNKER CAFE
+        <EcgLine className="h-5 w-32 text-paper/50" animate />
+        <h1 className="font-display mt-4 text-5xl md:text-7xl">
+          Bunker Cafe
         </h1>
         <p className="mt-4 max-w-xl leading-relaxed text-paper/70">
           낮의 FYF는 평범한 카페처럼 보인다. 하지만 메뉴판을 아는 사람은 안다 —
@@ -27,7 +27,7 @@ export default function CafePage() {
         </p>
 
         {/* 공식 카페 그룹 아트 */}
-        <div className="mt-10 overflow-hidden rounded-3xl border border-darkline">
+        <div className="mt-10 overflow-hidden rounded-2xl border border-darkline/60">
           <Image
             src="/crew/crew-cafe.png"
             alt="FYF 벙커 카페 앞의 크루"
@@ -49,19 +49,19 @@ export default function CafePage() {
             <div className="mt-8 space-y-7">
               {CAFE_MENU.map((cat) => (
                 <div key={cat.category}>
-                  <p className="font-display text-sm tracking-[0.2em] text-volt">
+                  <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-paper/40">
                     {cat.category}
                   </p>
-                  <ul className="mt-2 divide-y divide-darkline">
+                  <ul className="mt-2.5 divide-y divide-darkline/60">
                     {cat.items.map(([name, price]) => (
                       <li
                         key={name}
                         className="flex items-baseline justify-between gap-4 py-2.5"
                       >
-                        <span className="text-sm font-bold text-paper/85">
+                        <span className="text-sm font-medium text-paper/85">
                           {name}
                         </span>
-                        <span className="shrink-0 text-sm font-extrabold text-paper/60">
+                        <span className="shrink-0 text-sm font-semibold text-paper/55">
                           {price}원
                         </span>
                       </li>
@@ -72,9 +72,9 @@ export default function CafePage() {
             </div>
 
             {/* 캐릭터 시그니처 */}
-            <div className="mt-10 rounded-2xl border border-darkline bg-coal p-6">
-              <p className="font-display text-sm tracking-[0.2em] text-paper/40">
-                CREW SIGNATURE
+            <div className="mt-10 rounded-2xl border border-darkline/60 bg-coal p-6">
+              <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-paper/40">
+                Crew Signature
               </p>
               <ul className="mt-3 space-y-2 text-sm">
                 {CREW.map((c) => (
@@ -92,7 +92,7 @@ export default function CafePage() {
             </div>
           </div>
 
-          <div className="overflow-hidden rounded-3xl border border-darkline lg:sticky lg:top-32">
+          <div className="overflow-hidden rounded-2xl border border-darkline/60 lg:sticky lg:top-32">
             <Image
               src="/cafe/menu-board.jpg"
               alt="FYF CAFE 공식 메뉴판 — 크루 4인"
@@ -103,7 +103,7 @@ export default function CafePage() {
           </div>
         </div>
 
-        <div className="mt-16 rounded-3xl border border-darkline bg-coal p-10 text-center">
+        <div className="mt-16 rounded-2xl border border-darkline/60 bg-coal p-10 text-center">
           <p className="font-display text-2xl md:text-3xl">
             카페에서 시작해서, 러닝으로 끝난다
           </p>
@@ -112,7 +112,7 @@ export default function CafePage() {
           </p>
           <Link
             href="/shop"
-            className="mt-6 inline-block rounded-2xl bg-paper px-7 py-3.5 text-sm font-extrabold text-ink transition hover:bg-white"
+            className="mt-7 inline-block rounded-full bg-paper px-7 py-3.5 text-sm font-semibold text-ink transition hover:bg-white"
           >
             샵 보러 가기
           </Link>

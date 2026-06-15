@@ -11,16 +11,10 @@ export function Marquee({ dark = false }: { dark?: boolean }) {
     <div className="flex shrink-0 items-center">
       {ITEMS.map((t, i) => (
         <span key={i} className="flex items-center">
-          <span className="font-display whitespace-nowrap px-6 text-sm tracking-[0.18em]">
+          <span className="whitespace-nowrap px-6 text-[11px] font-medium uppercase tracking-[0.28em]">
             {t}
           </span>
-          <svg viewBox="0 0 60 16" className="h-3 w-12 opacity-60" fill="none">
-            <polyline
-              points="0,8 18,8 24,2 30,14 36,5 40,8 60,8"
-              stroke="currentColor"
-              strokeWidth="2"
-            />
-          </svg>
+          <span className="h-1 w-1 rounded-full bg-current opacity-40" />
         </span>
       ))}
     </div>
@@ -28,10 +22,10 @@ export function Marquee({ dark = false }: { dark?: boolean }) {
 
   return (
     <div
-      className={`overflow-hidden border-y py-3 ${
+      className={`overflow-hidden border-y py-3.5 ${
         dark
-          ? "border-darkline bg-ink text-paper"
-          : "border-line bg-volt text-ink"
+          ? "border-darkline/60 bg-ink text-paper/55"
+          : "border-line bg-paper text-ink/55"
       }`}
     >
       <div className="animate-marquee flex w-max">

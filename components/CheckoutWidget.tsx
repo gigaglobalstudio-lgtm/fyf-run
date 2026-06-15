@@ -66,10 +66,10 @@ export function CheckoutWidget({
   if (hydrated && items.length === 0) {
     return (
       <div className="rounded-2xl border border-line bg-white p-10 text-center">
-        <p className="font-bold text-ink">장바구니가 비어 있습니다.</p>
+        <p className="font-semibold text-ink">장바구니가 비어 있습니다.</p>
         <Link
           href="/shop"
-          className="mt-4 inline-block rounded-xl bg-ink px-5 py-3 text-sm font-bold text-paper"
+          className="mt-4 inline-block rounded-full bg-ink px-6 py-3 text-sm font-semibold text-paper transition hover:bg-smoke"
         >
           쇼핑하러 가기
         </Link>
@@ -131,7 +131,7 @@ export function CheckoutWidget({
         type="button"
         disabled={!ready || paying}
         onClick={handlePay}
-        className="w-full rounded-2xl bg-flow py-5 text-base font-extrabold tracking-wide text-white transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-40"
+        className="w-full rounded-full bg-ink py-5 text-base font-semibold tracking-wide text-paper transition hover:bg-smoke disabled:cursor-not-allowed disabled:opacity-40"
       >
         {paying
           ? "결제 진행 중..."
