@@ -34,7 +34,8 @@ export default function Home() {
           </h1>
           <p className="mt-6 max-w-md text-base font-normal text-paper/70 md:text-lg">
             따라가지 마. 네 리듬을 찾아. <br className="sm:hidden" />
-            순천의 밤에서 시작한 러닝 컬처 — FYF.
+            순천의 밤에서 시작한{" "}
+            <span className="whitespace-nowrap">러닝 컬처 — FYF.</span>
           </p>
           <div className="mt-9 flex flex-wrap gap-3">
             <Link
