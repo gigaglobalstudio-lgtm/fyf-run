@@ -4,6 +4,7 @@ import { Marquee } from "@/components/Marquee";
 import { ProductCard } from "@/components/ProductCard";
 import { MvPlayer } from "@/components/MvPlayer";
 import { EcgLine } from "@/components/EcgLogo";
+import { FlowSection } from "@/components/three/FlowSection";
 import { PRODUCTS, CREW, formatKRW, getProduct } from "@/lib/products";
 
 export default function Home() {
@@ -169,6 +170,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* ── 3D PULSE (WebGL) ─────────────────────── */}
+      <FlowSection />
 
       {/* ── RUN MAP 배너 ─────────────────────────── */}
       <section className="border-t border-darkline bg-ink">
