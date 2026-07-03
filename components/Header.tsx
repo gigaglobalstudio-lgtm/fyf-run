@@ -32,6 +32,12 @@ export async function Header() {
           >
             Course
           </Link>
+          <Link
+            href="/club"
+            className="text-[13px] font-medium tracking-wide text-paper/65 transition hover:text-paper"
+          >
+            Club
+          </Link>
         </nav>
 
         <div className="flex items-center gap-2">

@@ -7,7 +7,10 @@ import { ProductCard } from "@/components/ProductCard";
 import { ProductStory } from "@/components/ProductStory";
 import { PulseEditorial } from "@/components/PulseEditorial";
 import { StickyBuyBar } from "@/components/StickyBuyBar";
+import { Stars } from "@/components/Stars";
+import { Reviews } from "@/components/Reviews";
 import { PRODUCTS, formatKRW, getProduct } from "@/lib/products";
+import { getReviews } from "@/lib/reviews";
 
 export function generateStaticParams() {
   return PRODUCTS.map((p) => ({ slug: p.slug }));
@@ -40,6 +43,7 @@ export default async function ProductPage({
     ((product.listPrice - product.price) / product.listPrice) * 100
   );
   const others = PRODUCTS.filter((p) => p.slug !== product.slug).slice(0, 4);
+  const reviews = getReviews(slug);
 
   return (
     <div className="bg-paper text-ink">
@@ -87,6 +91,21 @@ export default async function ProductPage({
               {product.nameKo} — {product.tagline}
             </p>
 
+            {reviews && (
+              <a
+                href="#reviews"
+                className="mt-3.5 inline-flex items-center gap-2 text-ink"
+              >
+                <Stars rating={reviews.avg} size={15} />
+                <span className="text-sm font-semibold">
+                  {reviews.avg.toFixed(1)}
+                </span>
+                <span className="text-sm text-ink/45 underline underline-offset-2">
+                  후기 {reviews.count.toLocaleString("ko-KR")}
+                </span>
+              </a>
+            )}
+
             <div className="mt-8 flex items-baseline gap-3 border-t border-ink/10 pt-8">
               <span className="text-[28px] font-semibold tracking-tight">
                 {formatKRW(product.price)}
@@ -132,6 +151,9 @@ export default async function ProductPage({
       ) : (
         <ProductStory product={product} />
       )}
+
+      {/* ── 후기 ── */}
+      <Reviews slug={slug} />
 
       {/* ── 연관 상품 ── */}
       <div className="mx-auto max-w-7xl px-5 pb-28 pt-4">

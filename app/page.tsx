@@ -5,6 +5,7 @@ import { ProductCard } from "@/components/ProductCard";
 import { MvPlayer } from "@/components/MvPlayer";
 import { EcgLine } from "@/components/EcgLogo";
 import { FlowSection } from "@/components/three/FlowSection";
+import { CrewSignup } from "@/components/CrewSignup";
 import { PRODUCTS, CREW, formatKRW, getProduct } from "@/lib/products";
 
 export default function Home() {
@@ -343,6 +344,8 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      <CrewSignup />
 
       <Marquee dark />
     </>
