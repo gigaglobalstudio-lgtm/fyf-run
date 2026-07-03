@@ -23,7 +23,7 @@ export default function Home() {
           poster="/hero/hero-night-crew.jpg"
           src="/hero/hero-loop.mp4"
           aria-label="한강 야간 러닝 중인 FYF 크루 — 남녀 혼성 4인"
-          className="absolute inset-0 h-full w-full object-cover"
+          className="absolute inset-0 h-full w-full object-cover object-top"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/30 to-ink/10" />
 
