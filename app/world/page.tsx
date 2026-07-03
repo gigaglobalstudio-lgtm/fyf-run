@@ -25,7 +25,7 @@ export default function WorldPage() {
             fill
             priority
             sizes="100vw"
-            className="object-cover opacity-80"
+            className="object-cover object-top opacity-80"
           />
         </div>
         <div className="absolute inset-0 bg-gradient-to-b from-ink/20 via-ink/45 to-ink" />
