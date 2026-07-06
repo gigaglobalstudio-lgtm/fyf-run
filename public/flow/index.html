@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#0b0b0e">
+<title>FYF FLOW RUN — 남문터에서 시작하는 러닝 XR 체험</title>
+<meta property="og:title" content="FYF FLOW RUN — 남문터 러닝 캐릭터 XR 체험">
+<meta property="og:description" content="캐릭터를 고르고, 미션을 뛰고, AR로 인증하고, 나의 FLOW 카드를 받아가세요.">
+<style>
+:root{
+  --bg:#0b0b0e; --panel:#141418; --panel2:#1b1b21; --line:#2a2a33;
+  --txt:#f2f2f0; --dim:#9a9aa4; --neon:#f5f45a; --pink:#ff3d7f;
+  --cattivo:#4a8fd4; --len:#ffd33d; --roco:#b9b7b2; --block:#d45050;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{background:var(--bg);color:var(--txt);font-family:'Pretendard Variable',Pretendard,-apple-system,'Noto Sans KR',sans-serif;overflow:hidden;user-select:none;-webkit-user-select:none}
+@font-face{font-family:Pretendard;src:local('Pretendard')}
+#app{height:100dvh;display:flex;flex-direction:column;max-width:520px;margin:0 auto;position:relative}
+/* ── top bar ── */
+#topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 18px 10px;z-index:5}
+#logo{font-weight:900;font-style:italic;letter-spacing:.18em;font-size:18px}
+#logo .zap{color:var(--neon)}
+#stepdots{display:flex;gap:6px}
+#stepdots i{width:16px;height:3px;background:var(--line);display:block;transition:.3s}
+#stepdots i.on{background:var(--neon)}
+/* ── screens ── */
+.screen{position:absolute;inset:0;top:44px;display:none;flex-direction:column;padding:8px 20px 20px;overflow-y:auto;overflow-x:hidden}
+.screen.active{display:flex;animation:slideIn .45s cubic-bezier(.2,.9,.25,1) both}
+@keyframes slideIn{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+.kicker{font-size:11px;letter-spacing:.3em;color:var(--neon);font-weight:700;margin-bottom:8px}
+h1{font-size:30px;line-height:1.15;font-weight:900;font-style:italic;letter-spacing:-.01em}
+h1 .thin{color:var(--dim);font-weight:600;font-style:normal}
+.sub{color:var(--dim);font-size:13.5px;line-height:1.65;margin-top:10px}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:16px;background:var(--neon);color:#111;font-weight:800;font-size:15px;border:0;cursor:pointer;letter-spacing:.02em;clip-path:polygon(0 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%)}
+.btn:active{transform:scale(.98)}
+.btn.ghost{background:transparent;color:var(--txt);outline:1px solid var(--line);clip-path:none}
+.btn[disabled]{opacity:.35;pointer-events:none}
+.pulse-line{width:100%;height:34px;margin:6px 0}
+.pulse-line path{stroke:var(--neon);stroke-width:2;fill:none;stroke-dasharray:600;stroke-dashoffset:600;animation:dash 2.2s linear infinite}
+@keyframes dash{to{stroke-dashoffset:0}}
+/* intro */
+#s-intro{justify-content:flex-end;padding-bottom:28px}
+#introBg{position:absolute;inset:0;z-index:-1;background:url('assets/photo_crew_plaza.jpg') center/cover;filter:brightness(.42) saturate(.9)}
+#introBg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,11,14,.25),rgba(11,11,14,.97) 78%)}
+#introChar{position:absolute;right:-12px;top:6%;width:56%;max-width:250px;filter:drop-shadow(0 14px 30px rgba(0,0,0,.6));animation:bob 3s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-10px) rotate(-2deg)}}
+.checkin{background:var(--panel);border:1px solid var(--line);padding:14px 16px;display:flex;gap:12px;align-items:center;margin:16px 0}
+.qrbox{width:52px;height:52px;background:#fff;display:grid;place-items:center;flex:none}
+.qrbox svg{width:44px;height:44px}
+.checkin b{font-size:13.5px;display:block}
+.checkin span{font-size:11.5px;color:var(--dim)}
+/* select */
+.chargrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+.charcard{background:var(--panel);border:1px solid var(--line);padding:14px 12px 12px;cursor:pointer;position:relative;overflow:hidden;transition:.2s}
+.charcard:active{transform:scale(.97)}
+.charcard.sel{border-color:var(--neon);box-shadow:0 0 0 1px var(--neon), 0 10px 30px -12px rgba(245,244,90,.35)}
+.charcard img{width:74%;display:block;margin:0 auto;filter:drop-shadow(0 8px 14px rgba(0,0,0,.5))}
+.charcard .nm{font-weight:900;font-style:italic;font-size:15px;margin-top:8px}
+.charcard .rl{font-size:11px;color:var(--dim);margin-top:2px}
+.charcard .tag{position:absolute;top:10px;left:10px;font-size:10px;font-weight:800;letter-spacing:.12em;padding:3px 7px;color:#111}
+.charcard .q{font-size:11px;margin-top:7px;color:var(--neon);font-weight:600}
+/* mission generic */
+.mission-head{display:flex;align-items:center;gap:12px;margin:14px 0 6px}
+.mission-head img{width:58px;filter:drop-shadow(0 6px 10px rgba(0,0,0,.5))}
+.bigNum{font-size:64px;font-weight:900;font-style:italic;text-align:center;line-height:1;letter-spacing:-.02em}
+.bigNum small{font-size:16px;color:var(--dim);font-style:normal;font-weight:600}
+#padWrap{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0;flex:1;min-height:220px}
+.pad{background:var(--panel2);border:1px solid var(--line);display:grid;place-items:center;font-weight:900;font-size:22px;font-style:italic;cursor:pointer;position:relative;overflow:hidden}
+.pad.hint{border-color:var(--neon);color:var(--neon)}
+.pad .rip{position:absolute;width:10px;height:10px;border-radius:50%;background:rgba(245,244,90,.5);animation:rip .45s ease-out forwards}
+@keyframes rip{to{transform:scale(30);opacity:0}}
+.meter{height:8px;background:var(--panel2);border:1px solid var(--line);margin:10px 0}
+.meter i{display:block;height:100%;background:linear-gradient(90deg,var(--neon),var(--pink));width:0%;transition:width .15s}
+/* quiz */
+.quizopt{display:block;width:100%;text-align:left;background:var(--panel);border:1px solid var(--line);color:var(--txt);padding:14px 16px;margin-top:10px;font-size:14px;cursor:pointer}
+.quizopt.ok{border-color:#43d17c;background:rgba(67,209,124,.12)}
+.quizopt.no{border-color:var(--block);background:rgba(212,80,80,.12);opacity:.7}
+.qimg{width:100%;height:150px;object-fit:cover;border:1px solid var(--line);margin-top:12px}
+/* balance */
+#balanceZone{flex:1;min-height:260px;background:var(--panel2);border:1px solid var(--line);position:relative;margin:16px 0;display:grid;place-items:center;overflow:hidden}
+#bTarget{width:120px;height:120px;border:2px dashed var(--neon);border-radius:50%;position:absolute}
+#bBall{width:34px;height:34px;border-radius:50%;background:var(--pink);position:absolute;box-shadow:0 0 18px rgba(255,61,127,.65)}
+#holdBtn{touch-action:none}
+/* routine */
+.rgroup{margin-top:14px}
+.rgroup .rl{font-size:11px;letter-spacing:.2em;color:var(--dim);font-weight:700}
+.rrow{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.rchip{padding:10px 14px;background:var(--panel);border:1px solid var(--line);font-size:13px;cursor:pointer}
+.rchip.sel{background:var(--neon);color:#111;font-weight:800;border-color:var(--neon)}
+/* spots */
+.spot{display:flex;gap:14px;align-items:flex-start;position:relative;padding:0 0 26px 34px}
+.spot::before{content:'';position:absolute;left:10px;top:6px;bottom:0;width:2px;background:var(--line)}
+.spot:last-child::before{display:none}
+.spot .dot{position:absolute;left:2px;top:2px;width:18px;height:18px;border-radius:50%;border:2px solid var(--line);background:var(--bg);display:grid;place-items:center;font-size:10px}
+.spot.done .dot{border-color:var(--neon);background:var(--neon);color:#111;font-weight:900}
+.spot b{font-size:14px;display:block}
+.spot span{font-size:11.5px;color:var(--dim);display:block;margin-top:2px}
+.spot button{margin-left:auto;flex:none;background:var(--panel);border:1px solid var(--line);color:var(--neon);font-size:11px;font-weight:700;padding:8px 12px;cursor:pointer}
+.spot.done button{background:var(--neon);color:#111;border-color:var(--neon)}
+/* AR */
+#s-ar{padding:0!important;top:44px}
+#arStage{position:relative;flex:1;background:#000;overflow:hidden}
+#arVideo,#arSim{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#arSim{display:none}
+#arChar{position:absolute;width:42%;left:29%;top:38%;touch-action:none;cursor:grab;filter:drop-shadow(0 16px 24px rgba(0,0,0,.55));z-index:3}
+#arChar.walk{animation:bob 1.2s ease-in-out infinite}
+#arHud{position:absolute;top:12px;left:14px;right:14px;display:flex;justify-content:space-between;z-index:4;pointer-events:none}
+#arHud .b1{font-size:11px;font-weight:800;letter-spacing:.15em;background:rgba(11,11,14,.72);padding:6px 10px;border:1px solid var(--line)}
+#arHud .b1 em{color:var(--neon);font-style:normal}
+#arCtrl{display:flex;gap:10px;padding:14px 16px;background:var(--bg)}
+#shutter{width:66px;height:66px;border-radius:50%;border:4px solid var(--neon);background:#fff;flex:none;cursor:pointer;margin:0 auto}
+.arSide{flex:1;display:flex;gap:10px;align-items:center}
+.arSide.r{justify-content:flex-end}
+.cbtn{background:var(--panel);border:1px solid var(--line);color:var(--txt);font-size:11.5px;font-weight:700;padding:10px 12px;cursor:pointer}
+#arMsg{position:absolute;bottom:14px;left:0;right:0;text-align:center;font-size:11.5px;color:#fff;text-shadow:0 1px 4px #000;z-index:4}
+#flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:9}
+/* card */
+#cardCanvasWrap{display:grid;place-items:center;margin:14px 0}
+#cardCanvas{width:78%;max-width:300px;box-shadow:0 24px 60px -20px rgba(0,0,0,.8);animation:cardIn .8s cubic-bezier(.2,.9,.25,1) both}
+@keyframes cardIn{from{opacity:0;transform:rotateY(40deg) scale(.8)}to{opacity:1;transform:none}}
+/* reward */
+.coupon{background:var(--panel);border:1px dashed var(--neon);padding:18px;margin-top:14px;position:relative}
+.coupon b{font-size:16px}
+.coupon .code{font-family:ui-monospace,monospace;font-size:20px;letter-spacing:.25em;color:var(--neon);margin-top:8px}
+.barcode{margin-top:10px;height:44px;background:repeating-linear-gradient(90deg,#f2f2f0 0 2px,transparent 2px 5px,#f2f2f0 5px 6px,transparent 6px 11px)}
+.rewardlist{margin-top:12px;font-size:13px;color:var(--dim);line-height:2}
+.rewardlist b{color:var(--txt)}
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:50}
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:var(--neon);color:#111;font-weight:800;font-size:13px;padding:10px 18px;z-index:60;animation:slideIn .3s both}
+.foot{margin-top:auto;padding-top:16px}
+.small{font-size:10.5px;color:#5c5c66;margin-top:10px;text-align:center;line-height:1.6}
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="topbar">
+    <div id="logo">FYF<span class="zap">⚡</span>FLOW RUN</div>
+    <div id="stepdots"><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  </div>
+
+  <!-- 1. INTRO / 체크인 -->
+  <section class="screen active" id="s-intro">
+    <div id="introBg"></div>
+    <img id="introChar" src="assets/char_cattivo_run.png" alt="">
+    <div class="kicker">BUNKER 0 · 순천 남문터광장</div>
+    <h1>따라가지 마.<br>네 <span style="color:var(--neon)">FLOW</span>를 찾아.</h1>
+    <p class="sub">남문터광장 지하, 러닝카페 FYF에서 출발합니다.<br>캐릭터를 고르고 · 미션을 뛰고 · AR로 인증하고 ·<br>나만의 FLOW 카드를 받아가세요.</p>
+    <div class="checkin">
+      <div class="qrbox"><svg viewBox="0 0 33 33"><path fill="#111" d="M0 0h13v13H0zM20 0h13v13H20zM0 20h13v13H0zM4 4h5v5H4zM24 4h5v5H24zM4 24h5v5H4zM16 0h2v4h-2zM16 6h2v4h-2zM20 16h4v2h-4zM26 16h7v2h-7zM16 16h2v2h-2zM16 20h2v6h-2zM20 20h2v2h-2zM24 20h2v4h-2zM28 22h5v2h-5zM20 26h2v7h-2zM24 28h4v2h-4zM30 26h3v2h-3zM24 31h9v2h-9zM16 28h2v5h-2z"/></svg></div>
+      <div><b>FYF 카페 QR 체크인</b><span>Bunker 0 · 남문터광장점 · 오늘 <span id="todayStr"></span></span></div>
+    </div>
+    <button class="btn" onclick="checkin()">체크인하고 시작하기</button>
+    <p class="small">2026 전남 지역특화(수익창출형 실감콘텐츠) 제안 시연용 데모 · GIGA GLOBAL STUDIO</p>
+  </section>
+
+  <!-- 2. SELECT -->
+  <section class="screen" id="s-select">
+    <div class="kicker">STEP 1 · SELECT YOUR FLOW</div>
+    <h1>오늘, 누구랑<br>뛸래?</h1>
+    <div class="chargrid" id="charGrid"></div>
+    <div class="foot"><button class="btn" id="selNext" disabled onclick="goMission()">이 캐릭터로 달리기</button></div>
+  </section>
+
+  <!-- 3. MISSION -->
+  <section class="screen" id="s-mission"></section>
+
+  <!-- 4. SPOTS -->
+  <section class="screen" id="s-spots">
+    <div class="kicker">STEP 3 · 원도심 FLOW 코스</div>
+    <h1>남문터에서 출발,<br>원도심을 잇는다</h1>
+    <p class="sub">실제 운영 시 각 지점의 QR 스팟을 스캔해 인증합니다. 데모에서는 버튼으로 인증해 보세요.</p>
+    <div style="margin-top:18px" id="spotList"></div>
+    <div class="foot"><button class="btn" id="spotNext" disabled onclick="go('s-ar');startAR()">AR 인증 미션으로 →</button></div>
+  </section>
+
+  <!-- 5. AR -->
+  <section class="screen" id="s-ar">
+    <div id="arStage">
+      <video id="arVideo" autoplay playsinline muted></video>
+      <img id="arSim" src="assets/photo_crew_plaza.jpg" alt="">
+      <img id="arChar" src="" alt="">
+      <div id="arHud">
+        <div class="b1">AR SPOT · <em id="arSpotName">남문터광장</em></div>
+        <div class="b1"><em id="arCharName"></em> 등장</div>
+      </div>
+      <div id="arMsg">캐릭터를 드래그 · 두 손가락으로 크기 조절</div>
+      <div id="flash"></div>
+    </div>
+    <div id="arCtrl">
+      <div class="arSide"><button class="cbtn" onclick="flipCam()">카메라 전환</button></div>
+      <div id="shutter" onclick="capture()"></div>
+      <div class="arSide r"><button class="cbtn" onclick="toggleSim(true)">시뮬레이션</button></div>
+    </div>
+  </section>
+
+  <!-- 6. CARD -->
+  <section class="screen" id="s-card">
+    <div class="kicker">STEP 5 · YOUR FLOW CARD</div>
+    <h1 id="cardTitle">오늘의 FLOW,<br>기록 완료.</h1>
+    <div id="cardCanvasWrap"><canvas id="cardCanvas" width="1080" height="1350"></canvas></div>
+    <button class="btn" onclick="saveCard()">카드 저장하기</button>
+    <button class="btn ghost" style="margin-top:10px" onclick="shareCard()">SNS 공유</button>
+    <div class="foot"><button class="btn ghost" onclick="go('s-reward');renderReward()">리워드 받기 →</button></div>
+  </section>
+
+  <!-- 7. REWARD -->
+  <section class="screen" id="s-reward">
+    <div class="kicker">FINISH · BUNKER 0 복귀</div>
+    <h1>완주 리워드가<br>기다립니다</h1>
+    <div class="coupon">
+      <b>FYF 카페 음료 1,000원 할인</b>
+      <div style="font-size:11.5px;color:var(--dim);margin-top:4px">남문터광장점 · 카운터에서 이 화면을 보여주세요 · 당일 1회</div>
+      <div class="code" id="couponCode">FLOW-0000</div>
+      <div class="barcode"></div>
+    </div>
+    <div class="rewardlist">
+      ✓ <b>캐릭터 스티커 1종</b> — 오늘의 캐릭터로 증정<br>
+      ✓ <b>러닝 굿즈 10% 쿠폰</b> — FLOW 카드 제시 시<br>
+      ✓ <b>FYF 러닝크루 신청</b> — 매주 남문터광장 출발
+    </div>
+    <div class="foot">
+      <button class="btn" onclick="location.reload()">처음부터 다시 체험</button>
+      <p class="small">FYF FLOW RUN · 남문터광장 → 원도심 → 동천 → 오천그린광장<br>기가글로벌스튜디오 × FYF 러닝카페 · 순천</p>
+    </div>
+  </section>
+</div>
+<canvas id="confetti"></canvas>
+<script>
+/* ───────── data ───────── */
+const CHARS={
+ cattivo:{nm:'CATTIVO',ko:'카티보',role:'에너지형 러너 · The Spark',q:'“야, 그냥 뛰어.”',c:'#4a8fd4',img:'assets/char_cattivo.png',run:'assets/char_cattivo_run.png',
+   type:'폭발형 스파크 러너',desc:'빠르게 치고 나가는 사람. 시작이 곧 재능이다.',mission:'10초 에너지 스텝 챌린지'},
+ len:{nm:'LEN',ko:'렌',role:'코스 분석 전략가 · The Navigator',q:'“왼쪽. 3초 뒤.”',c:'#ffd33d',img:'assets/char_len.png',run:'assets/char_len.png',
+   type:'분석형 내비게이터',desc:'길을 읽는 사람. 코스가 보이면 흐름이 보인다.',mission:'전남 러닝코스 퀴즈'},
+ roco:{nm:'ROCO',ko:'로코',role:'지구력 탱커 · The Finisher',q:'“안 멈추면 돼.”',c:'#b9b7b2',img:'assets/char_roco.png',run:'assets/char_roco.png',
+   type:'완주형 피니셔',desc:'빠르진 않지만 끝까지 가는 사람. 그게 제일 세다.',mission:'밸런스 홀드 챌린지'},
+ block:{nm:'BLOCK',ko:'블록',role:'전략가 · The Shield',q:'“내 속도는 내가 정해.”',c:'#d45050',img:'assets/char_block.png',run:'assets/char_block.png',
+   type:'설계형 스트래티지스트',desc:'기록과 루틴으로 자신을 지키는 사람.',mission:'나만의 러닝 루틴 설계'}
+};
+const SPOTS=[
+ {nm:'남문터광장 · FYF 카페',d:'Bunker 0 — 출발 게이트'},
+ {nm:'중앙로 · 문화의거리',d:'원도심 상권 미션 스팟'},
+ {nm:'동천 러닝길',d:'물길 따라 페이스 구간'},
+ {nm:'오천그린광장',d:'4K 반환점 · 크루 집결지'},
+ {nm:'남문터광장 복귀',d:'FINISH — 리워드 수령'}
+];
+const QUIZ=[
+ {q:'순천 러닝크루의 대표 4K 코스, FYF RUN MAP 01의 출발지는?',img:'assets/course_ochun.jpg',a:['오천그린광장','광안리 수변','여의도 한강공원'],ok:0},
+ {q:'남문터광장에서 동천을 따라 남쪽으로 달리면 닿는 순천의 대표 정원은?',img:'assets/course_garden.jpg',a:['남산 순환로','순천만국가정원','경포호'],ok:1},
+ {q:'FYF FLOW RUN의 출발 거점 “Bunker 0”가 있는 곳은?',img:'assets/photo_storefront.jpg',a:['순천역 광장','조례호수공원','남문터광장 FYF 카페'],ok:2}
+];
+let S={char:null,score:0,scoreLabel:'',spots:new Set(),photo:null,coupon:'FLOW-'+String(Math.floor(1000+Math.random()*9000))};
+
+/* ───────── nav ───────── */
+const ORDER=['s-intro','s-select','s-mission','s-spots','s-ar','s-card','s-reward'];
+function go(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('#stepdots i').forEach((d,i)=>d.classList.toggle('on',i<=ORDER.indexOf(id)));
+  if(id!=='s-ar') stopCam();
+}
+document.getElementById('todayStr').textContent=new Date().toLocaleDateString('ko-KR',{month:'long',day:'numeric',weekday:'short'});
+function toast(t){const e=document.createElement('div');e.className='toast';e.textContent=t;document.body.appendChild(e);setTimeout(()=>e.remove(),1800)}
+function checkin(){toast('체크인 완료 — Bunker 0');setTimeout(()=>go('s-select'),400)}
+
+/* ───────── select ───────── */
+const grid=document.getElementById('charGrid');
+Object.entries(CHARS).forEach(([k,c])=>{
+  const d=document.createElement('div');d.className='charcard';d.dataset.k=k;
+  d.innerHTML=`<span class="tag" style="background:${c.c}">${c.nm}</span><img src="${c.img}" loading="lazy"><div class="nm">${c.ko}</div><div class="rl">${c.role}</div><div class="q">${c.q}</div>`;
+  d.onclick=()=>{document.querySelectorAll('.charcard').forEach(x=>x.classList.remove('sel'));d.classList.add('sel');S.char=k;document.getElementById('selNext').disabled=false};
+  grid.appendChild(d);
+});
+function goMission(){buildMission();go('s-mission')}
+
+/* ───────── missions ───────── */
+const M=document.getElementById('s-mission');
+function mHead(){const c=CHARS[S.char];return `<div class="kicker">STEP 2 · ${c.nm} MISSION</div><h1>${c.mission}</h1>
+ <div class="mission-head"><img src="${c.img}"><div style="font-size:12.5px;color:var(--dim);line-height:1.55">${c.ko}: ${c.q}<br>미션을 완료하면 FLOW 점수가 기록됩니다.</div></div>`}
+function finishMission(score,label){S.score=score;S.scoreLabel=label;confetti(60);toast('미션 완료! FLOW +'+score);setTimeout(()=>{renderSpots();go('s-spots')},900)}
+
+function buildMission(){
+ const k=S.char;
+ if(k==='cattivo'){ /* step challenge */
+  M.innerHTML=mHead()+`<div class="bigNum" id="stepN">0<small> STEPS</small></div>
+   <div class="meter"><i id="stepBar"></i></div>
+   <div class="bigNum" style="font-size:22px" id="stepT">10.0<small>s</small></div>
+   <div id="padWrap"><div class="pad hint" id="padL">L</div><div class="pad" id="padR">R</div></div>
+   <button class="btn" id="stepGo">스타트!</button>`;
+  let n=0,t=10,run=false,next='L',timer;
+  const L=document.getElementById('padL'),R=document.getElementById('padR');
+  function tap(side,el,ev){if(!run)return;if(side!==next)return;
+    n++;next=side==='L'?'R':'L';L.classList.toggle('hint',next==='L');R.classList.toggle('hint',next==='R');
+    document.getElementById('stepN').innerHTML=n+'<small> STEPS</small>';
+    document.getElementById('stepBar').style.width=Math.min(100,n*2)+'%';
+    const r=document.createElement('span');r.className='rip';r.style.left=(ev.offsetX||60)+'px';r.style.top=(ev.offsetY||60)+'px';el.appendChild(r);setTimeout(()=>r.remove(),500)}
+  L.onpointerdown=e=>tap('L',L,e);R.onpointerdown=e=>tap('R',R,e);
+  document.getElementById('stepGo').onclick=function(){if(run)return;run=true;this.textContent='뛰는 중!';
+   timer=setInterval(()=>{t-=.1;document.getElementById('stepT').innerHTML=Math.max(0,t).toFixed(1)+'<small>s</small>';
+    if(t<=0){clearInterval(timer);run=false;finishMission(Math.min(100,Math.round(n*1.8)),n+' 스텝')}},100)}
+ }
+ if(k==='len'){ /* quiz */
+  let i=0,ok=0;
+  function q(){const Q=QUIZ[i];
+   M.innerHTML=mHead()+`<div style="font-size:12px;color:var(--dim);margin-top:4px">Q${i+1} / ${QUIZ.length}</div>
+    <p style="font-size:15.5px;font-weight:700;margin-top:8px;line-height:1.5">${Q.q}</p><img class="qimg" src="${Q.img}">`+
+    Q.a.map((a,j)=>`<button class="quizopt" data-j="${j}">${a}</button>`).join('');
+   M.querySelectorAll('.quizopt').forEach(b=>b.onclick=()=>{
+    const j=+b.dataset.j;b.classList.add(j===Q.ok?'ok':'no');if(j===Q.ok)ok++;
+    M.querySelectorAll('.quizopt').forEach(x=>x.style.pointerEvents='none');
+    setTimeout(()=>{i++;i<QUIZ.length?q():finishMission(Math.round(ok/QUIZ.length*100),ok+'/'+QUIZ.length+' 정답')},700)})}
+  q();
+ }
+ if(k==='roco'){ /* balance hold */
+  M.innerHTML=mHead()+`<p class="sub">공을 원 안에 <b style="color:var(--txt)">15초</b> 동안 붙잡아 두세요. 휴대폰을 기울이거나(모바일), 마우스를 움직여(PC) 균형을 잡습니다.</p>
+   <div id="balanceZone"><div id="bTarget"></div><div id="bBall"></div></div>
+   <div class="meter"><i id="balBar"></i></div><button class="btn" id="balGo">밸런스 스타트</button>`;
+  const zone=document.getElementById('balanceZone'),ball=document.getElementById('bBall'),tgt=document.getElementById('bTarget');
+  let bx=0,by=0,vx=0,vy=0,gx=0,gy=0,inT=0,run=false,raf;
+  function loop(){const r=zone.getBoundingClientRect();
+   vx+=gx*.4+(Math.random()-.5)*.7;vy+=gy*.4+(Math.random()-.5)*.7;vx*=.92;vy*=.92;bx+=vx;by+=vy;
+   bx=Math.max(-r.width/2+20,Math.min(r.width/2-20,bx));by=Math.max(-r.height/2+20,Math.min(r.height/2-20,by));
+   ball.style.transform=`translate(${bx}px,${by}px)`;
+   const inside=Math.hypot(bx,by)<52;tgt.style.borderColor=inside?'#43d17c':'var(--neon)';
+   if(inside)inT+=1/60;document.getElementById('balBar').style.width=Math.min(100,inT/15*100)+'%';
+   if(inT>=15){run=false;cancelAnimationFrame(raf);window.removeEventListener('deviceorientation',tilt);finishMission(100,'15초 완주');return}
+   if(run)raf=requestAnimationFrame(loop)}
+  function tilt(e){gx=(e.gamma||0)/22;gy=(e.beta-40||0)/22}
+  zone.addEventListener('pointermove',e=>{const r=zone.getBoundingClientRect();gx=((e.clientX-r.left)/r.width-.5)*-2.4;gy=((e.clientY-r.top)/r.height-.5)*-2.4});
+  document.getElementById('balGo').onclick=async function(){if(run)return;
+   if(typeof DeviceOrientationEvent!=='undefined'&&DeviceOrientationEvent.requestPermission){try{await DeviceOrientationEvent.requestPermission()}catch(e){}}
+   window.addEventListener('deviceorientation',tilt);run=true;inT=0;this.textContent='버텨…!';loop()}
+ }
+ if(k==='block'){ /* routine builder */
+  const G=[{l:'WHEN · 언제',o:['새벽 6시','퇴근 후','한밤의 벙커']},{l:'WHERE · 어디서',o:['남문터→동천','오천그린광장 4K','국가정원 순환']},{l:'HOW · 리듬',o:['천천히 오래','인터벌 폭발','크루와 함께']}];
+  let sel=[null,null,null];
+  M.innerHTML=mHead()+G.map((g,i)=>`<div class="rgroup"><div class="rl">${g.l}</div><div class="rrow">${g.o.map((o,j)=>`<span class="rchip" data-i="${i}" data-j="${j}">${o}</span>`).join('')}</div></div>`).join('')+
+   `<div class="foot"><button class="btn" id="rGo" disabled>루틴 완성</button></div>`;
+  M.querySelectorAll('.rchip').forEach(c=>c.onclick=()=>{const i=+c.dataset.i;
+   M.querySelectorAll(`.rchip[data-i="${i}"]`).forEach(x=>x.classList.remove('sel'));c.classList.add('sel');sel[i]=c.textContent;
+   document.getElementById('rGo').disabled=sel.some(x=>!x)});
+  document.getElementById('rGo').onclick=()=>{S.routine=sel.join(' · ');finishMission(100,'루틴 설계 완료')};
+ }
+}
+
+/* ───────── spots ───────── */
+function renderSpots(){const el=document.getElementById('spotList');el.innerHTML='';
+ SPOTS.forEach((s,i)=>{const d=document.createElement('div');d.className='spot'+(S.spots.has(i)?' done':'');
+  d.innerHTML=`<div class="dot">${S.spots.has(i)?'✓':i+1}</div><div style="flex:1"><b>${s.nm}</b><span>${s.d}</span></div><button>${S.spots.has(i)?'인증됨':'QR 인증'}</button>`;
+  d.querySelector('button').onclick=()=>{S.spots.add(i);renderSpots();if(S.spots.size>=3)document.getElementById('spotNext').disabled=false;toast(s.nm+' 인증!')};
+  el.appendChild(d)})}
+
+/* ───────── AR ───────── */
+let stream=null,facing='environment',simMode=false;
+const V=document.getElementById('arVideo');
+async function startAR(){
+ const c=CHARS[S.char];document.getElementById('arChar').src=c.run;document.getElementById('arChar').classList.add('walk');
+ document.getElementById('arCharName').textContent=c.ko+' · '+c.nm;
+ try{
+  stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:facing,width:{ideal:1280}},audio:false});
+  V.srcObject=stream;simMode=false;toggleSim(false,true);
+ }catch(e){toggleSim(true);document.getElementById('arMsg').textContent='카메라를 사용할 수 없어 시뮬레이션 모드로 전환했어요'}
+}
+function stopCam(){if(stream){stream.getTracks().forEach(t=>t.stop());stream=null}}
+function flipCam(){facing=facing==='environment'?'user':'environment';stopCam();startAR()}
+function toggleSim(on,silent){simMode=on;document.getElementById('arSim').style.display=on?'block':'none';V.style.display=on?'none':'block';
+ if(on){stopCam();if(!silent)toast('시뮬레이션 모드 — 남문터광장')}else if(!stream&&!silent){startAR()}}
+/* drag & pinch */
+(function(){const ch=document.getElementById('arChar');let pts=new Map(),start={},sw=0,baseW=42;
+ ch.addEventListener('pointerdown',e=>{ch.setPointerCapture(e.pointerId);pts.set(e.pointerId,{x:e.clientX,y:e.clientY});
+  if(pts.size===1)start={l:parseFloat(ch.style.left||'29'),t:parseFloat(ch.style.top||'38'),x:e.clientX,y:e.clientY};
+  if(pts.size===2){const a=[...pts.values()];sw=Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y);baseW=parseFloat(ch.style.width||'42')}});
+ ch.addEventListener('pointermove',e=>{if(!pts.has(e.pointerId))return;pts.set(e.pointerId,{x:e.clientX,y:e.clientY});
+  const st=document.getElementById('arStage').getBoundingClientRect();
+  if(pts.size===1){ch.style.left=start.l+(e.clientX-start.x)/st.width*100+'%';ch.style.top=start.t+(e.clientY-start.y)/st.height*100+'%'}
+  else{const a=[...pts.values()];const d=Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y);ch.style.width=Math.max(18,Math.min(90,baseW*d/sw))+'%'}});
+ const up=e=>pts.delete(e.pointerId);ch.addEventListener('pointerup',up);ch.addEventListener('pointercancel',up)})();
+
+function capture(){
+ const st=document.getElementById('arStage'),r=st.getBoundingClientRect();
+ const cv=document.createElement('canvas');cv.width=1080;cv.height=Math.round(1080*r.height/r.width);const x=cv.getContext('2d');
+ const k=cv.width/r.width;
+ /* bg */
+ if(!simMode&&V.videoWidth){const vr=V.videoWidth/V.videoHeight,sr=cv.width/cv.height;let sw,sh,sx,sy;
+  if(vr>sr){sh=V.videoHeight;sw=sh*sr;sx=(V.videoWidth-sw)/2;sy=0}else{sw=V.videoWidth;sh=sw/sr;sx=0;sy=(V.videoHeight-sh)/2}
+  if(facing==='user'){x.save();x.scale(-1,1);x.drawImage(V,sx,sy,sw,sh,-cv.width,0,cv.width,cv.height);x.restore()}
+  else x.drawImage(V,sx,sy,sw,sh,0,0,cv.width,cv.height)}
+ else{const im=document.getElementById('arSim');const vr=im.naturalWidth/im.naturalHeight,sr=cv.width/cv.height;let sw,sh,sx,sy;
+  if(vr>sr){sh=im.naturalHeight;sw=sh*sr;sx=(im.naturalWidth-sw)/2;sy=0}else{sw=im.naturalWidth;sh=sw/sr;sx=0;sy=(im.naturalHeight-sh)/2}
+  x.drawImage(im,sx,sy,sw,sh,0,0,cv.width,cv.height)}
+ /* char */
+ const ch=document.getElementById('arChar'),cr=ch.getBoundingClientRect();
+ x.drawImage(ch,(cr.left-r.left)*k,(cr.top-r.top)*k,cr.width*k,cr.height*k);
+ /* frame */
+ x.fillStyle='rgba(11,11,14,.78)';x.fillRect(0,cv.height-110,cv.width,110);
+ x.fillStyle='#f5f45a';x.font='italic 900 44px sans-serif';x.fillText('FYF⚡FLOW RUN',36,cv.height-42);
+ x.fillStyle='#fff';x.font='600 26px sans-serif';x.textAlign='right';
+ x.fillText('남문터광장 · '+CHARS[S.char].ko+' · '+new Date().toLocaleDateString('ko-KR'),cv.width-36,cv.height-42);x.textAlign='left';
+ pulse(x,36,cv.height-24,cv.width-72,'#f5f45a',3);
+ S.photo=cv;
+ const f=document.getElementById('flash');f.style.opacity=.9;setTimeout(()=>f.style.opacity=0,120);
+ setTimeout(()=>{drawCard();go('s-card')},450);
+}
+
+/* ───────── FLOW CARD ───────── */
+function pulse(x,px,py,w,color,lw){x.strokeStyle=color;x.lineWidth=lw;x.beginPath();
+ const seg=[[0,0],[.32,0],[.37,-18],[.42,26],[.47,-8],[.5,0],[.62,0],[.66,-12],[.7,14],[.74,0],[1,0]];
+ seg.forEach(([t,dy],i)=>{const X=px+t*w,Y=py+dy;i?x.lineTo(X,Y):x.moveTo(X,Y)});x.stroke()}
+function roundName(){return{cattivo:'SPARK',len:'NAVIGATOR',roco:'FINISHER',block:'STRATEGIST'}[S.char]}
+function drawCard(){
+ const c=CHARS[S.char],cv=document.getElementById('cardCanvas'),x=cv.getContext('2d');
+ x.fillStyle='#0b0b0e';x.fillRect(0,0,1080,1350);
+ /* diagonal accent */
+ x.fillStyle=c.c;x.globalAlpha=.14;x.beginPath();x.moveTo(0,1350);x.lineTo(1080,700);x.lineTo(1080,1350);x.fill();x.globalAlpha=1;
+ x.strokeStyle='#2a2a33';x.lineWidth=2;x.strokeRect(30,30,1020,1290);
+ x.fillStyle='#f5f45a';x.font='italic 900 54px sans-serif';x.fillText('FYF⚡FLOW RUN',70,130);
+ x.fillStyle='#9a9aa4';x.font='700 30px sans-serif';x.textAlign='right';x.fillText('BUNKER 0 · 남문터광장',1010,130);x.textAlign='left';
+ pulse(x,70,180,940,'#2a2a33',3);
+ /* photo or char */
+ if(S.photo){const p=S.photo,ar=p.width/p.height,W=940,H=560;let sw,sh,sx,sy;const tr=W/H;
+  if(ar>tr){sh=p.height;sw=sh*tr;sx=(p.width-sw)/2;sy=0}else{sw=p.width;sh=sw/tr;sx=0;sy=(p.height-sh)/2}
+  x.drawImage(p,sx,sy,sw,sh,70,220,W,H);x.strokeStyle=c.c;x.lineWidth=4;x.strokeRect(70,220,W,H)}
+ x.fillStyle='#9a9aa4';x.font='700 28px sans-serif';x.fillText('YOUR FLOW TYPE',70,880);
+ x.fillStyle='#f2f2f0';x.font='italic 900 92px sans-serif';x.fillText(c.ko+' · '+roundName(),70,975);
+ x.fillStyle=c.c;x.font='800 40px sans-serif';x.fillText(c.type,70,1040);
+ x.fillStyle='#9a9aa4';x.font='500 32px sans-serif';x.fillText(c.desc,70,1100);
+ /* stats */
+ x.fillStyle='#141418';x.fillRect(70,1140,940,110);x.strokeStyle='#2a2a33';x.strokeRect(70,1140,940,110);
+ x.fillStyle='#f5f45a';x.font='900 44px sans-serif';x.fillText('FLOW '+S.score,100,1210);
+ x.fillStyle='#f2f2f0';x.font='600 30px sans-serif';x.fillText(S.scoreLabel+'  ·  스팟 '+S.spots.size+'/5  ·  '+new Date().toLocaleDateString('ko-KR'),330,1208);
+ x.fillStyle='#5c5c66';x.font='600 24px sans-serif';x.fillText('GIGA GLOBAL STUDIO × FYF RUNNING CAFE · SUNCHEON',70,1298);
+ const im=new Image();im.onload=()=>{const h=470,w=h*im.width/im.height;x.drawImage(im,1010-w,830-h+390,w,h)};im.src=c.run;
+ document.getElementById('cardTitle').innerHTML=`당신의 FLOW는<br><span style="color:${c.c}">${c.ko} 타입</span>입니다`;
+}
+function saveCard(){const a=document.createElement('a');a.download='FYF_FLOW_CARD.png';a.href=document.getElementById('cardCanvas').toDataURL();a.click();toast('카드 저장 완료')}
+async function shareCard(){const cv=document.getElementById('cardCanvas');
+ try{const blob=await new Promise(r=>cv.toBlob(r));const f=new File([blob],'fyf_flow.png',{type:'image/png'});
+  if(navigator.canShare&&navigator.canShare({files:[f]}))await navigator.share({files:[f],title:'FYF FLOW RUN',text:'남문터에서 나의 FLOW를 찾았다 ⚡ #FYF #순천러닝'});
+  else saveCard()}catch(e){}}
+function renderReward(){document.getElementById('couponCode').textContent=S.coupon;confetti(120)}
+
+/* ───────── confetti ───────── */
+function confetti(n){const cv=document.getElementById('confetti'),x=cv.getContext('2d');cv.width=innerWidth;cv.height=innerHeight;
+ const P=[...Array(n)].map(()=>({x:Math.random()*cv.width,y:-20-Math.random()*200,v:2+Math.random()*4,r:Math.random()*6+3,c:['#f5f45a','#ff3d7f','#4a8fd4','#43d17c'][Math.random()*4|0],a:Math.random()*6}));
+ let t=0;(function f(){x.clearRect(0,0,cv.width,cv.height);t++;
+  P.forEach(p=>{p.y+=p.v;p.x+=Math.sin((t+p.a)/10)*1.5;x.fillStyle=p.c;x.fillRect(p.x,p.y,p.r,p.r*1.6)});
+  if(t<160)requestAnimationFrame(f);else x.clearRect(0,0,cv.width,cv.height)})()}
+</script>
+</body>
+</html>
