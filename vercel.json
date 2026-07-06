@@ -1,0 +1,6 @@
+{
+  "redirects": [
+    { "source": "/flow", "destination": "/flow/index.html", "permanent": false },
+    { "source": "/flow/deck", "destination": "/flow/deck.html", "permanent": false }
+  ]
+}
