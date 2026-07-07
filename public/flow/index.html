@@ -233,11 +233,11 @@ const CHARS={
  cattivo:{nm:'CATTIVO',ko:'카티보',role:'에너지형 러너 · The Spark',q:'“야, 그냥 뛰어.”',c:'#4a8fd4',img:'assets/char_cattivo.png',run:'assets/char_cattivo_run.png',
    type:'폭발형 스파크 러너',desc:'빠르게 치고 나가는 사람. 시작이 곧 재능이다.',mission:'10초 에너지 스텝 챌린지'},
  len:{nm:'LEN',ko:'렌',role:'코스 분석 전략가 · The Navigator',q:'“왼쪽. 3초 뒤.”',c:'#ffd33d',img:'assets/char_len.png',run:'assets/char_len.png',
-   type:'분석형 내비게이터',desc:'길을 읽는 사람. 코스가 보이면 흐름이 보인다.',mission:'전남 러닝코스 퀴즈'},
+   type:'분석형 내비게이터',desc:'길을 읽는 사람. 코스가 보이면 흐름이 보인다.',mission:'코스 리딩 스와이프 런'},
  roco:{nm:'ROCO',ko:'로코',role:'지구력 탱커 · The Finisher',q:'“안 멈추면 돼.”',c:'#b9b7b2',img:'assets/char_roco.png',run:'assets/char_roco.png',
-   type:'완주형 피니셔',desc:'빠르진 않지만 끝까지 가는 사람. 그게 제일 세다.',mission:'밸런스 홀드 챌린지'},
+   type:'완주형 피니셔',desc:'빠르진 않지만 끝까지 가는 사람. 그게 제일 세다.',mission:'케이던스 유지 런'},
  block:{nm:'BLOCK',ko:'블록',role:'전략가 · The Shield',q:'“내 속도는 내가 정해.”',c:'#d45050',img:'assets/char_block.png',run:'assets/char_block.png',
-   type:'설계형 스트래티지스트',desc:'기록과 루틴으로 자신을 지키는 사람.',mission:'나만의 러닝 루틴 설계'}
+   type:'설계형 스트래티지스트',desc:'기록과 루틴으로 자신을 지키는 사람.',mission:'시그널 인터벌 런'}
 };
 const SPOTS=[
  {nm:'남문터광장 · FYF 카페',d:'Bunker 0 — 출발 게이트'},
@@ -245,11 +245,6 @@ const SPOTS=[
  {nm:'동천 러닝길',d:'물길 따라 페이스 구간'},
  {nm:'오천그린광장',d:'4K 반환점 · 크루 집결지'},
  {nm:'남문터광장 복귀',d:'FINISH — 리워드 수령'}
-];
-const QUIZ=[
- {q:'순천 러닝크루의 대표 4K 코스, FYF RUN MAP 01의 출발지는?',img:'assets/course_ochun.jpg',a:['오천그린광장','광안리 수변','여의도 한강공원'],ok:0},
- {q:'남문터광장에서 동천을 따라 남쪽으로 달리면 닿는 순천의 대표 정원은?',img:'assets/course_garden.jpg',a:['남산 순환로','순천만국가정원','경포호'],ok:1},
- {q:'FYF FLOW RUN의 출발 거점 “Bunker 0”가 있는 곳은?',img:'assets/photo_storefront.jpg',a:['순천역 광장','조례호수공원','남문터광장 FYF 카페'],ok:2}
 ];
 let S={char:null,score:0,scoreLabel:'',spots:new Set(),photo:null,coupon:'FLOW-'+String(Math.floor(1000+Math.random()*9000))};
 
@@ -301,47 +296,94 @@ function buildMission(){
    timer=setInterval(()=>{t-=.1;document.getElementById('stepT').innerHTML=Math.max(0,t).toFixed(1)+'<small>s</small>';
     if(t<=0){clearInterval(timer);run=false;finishMission(Math.min(100,Math.round(n*1.8)),n+' 스텝')}},100)}
  }
- if(k==='len'){ /* quiz */
-  let i=0,ok=0;
-  function q(){const Q=QUIZ[i];
-   M.innerHTML=mHead()+`<div style="font-size:12px;color:var(--dim);margin-top:4px">Q${i+1} / ${QUIZ.length}</div>
-    <p style="font-size:15.5px;font-weight:700;margin-top:8px;line-height:1.5">${Q.q}</p><img class="qimg" src="${Q.img}">`+
-    Q.a.map((a,j)=>`<button class="quizopt" data-j="${j}">${a}</button>`).join('');
-   M.querySelectorAll('.quizopt').forEach(b=>b.onclick=()=>{
-    const j=+b.dataset.j;b.classList.add(j===Q.ok?'ok':'no');if(j===Q.ok)ok++;
-    M.querySelectorAll('.quizopt').forEach(x=>x.style.pointerEvents='none');
-    setTimeout(()=>{i++;i<QUIZ.length?q():finishMission(Math.round(ok/QUIZ.length*100),ok+'/'+QUIZ.length+' 정답')},700)})}
-  q();
+ if(k==='len'){ /* swipe course run */
+  M.innerHTML=mHead()+`<div style="display:flex;justify-content:space-between;align-items:baseline">
+    <div class="bigNum" style="font-size:44px" id="lenN">0<small> 코너</small></div>
+    <div class="bigNum" style="font-size:26px" id="lenT">20.0<small>s</small></div></div>
+   <div class="meter"><i id="lenBar"></i></div>
+   <div id="swipeZone" style="flex:1;min-height:250px;background:var(--panel2);border:1px solid var(--line);display:grid;place-items:center;position:relative;margin:14px 0;touch-action:none;overflow:hidden">
+     <div id="swipeArrow" style="font-size:56px;font-weight:900;font-style:italic;color:var(--neon);transition:transform .1s">READY</div>
+     <div style="position:absolute;bottom:12px;left:0;right:0;text-align:center;font-size:11.5px;color:var(--dim)">렌의 콜을 따라 스와이프로 코스를 꺾어! (PC는 방향키)</div>
+   </div>
+   <button class="btn" id="lenGo">코스 스타트!</button>`;
+  const DIRS=[['←','왼쪽!',-1,0],['→','오른쪽!',1,0],['↑','직진 질주!',0,-1]];
+  const arrow=document.getElementById('swipeArrow'),zone=document.getElementById('swipeZone');
+  let cur=null,n=0,t=20,run=false,sx,sy,timer;
+  function next(){cur=DIRS[Math.random()*3|0];arrow.textContent=cur[0]+' '+cur[1];arrow.style.color='var(--neon)'}
+  function hit(ok){arrow.style.color=ok?'#43d17c':'var(--pink)';arrow.style.transform='scale(1.15)';setTimeout(()=>arrow.style.transform='',90);
+   if(ok){n++;document.getElementById('lenN').innerHTML=n+'<small> 코너</small>';
+    document.getElementById('lenBar').style.width=Math.min(100,n*7)+'%';setTimeout(next,90)}}
+  function judge(dx,dy){if(!run||!cur)return;
+   const ok=(cur[2]&&Math.abs(dx)>36&&Math.sign(dx)===cur[2]&&Math.abs(dx)>=Math.abs(dy))||(cur[3]&&Math.abs(dy)>36&&Math.sign(dy)===cur[3]&&Math.abs(dy)>Math.abs(dx));
+   hit(ok)}
+  zone.addEventListener('pointerdown',e=>{sx=e.clientX;sy=e.clientY});
+  zone.addEventListener('pointerup',e=>judge(e.clientX-sx,e.clientY-sy));
+  window.addEventListener('keydown',function kd(e){if(!run)return;
+   if(e.key==='ArrowLeft')judge(-60,0);if(e.key==='ArrowRight')judge(60,0);if(e.key==='ArrowUp')judge(0,-60)});
+  document.getElementById('lenGo').onclick=function(){if(run)return;run=true;this.textContent='코스 리딩 중!';next();
+   timer=setInterval(()=>{t-=.1;document.getElementById('lenT').innerHTML=Math.max(0,t).toFixed(1)+'<small>s</small>';
+    if(t<=0){clearInterval(timer);run=false;finishMission(Math.min(100,n*7),n+' 코너 클리어')}},100)};
  }
- if(k==='roco'){ /* balance hold */
-  M.innerHTML=mHead()+`<p class="sub">공을 원 안에 <b style="color:var(--txt)">15초</b> 동안 붙잡아 두세요. 휴대폰을 기울이거나(모바일), 마우스를 움직여(PC) 균형을 잡습니다.</p>
-   <div id="balanceZone"><div id="bTarget"></div><div id="bBall"></div></div>
-   <div class="meter"><i id="balBar"></i></div><button class="btn" id="balGo">밸런스 스타트</button>`;
-  const zone=document.getElementById('balanceZone'),ball=document.getElementById('bBall'),tgt=document.getElementById('bTarget');
-  let bx=0,by=0,vx=0,vy=0,gx=0,gy=0,inT=0,run=false,raf;
-  function loop(){const r=zone.getBoundingClientRect();
-   vx+=gx*.4+(Math.random()-.5)*.7;vy+=gy*.4+(Math.random()-.5)*.7;vx*=.92;vy*=.92;bx+=vx;by+=vy;
-   bx=Math.max(-r.width/2+20,Math.min(r.width/2-20,bx));by=Math.max(-r.height/2+20,Math.min(r.height/2-20,by));
-   ball.style.transform=`translate(${bx}px,${by}px)`;
-   const inside=Math.hypot(bx,by)<52;tgt.style.borderColor=inside?'#43d17c':'var(--neon)';
-   if(inside)inT+=1/60;document.getElementById('balBar').style.width=Math.min(100,inT/15*100)+'%';
-   if(inT>=15){run=false;cancelAnimationFrame(raf);window.removeEventListener('deviceorientation',tilt);finishMission(100,'15초 완주');return}
+ if(k==='roco'){ /* cadence run */
+  M.innerHTML=mHead()+`<p class="sub">로코의 힘은 <b style="color:var(--txt)">일정한 리듬</b>. 실제 러닝 케이던스 <b style="color:var(--txt)">170 SPM</b>에 맞춰 발판을 두드리며 20초를 버텨!</p>
+   <div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:8px">
+    <div class="bigNum" style="font-size:44px" id="rocoSpm">–<small> SPM</small></div>
+    <div class="bigNum" style="font-size:26px" id="rocoT">20.0<small>s</small></div></div>
+   <div style="height:16px;border:1px solid var(--line);position:relative;margin:10px 0;background:linear-gradient(90deg,var(--panel2) 0 33%,rgba(67,209,124,.35) 33% 67%,var(--panel2) 67% 100%)">
+     <i id="rocoNeedle" style="position:absolute;top:-5px;bottom:-5px;width:4px;background:#fff;left:0%;transition:left .12s"></i>
+     <span style="position:absolute;left:50%;transform:translateX(-50%);top:-20px;font-size:10px;color:#43d17c;font-weight:700">GOOD PACE 150–190</span>
+   </div>
+   <div class="meter"><i id="rocoBar"></i></div>
+   <div id="rocoPad" class="pad" style="min-height:210px;flex:1;margin:12px 0;font-size:18px">발판을 리듬있게 TAP!</div>
+   <button class="btn" id="rocoGo">러닝 스타트</button>`;
+  const pad=document.getElementById('rocoPad');
+  let taps=[],inT=0,run=false,t0,raf,dur=20;
+  pad.addEventListener('pointerdown',e=>{if(!run)return;taps.push(performance.now());if(taps.length>5)taps.shift();
+   const r=document.createElement('span');r.className='rip';r.style.left=(e.offsetX||100)+'px';r.style.top=(e.offsetY||100)+'px';pad.appendChild(r);setTimeout(()=>r.remove(),500)});
+  function loop(now){const el=(now-t0)/1000,left=Math.max(0,dur-el);
+   document.getElementById('rocoT').innerHTML=left.toFixed(1)+'<small>s</small>';
+   let spm=0;
+   if(taps.length>=2){const iv=[];for(let i=1;i<taps.length;i++)iv.push(taps[i]-taps[i-1]);
+    const avg=iv.reduce((a,b)=>a+b)/iv.length;spm=Math.round(60000/avg)}
+   const fresh=taps.length&&(now-taps[taps.length-1])<800;
+   document.getElementById('rocoSpm').innerHTML=(fresh&&spm?spm:'–')+'<small> SPM</small>';
+   const pos=Math.max(0,Math.min(100,(spm-90)/(250-90)*100));
+   document.getElementById('rocoNeedle').style.left=(fresh?pos:0)+'%';
+   const inZone=fresh&&spm>=150&&spm<=190;
+   pad.style.borderColor=inZone?'#43d17c':'var(--line)';
+   if(inZone)inT+=1/60;
+   document.getElementById('rocoBar').style.width=Math.min(100,inT/dur*100)+'%';
+   if(el>=dur){run=false;finishMission(Math.round(Math.min(100,inT/dur*115)),inT.toFixed(1)+'초 페이스 유지');return}
    if(run)raf=requestAnimationFrame(loop)}
-  function tilt(e){gx=(e.gamma||0)/22;gy=(e.beta-40||0)/22}
-  zone.addEventListener('pointermove',e=>{const r=zone.getBoundingClientRect();gx=((e.clientX-r.left)/r.width-.5)*-2.4;gy=((e.clientY-r.top)/r.height-.5)*-2.4});
-  document.getElementById('balGo').onclick=async function(){if(run)return;
-   if(typeof DeviceOrientationEvent!=='undefined'&&DeviceOrientationEvent.requestPermission){try{await DeviceOrientationEvent.requestPermission()}catch(e){}}
-   window.addEventListener('deviceorientation',tilt);run=true;inT=0;this.textContent='버텨…!';loop()}
+  document.getElementById('rocoGo').onclick=function(){if(run)return;run=true;taps=[];inT=0;t0=performance.now();this.textContent='안 멈추면 돼…!';requestAnimationFrame(loop)};
  }
- if(k==='block'){ /* routine builder */
-  const G=[{l:'WHEN · 언제',o:['새벽 6시','퇴근 후','한밤의 벙커']},{l:'WHERE · 어디서',o:['남문터→동천','오천그린광장 4K','국가정원 순환']},{l:'HOW · 리듬',o:['천천히 오래','인터벌 폭발','크루와 함께']}];
-  let sel=[null,null,null];
-  M.innerHTML=mHead()+G.map((g,i)=>`<div class="rgroup"><div class="rl">${g.l}</div><div class="rrow">${g.o.map((o,j)=>`<span class="rchip" data-i="${i}" data-j="${j}">${o}</span>`).join('')}</div></div>`).join('')+
-   `<div class="foot"><button class="btn" id="rGo" disabled>루틴 완성</button></div>`;
-  M.querySelectorAll('.rchip').forEach(c=>c.onclick=()=>{const i=+c.dataset.i;
-   M.querySelectorAll(`.rchip[data-i="${i}"]`).forEach(x=>x.classList.remove('sel'));c.classList.add('sel');sel[i]=c.textContent;
-   document.getElementById('rGo').disabled=sel.some(x=>!x)});
-  document.getElementById('rGo').onclick=()=>{S.routine=sel.join(' · ');finishMission(100,'루틴 설계 완료')};
+ if(k==='block'){ /* signal interval run */
+  M.innerHTML=mHead()+`<p class="sub"><b style="color:#43d17c">초록불엔 전력 질주(연타)</b>, <b style="color:var(--pink)">빨간불엔 완전 정지</b>. 신호를 읽고 25초 동안 최대 거리를 달려!</p>
+   <div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:8px">
+    <div class="bigNum" style="font-size:44px" id="blkDist">0<small> m</small></div>
+    <div class="bigNum" style="font-size:26px" id="blkT">25.0<small>s</small></div></div>
+   <div class="meter"><i id="blkBar"></i></div>
+   <div id="blkSignal" style="margin:12px 0;padding:14px;text-align:center;font-weight:900;font-style:italic;font-size:24px;border:1px solid var(--line);background:var(--panel2)">READY</div>
+   <div id="blkPad" class="pad" style="min-height:190px;flex:1;margin-bottom:12px;font-size:18px">RUN PAD</div>
+   <button class="btn" id="blkGo">인터벌 스타트</button>`;
+  const sig=document.getElementById('blkSignal'),pad=document.getElementById('blkPad');
+  let green=false,dist=0,run=false,t=25,timer,sigTimer;
+  function setSig(g){green=g;
+   sig.textContent=g?'🟢 달려! 달려!':'🔴 멈춰!';
+   sig.style.background=g?'rgba(67,209,124,.18)':'rgba(255,61,127,.15)';
+   sig.style.borderColor=g?'#43d17c':'var(--pink)';
+   if(run)sigTimer=setTimeout(()=>setSig(!green),g?(1800+Math.random()*1700):(1200+Math.random()*1300))}
+  pad.addEventListener('pointerdown',e=>{if(!run)return;
+   dist+=green?1:-3;dist=Math.max(0,dist);
+   pad.style.borderColor=green?'#43d17c':'var(--pink)';setTimeout(()=>pad.style.borderColor='var(--line)',110);
+   if(!green){sig.textContent='🔴 걸렸다! -3m';}
+   document.getElementById('blkDist').innerHTML=dist+'<small> m</small>';
+   document.getElementById('blkBar').style.width=Math.min(100,dist*1.5)+'%';
+   const r=document.createElement('span');r.className='rip';r.style.left=(e.offsetX||100)+'px';r.style.top=(e.offsetY||100)+'px';
+   r.style.background=green?'rgba(67,209,124,.5)':'rgba(255,61,127,.5)';pad.appendChild(r);setTimeout(()=>r.remove(),500)});
+  document.getElementById('blkGo').onclick=function(){if(run)return;run=true;this.textContent='시그널을 읽어!';setSig(true);
+   timer=setInterval(()=>{t-=.1;document.getElementById('blkT').innerHTML=Math.max(0,t).toFixed(1)+'<small>s</small>';
+    if(t<=0){clearInterval(timer);clearTimeout(sigTimer);run=false;finishMission(Math.min(100,Math.round(dist*1.5)),dist+'m 인터벌 완주')}},100)};
  }
 }
 
