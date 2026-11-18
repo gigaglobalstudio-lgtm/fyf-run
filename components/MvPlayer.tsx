@@ -12,6 +12,7 @@ export function MvPlayer({
   return (
     <figure className="overflow-hidden rounded-2xl border border-darkline/60 bg-coal">
       <video
+        aria-label={title}
         controls
         playsInline
         preload="none"

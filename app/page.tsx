@@ -7,6 +7,7 @@ import { EcgLine } from "@/components/EcgLogo";
 import { FlowSection } from "@/components/three/FlowSection";
 import { CrewSignup } from "@/components/CrewSignup";
 import { PRODUCTS, CREW, formatKRW, getProduct } from "@/lib/products";
+import { sketch } from "@/lib/culture-run";
 
 export default function Home() {
   const cap = getProduct("fyf-performance-cap")!;
@@ -57,6 +58,21 @@ export default function Home() {
       </section>
 
       <Marquee />
+
+      <section id="culture-run" aria-labelledby="culture-run-title" className="scroll-mt-16 border-b border-darkline bg-ink text-paper">
+        <div className="mx-auto grid max-w-7xl gap-8 px-5 py-16 md:grid-cols-[0.72fr_1.28fr] md:items-center md:gap-14 md:py-20">
+          <div>
+            <h2 id="culture-run-title" className="font-display text-5xl md:text-6xl">순천 문화런</h2>
+            <p className="mt-5 max-w-md leading-relaxed text-paper/75">
+              남문터광장을 출발해 동천을 따라 달리는 5K·10K. 첫 문화런의 현장과 11월 28일 코스를 만나보세요.
+            </p>
+            <Link href="/club/culture-run" className="mt-7 inline-flex rounded-full bg-paper px-6 py-3 text-sm font-semibold text-ink transition hover:bg-white">
+              문화런 영상·포스터 보기 <span aria-hidden="true" className="ml-2">→</span>
+            </Link>
+          </div>
+          <MvPlayer {...sketch} />
+        </div>
+      </section>
 
       {/* ── FEATURED: PERFORMANCE CAP ────────────── */}
       <section className="bg-paper text-ink">

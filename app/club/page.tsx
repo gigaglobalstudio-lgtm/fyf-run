@@ -65,6 +65,12 @@ export default function ClubPage() {
             >
               러닝 코스 보기 →
             </Link>
+            <Link
+              href="/club/culture-run"
+              className="rounded-full border border-paper/30 px-7 py-3.5 text-sm font-semibold text-paper transition hover:border-paper hover:bg-white/5"
+            >
+              순천 문화런 영상·포스터 →
+            </Link>
           </div>
         </div>
       </section>
