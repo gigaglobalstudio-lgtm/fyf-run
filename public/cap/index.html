@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FYF Performance Cap — 첫 크루, 첫 모자</title>
+<meta name="description" content="FYF Performance Cap ₩39,000 — 매트 블랙 5패널 러닝 캡. 새벽을 달리는 첫 크루를 위한 첫 모자.">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<style>
+  :root {
+    --bg: #0a0b0d;
+    --bg-2: #101216;
+    --ink: #f4f4f2;
+    --ink-dim: rgba(244,244,242,.55);
+    --accent: #e8fb5a;
+    --line: rgba(244,244,242,.12);
+    --glass: rgba(255,255,255,.05);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { background: var(--bg); color: var(--ink); }
+  html.lenis { height: auto; }
+  .lenis.lenis-smooth { scroll-behavior: auto; }
+  body {
+    font-family: "Pretendard Variable", Pretendard, -apple-system, "Noto Sans KR", sans-serif;
+    overflow-x: hidden;
+    word-break: keep-all;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ---------- film grain + vignette overlays ---------- */
+  .grain {
+    position: fixed; inset: -100%;
+    width: 300%; height: 300%;
+    pointer-events: none; z-index: 60;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: .05;
+    animation: grain 8s steps(10) infinite;
+  }
+  @keyframes grain {
+    0%,100% { transform: translate(0,0); }
+    10% { transform: translate(-5%,-10%); }
+    30% { transform: translate(3%,-15%); }
+    50% { transform: translate(12%,9%); }
+    70% { transform: translate(9%,4%); }
+    90% { transform: translate(-1%,7%); }
+  }
+  .vignette {
+    position: fixed; inset: 0; pointer-events: none; z-index: 55;
+    background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,.5) 100%);
+  }
+
+  /* ---------- particles canvas ---------- */
+  #particles { position: fixed; inset: 0; z-index: 2; pointer-events: none; }
+
+  /* ---------- nav ---------- */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 70;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 22px clamp(20px, 4vw, 56px);
+    mix-blend-mode: difference;
+  }
+  .logo { font-weight: 800; letter-spacing: .35em; font-size: 15px; }
+  .nav-cta {
+    font-size: 12px; letter-spacing: .18em; color: var(--ink);
+    text-decoration: none; border: 1px solid rgba(244,244,242,.4);
+    padding: 10px 18px; border-radius: 999px;
+  }
+
+  /* ---------- hero ---------- */
+  .hero { position: relative; height: 100vh; overflow: hidden; }
+  .hero video, .hero img.hero-fallback {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; filter: saturate(.85) contrast(1.06);
+  }
+  .hero .tint {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(10,11,13,.25) 0%, rgba(10,11,13,.05) 45%, rgba(10,11,13,.92) 100%),
+                linear-gradient(120deg, rgba(20,60,90,.18), transparent 60%);
+  }
+  .hero-copy {
+    position: absolute; left: clamp(20px, 4vw, 56px); bottom: 10vh; z-index: 5;
+    max-width: 760px;
+  }
+  .hero-kicker {
+    display: inline-block; font-size: 12px; letter-spacing: .3em;
+    color: var(--accent); margin-bottom: 18px;
+  }
+  h1 {
+    font-size: clamp(44px, 8.5vw, 118px); line-height: .98;
+    font-weight: 800; letter-spacing: -.02em;
+  }
+  h1 .line { display: block; overflow: hidden; }
+  h1 .line span { display: inline-block; }
+  .hero-sub { margin-top: 22px; color: var(--ink-dim); font-size: clamp(15px, 1.6vw, 19px); line-height: 1.7; }
+  .scroll-hint {
+    position: absolute; right: clamp(20px, 4vw, 56px); bottom: 10vh; z-index: 5;
+    font-size: 11px; letter-spacing: .25em; color: var(--ink-dim);
+    writing-mode: vertical-rl;
+  }
+  .scroll-hint::after {
+    content: ""; display: block; width: 1px; height: 56px;
+    background: linear-gradient(var(--accent), transparent);
+    margin: 14px auto 0;
+  }
+
+  /* ---------- marquee ---------- */
+  .marquee {
+    padding: 28px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+    overflow: hidden; white-space: nowrap; background: var(--bg-2);
+    position: relative; z-index: 5;
+  }
+  .marquee-track { display: inline-block; }
+  .marquee span {
+    font-size: 15px; letter-spacing: .28em; color: var(--ink-dim);
+    margin-right: 64px; text-transform: uppercase;
+  }
+  .marquee b { color: var(--accent); font-weight: 600; }
+
+  /* ---------- sections ---------- */
+  section.block { position: relative; z-index: 5; padding: 18vh clamp(20px, 4vw, 56px); }
+  .section-kicker { font-size: 12px; letter-spacing: .3em; color: var(--accent); margin-bottom: 20px; }
+  h2 { font-size: clamp(32px, 4.6vw, 64px); font-weight: 800; letter-spacing: -.015em; line-height: 1.12; max-width: 900px; }
+  h2 .reveal-word { display: inline-block; opacity: .12; }
+  .block p.lead { margin-top: 26px; max-width: 560px; color: var(--ink-dim); font-size: 17px; line-height: 1.8; }
+
+  /* feature split */
+  .split { display: grid; grid-template-columns: repeat(12, 1fr); gap: clamp(16px, 2.5vw, 40px); align-items: center; }
+  .split .media { grid-column: 1 / 8; border-radius: 20px; overflow: hidden; position: relative; }
+  .split .media img { width: 100%; display: block; transform: scale(1.12); filter: saturate(.9); }
+  .split .media .tint { position: absolute; inset: 0; background: linear-gradient(160deg, rgba(20,60,90,.12), transparent 55%); }
+  .split .body { grid-column: 8 / 13; }
+  .split.rev .media { grid-column: 6 / 13; order: 2; }
+  .split.rev .body { grid-column: 1 / 6; order: 1; }
+  .split h3 { font-size: clamp(24px, 2.8vw, 38px); font-weight: 700; line-height: 1.25; }
+  .split p { margin-top: 18px; color: var(--ink-dim); line-height: 1.85; font-size: 16px; }
+  .spec-num { font-size: 13px; letter-spacing: .25em; color: var(--accent); display: block; margin-bottom: 16px; }
+
+  /* glass cards */
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 8vh; }
+  .card {
+    background: var(--glass); border: 1px solid var(--line); border-radius: 20px;
+    padding: 34px 28px; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    position: relative; overflow: hidden;
+  }
+  .card::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(232,251,90,.5), transparent);
+  }
+  .card .num { font-size: 40px; font-weight: 800; color: var(--accent); }
+  .card .unit { font-size: 16px; font-weight: 600; color: var(--accent); }
+  .card h4 { margin-top: 14px; font-size: 17px; font-weight: 700; }
+  .card p { margin-top: 10px; color: var(--ink-dim); font-size: 14px; line-height: 1.75; }
+
+  /* pin scene */
+  .pin-scene { position: relative; z-index: 5; }
+  .pin-stage { height: 100vh; display: grid; place-items: center; overflow: hidden; position: relative; }
+  .pin-stage img, .pin-stage video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(.7) saturate(.85); }
+  .pin-stage .big-word {
+    position: relative; z-index: 3; font-size: clamp(60px, 13vw, 200px);
+    font-weight: 800; letter-spacing: -.02em; color: var(--ink);
+    mix-blend-mode: overlay;
+  }
+
+  /* price / cta */
+  .cta-wrap { text-align: center; padding-bottom: 20vh; }
+  .price { font-size: clamp(54px, 9vw, 130px); font-weight: 800; letter-spacing: -.03em; }
+  .price small { font-size: .35em; vertical-align: middle; color: var(--ink-dim); font-weight: 500; }
+  .cta-line { margin: 20px auto 40px; color: var(--ink-dim); font-size: 17px; }
+  .buy {
+    display: inline-block; background: var(--accent); color: #0a0b0d;
+    font-weight: 800; font-size: 17px; letter-spacing: .02em;
+    padding: 20px 54px; border-radius: 999px; text-decoration: none;
+    transition: transform .3s cubic-bezier(.2,.8,.2,1);
+  }
+  .buy:hover { transform: scale(1.05); }
+  footer {
+    border-top: 1px solid var(--line); padding: 36px clamp(20px, 4vw, 56px);
+    display: flex; justify-content: space-between; color: var(--ink-dim);
+    font-size: 12px; letter-spacing: .15em; position: relative; z-index: 5;
+  }
+
+  @media (max-width: 820px) {
+    .split, .split.rev { display: block; }
+    .split .media { margin-bottom: 28px; }
+    .cards { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+  <div class="grain"></div>
+  <div class="vignette"></div>
+  <canvas id="particles"></canvas>
+
+  <nav>
+    <div class="logo">FYF</div>
+    <a class="nav-cta" href="/shop">STORE</a>
+  </nav>
+
+  <header class="hero">
+    <video id="heroVideo" autoplay muted loop playsinline poster="/cap/assets/hero-frame.webp">
+      <source src="/cap/assets/hero.mp4" type="video/mp4">
+    </video>
+    <div class="tint"></div>
+    <div class="hero-copy">
+      <span class="hero-kicker">FYF PERFORMANCE CAP</span>
+      <h1>
+        <span class="line"><span>첫 크루,</span></span>
+        <span class="line"><span>첫 모자.</span></span>
+      </h1>
+      <p class="hero-sub">새벽 여섯 시의 한강. 아직 이름도 못 외운 크루 사이에서,<br>당신의 페이스를 지켜주는 첫 번째 장비.</p>
+    </div>
+    <div class="scroll-hint">SCROLL</div>
+  </header>
+
+  <div class="marquee">
+    <div class="marquee-track" id="marqueeTrack">
+      <span>MATTE BLACK 5-PANEL</span><span><b>LASER PERFORATION</b></span><span>HEARTBEAT ECG LOGO</span><span><b>₩39,000</b></span><span>FOLLOW YOUR FLOW</span>
+      <span>MATTE BLACK 5-PANEL</span><span><b>LASER PERFORATION</b></span><span>HEARTBEAT ECG LOGO</span><span><b>₩39,000</b></span><span>FOLLOW YOUR FLOW</span>
+    </div>
+  </div>
+
+  <section class="block">
+    <div class="section-kicker">WHY THIS CAP</div>
+    <h2 data-word-reveal>입문자의 러닝은 장비 탓이 아니라, 장비 덕이어야 하니까.</h2>
+    <p class="lead">1만 5천 원짜리는 두 달이면 땀에 절고, 8만 9천 원짜리는 첫 모자로 부담스럽다. FYF는 정확히 그 사이를 겨냥했다.</p>
+    <div class="cards">
+      <div class="card" data-card>
+        <span class="num" data-count="1000">0</span><span class="unit">만</span>
+        <h4>한국 러닝 인구</h4>
+        <p>그중 60% 이상이 러닝 1년 차 미만 입문자. 첫 장비의 기준이 아직 없는 사람들.</p>
+      </div>
+      <div class="card" data-card>
+        <span class="num" data-count="270">0</span><span class="unit">%</span>
+        <h4>'러닝' 검색량 증가</h4>
+        <p>전년 대비. 새벽 한강 크루 문화가 검색을 밀어 올리고 있다.</p>
+      </div>
+      <div class="card" data-card>
+        <span class="num" data-count="39000">0</span><span class="unit">원</span>
+        <h4>하나의 가격</h4>
+        <p>데카트론과 Ciele 사이, 엔트리 데일리 포지션. 색상도 하나, 고민도 없다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="split">
+      <div class="media" data-parallax><img src="/cap/assets/detail-front.webp" alt="레이저 통기홀 매크로 디테일"><div class="tint"></div></div>
+      <div class="body">
+        <span class="spec-num">SPEC 01</span>
+        <h3>레이저 통기홀,<br>바느질이 아니라 계산.</h3>
+        <p>재봉 아일렛 대신 레이저 커팅 벤틸레이션. 여름 새벽의 습도에서도 이마 라인의 열을 밀어낸다. 매트 블랙 나일론 셸은 땀 자국이 남지 않는다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="pin-scene">
+    <div class="pin-stage">
+      <video id="pinVideo" muted loop playsinline preload="metadata" poster="/cap/assets/lifestyle.webp" aria-label="FYF 캡 시네마틱 제품 영상">
+        <source src="/cap/assets/showcase.mp4" type="video/mp4">
+      </video>
+      <div class="big-word">FLOW</div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="split rev">
+      <div class="media" data-parallax><img src="/cap/assets/detail-back.webp" alt="후면 드로스트링 루프"><div class="tint"></div></div>
+      <div class="body">
+        <span class="spec-num">SPEC 02</span>
+        <h3>드로스트링 루프,<br>달리면서 조절하는 유일한 방법.</h3>
+        <p>버클은 멈춰야 조절할 수 있다. 후면 드로스트링은 페이스를 유지한 채 한 손으로 당긴다. 심박이 올라갈수록, 모자는 조용해야 한다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block cta-wrap">
+    <div class="section-kicker">GET YOURS</div>
+    <div class="price">₩39,000<small> / 배송비 포함</small></div>
+    <p class="cta-line">첫 크루에 나가는 날, 뭘 쓰고 갈지 고민하지 않게.</p>
+    <a class="buy" href="/product/fyf-performance-cap">지금 주문하기</a>
+  </section>
+
+  <footer>
+    <span>FYF — FOLLOW YOUR FLOW</span>
+    <span>GIGA GLOBAL STUDIO © 2026</span>
+  </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* resilient hero autoplay: retry on load + first interaction */
+  const heroV = document.getElementById('heroVideo');
+  const tryPlay = () => { if (heroV.paused) heroV.play().catch(() => {}); };
+  addEventListener('load', tryPlay);
+  ['scroll', 'pointerdown', 'touchstart', 'keydown'].forEach(ev =>
+    addEventListener(ev, tryPlay, { once: true, passive: true }));
+
+  /* Lenis smooth scroll wired into GSAP ticker */
+  const lenis = new Lenis({ lerp: 0.09, smoothWheel: true });
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add((t) => lenis.raf(t * 1000));
+  gsap.ticker.lagSmoothing(0);
+
+  /* hero intro */
+  gsap.from('h1 .line span', { yPercent: 110, duration: 1.2, stagger: 0.12, ease: 'power4.out', delay: 0.2 });
+  gsap.from('.hero-kicker, .hero-sub', { opacity: 0, y: 24, duration: 1, stagger: 0.15, delay: 0.5, ease: 'power3.out' });
+
+  /* hero parallax + darken on scroll */
+  gsap.to('#heroVideo', {
+    yPercent: 18, scale: 1.08, ease: 'none',
+    scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
+  });
+  gsap.to('.hero-copy', {
+    opacity: 0, y: -60, ease: 'none',
+    scrollTrigger: { trigger: '.hero', start: '30% top', end: 'bottom top', scrub: true }
+  });
+
+  /* marquee */
+  gsap.to('#marqueeTrack', { xPercent: -50, ease: 'none', duration: 24, repeat: -1 });
+
+  /* word-by-word reveal */
+  document.querySelectorAll('[data-word-reveal]').forEach(el => {
+    el.innerHTML = el.textContent.trim().split(' ').map(w => `<span class="reveal-word">${w}</span>`).join(' ');
+    gsap.to(el.querySelectorAll('.reveal-word'), {
+      opacity: 1, stagger: 0.08, ease: 'none',
+      scrollTrigger: { trigger: el, start: 'top 80%', end: 'top 35%', scrub: true }
+    });
+  });
+
+  /* glass cards rise */
+  gsap.utils.toArray('[data-card]').forEach((card, i) => {
+    gsap.from(card, {
+      opacity: 0, y: 70, duration: 0.9, delay: i * 0.1, ease: 'power3.out',
+      scrollTrigger: { trigger: card, start: 'top 88%' }
+    });
+  });
+
+  /* animated counters */
+  gsap.utils.toArray('[data-count]').forEach(el => {
+    const target = +el.dataset.count;
+    const proxy = { v: 0 };
+    ScrollTrigger.create({
+      trigger: el.closest('.card'), start: 'top 92%', once: true,
+      onEnter: () => gsap.to(proxy, {
+        v: target, duration: 1.6, ease: 'power2.out',
+        onUpdate: () => { el.innerText = Math.round(proxy.v).toLocaleString('ko-KR'); }
+      })
+    });
+  });
+
+  /* parallax media blocks */
+  gsap.utils.toArray('[data-parallax] img').forEach(img => {
+    gsap.fromTo(img, { yPercent: -8 }, {
+      yPercent: 8, ease: 'none',
+      scrollTrigger: { trigger: img.closest('.media'), start: 'top bottom', end: 'bottom top', scrub: true }
+    });
+  });
+
+  /* pinned FLOW scene: word tracks in, video slow-zooms + plays while pinned */
+  const pinVideo = document.getElementById('pinVideo');
+  const pin = gsap.timeline({
+    scrollTrigger: {
+      trigger: '.pin-scene', start: 'top top', end: '+=120%', scrub: true, pin: '.pin-stage',
+      onToggle: self => { if (self.isActive) pinVideo.play().catch(() => {}); else pinVideo.pause(); }
+    }
+  });
+  pin.fromTo('.pin-stage video', { scale: 1.25 }, { scale: 1, ease: 'none' }, 0)
+     .fromTo('.big-word', { letterSpacing: '0.6em', opacity: 0 }, { letterSpacing: '0.02em', opacity: 1, ease: 'none' }, 0);
+
+  /* price pop */
+  gsap.from('.price', {
+    scale: 0.8, opacity: 0, duration: 1, ease: 'back.out(1.4)',
+    scrollTrigger: { trigger: '.cta-wrap', start: 'top 75%' }
+  });
+
+  /* ---------- ambient particles ---------- */
+  const cv = document.getElementById('particles'), ctx = cv.getContext('2d');
+  let W, H, dots = [];
+  function resize() {
+    W = cv.width = innerWidth; H = cv.height = innerHeight;
+    dots = Array.from({ length: Math.min(70, W / 18) }, () => ({
+      x: Math.random() * W, y: Math.random() * H,
+      r: Math.random() * 1.6 + 0.3, s: Math.random() * 0.35 + 0.08, o: Math.random() * 0.35 + 0.08
+    }));
+  }
+  addEventListener('resize', resize); resize();
+  (function tick() {
+    ctx.clearRect(0, 0, W, H);
+    for (const d of dots) {
+      d.y -= d.s; if (d.y < -4) { d.y = H + 4; d.x = Math.random() * W; }
+      ctx.beginPath(); ctx.arc(d.x, d.y, d.r, 0, 7);
+      ctx.fillStyle = `rgba(232,251,90,${d.o * 0.5})`; ctx.fill();
+    }
+    requestAnimationFrame(tick);
+  })();
+</script>
+</body>
+</html>
