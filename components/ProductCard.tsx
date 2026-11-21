@@ -40,6 +40,7 @@ export function ProductCard({ product }: { product: ShopCardItem }) {
           <span className="text-[15px] font-semibold text-ink">
             {price == null ? "판매 준비 중" : formatKRW(price)}
           </span>
+          {product.priceUnit && <span className="text-xs text-ink/60">{product.priceUnit} 기준</span>}
           {discount != null && listPrice != null && <>
             <span className="text-[13px] text-ink/35 line-through">{formatKRW(listPrice)}</span>
             <span className="text-[13px] font-medium text-ink/40">−{discount}%</span>

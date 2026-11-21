@@ -11,7 +11,7 @@ import { StickyBuyBar } from "@/components/StickyBuyBar";
 import { Stars } from "@/components/Stars";
 import { Reviews } from "@/components/Reviews";
 import { PRODUCTS, formatKRW, getProduct } from "@/lib/products";
-import { PHOTO_LISTINGS, getPhotoListing, photoCard } from "@/lib/photo-catalog";
+import { PHOTO_LISTINGS, getPhotoListing, photoCard, photoPurchaseItem } from "@/lib/photo-catalog";
 import { getReviews } from "@/lib/reviews";
 
 export function generateStaticParams() {
@@ -58,9 +58,10 @@ export default async function ProductPage({
   const display = photo ? photoCard(photo) : product;
   if (!display) notFound();
 
-  const discount = product && Math.round(
-    ((product.listPrice - product.price) / product.listPrice) * 100
-  );
+  const purchase = product ?? (photo && photoPurchaseItem(photo));
+  const { price, listPrice } = display;
+  const discount = price != null && listPrice != null && listPrice > price
+    ? Math.round((1 - price / listPrice) * 100) : undefined;
   const others = photo
     ? PHOTO_LISTINGS.filter((p) => p.slug !== slug && p.categoryKo === photo.categoryKo).slice(0, 4).map(photoCard)
     : PRODUCTS.filter((p) => p.slug !== slug).slice(0, 4);
@@ -127,31 +128,38 @@ export default async function ProductPage({
               </a>
             )}
 
-            {product ? <div className="mt-8 flex items-baseline gap-3 border-t border-ink/10 pt-8">
-              <span className="text-[28px] font-semibold tracking-tight">
-                {formatKRW(product.price)}
-              </span>
-              <span className="text-sm text-ink/30 line-through">
-                {formatKRW(product.listPrice)}
-              </span>
-              <span className="text-sm font-medium text-ink/40">
-                −{discount}%
-              </span>
-            </div> : <p className="mt-8 border-t border-ink/10 pt-6 text-base font-semibold">판매 준비 중</p>}
+            <div className="mt-8 flex flex-wrap items-baseline gap-3 border-t border-ink/10 pt-8">
+              {price != null ? (
+                <>
+                  <span className="text-[28px] font-semibold tracking-tight">{formatKRW(price)}</span>
+                  {photo?.priceUnit && <span className="text-sm text-ink/60">{photo.priceUnit} 기준</span>}
+                  {discount != null && listPrice != null && (
+                    <>
+                      <span className="text-sm text-ink/30 line-through">{formatKRW(listPrice)}</span>
+                      <span className="text-sm font-medium text-ink/40">−{discount}%</span>
+                    </>
+                  )}
+                </>
+              ) : <span className="font-semibold">판매 준비 중</span>}
+            </div>
 
             <p className="mt-5 max-w-md leading-relaxed text-ink/55">
               {photo?.description ?? product?.description}
             </p>
 
-            {product ? <>
-            <div className="mt-8">
-              <AddToCart product={product} />
-            </div>
-
-            <p className="mt-5 text-center text-xs tracking-wide text-ink/45">
-              5만원 이상 무료배송 · 1–3일 내 출고 · 7일 무료 교환
-            </p>
-            </> : <a href="#detail" className="mt-7 inline-flex rounded-full bg-ink px-7 py-3.5 text-sm font-semibold text-paper hover:bg-smoke">상품 상세 보기</a>}
+            {purchase ? (
+              <div className="mt-8">
+                <AddToCart product={purchase} />
+                <p className="mt-5 text-center text-xs tracking-wide text-ink/45">
+                  {product ? "5만원 이상 무료배송 · 1–3일 내 출고 · 7일 무료 교환" : "5만원 이상 무료배송"}
+                </p>
+              </div>
+            ) : (
+              <div className="mt-7">
+                {price != null && <p className="mb-3 text-sm text-ink/65">판매 사이즈 확인 중</p>}
+                <a href="#detail" className="inline-flex rounded-full bg-ink px-7 py-3.5 text-sm font-semibold text-paper hover:bg-smoke">상품 상세 보기</a>
+              </div>
+            )}
 
             {photo ? (
               <dl className="mt-8 border-t border-ink/10">
@@ -216,7 +224,7 @@ export default async function ProductPage({
         </div>
       </div>
 
-      {product && <StickyBuyBar product={product} />}
+      {purchase && <StickyBuyBar product={purchase} />}
     </div>
   );
 }

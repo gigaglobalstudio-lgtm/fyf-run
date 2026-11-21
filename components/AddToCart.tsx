@@ -3,9 +3,9 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useCart } from "./cart/CartProvider";
-import type { Product } from "@/lib/products";
+import type { PurchaseItem } from "@/lib/photo-catalog";
 
-export function AddToCart({ product }: { product: Product }) {
+export function AddToCart({ product }: { product: PurchaseItem }) {
   const { add } = useCart();
   const router = useRouter();
   const [size, setSize] = useState(product.sizes[0]);
@@ -27,12 +27,13 @@ export function AddToCart({ product }: { product: Product }) {
   return (
     <div className="space-y-5">
       <div>
-        <p className="mb-2 text-sm font-bold text-ink/60">사이즈</p>
+        <p className="mb-2 text-sm font-bold text-ink/60">{product.optionLabel ?? "사이즈"}</p>
         <div className="flex flex-wrap gap-2">
           {product.sizes.map((s) => (
             <button
               key={s}
               type="button"
+              aria-pressed={size === s}
               onClick={() => setSize(s)}
               className={`min-w-14 rounded-full border px-5 py-2.5 text-sm font-bold transition ${
                 size === s

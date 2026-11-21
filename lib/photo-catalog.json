@@ -79,6 +79,7 @@
         "넓은 밴드형 마감"
       ]
     ],
+    "price": 39000,
     "sections": [
       {
         "file": "01-intro.jpg",
@@ -135,6 +136,7 @@
         "크롭"
       ]
     ],
+    "price": 39000,
     "sections": [
       {
         "file": "01-intro.jpg",
@@ -191,6 +193,7 @@
         "민소매"
       ]
     ],
+    "price": 42000,
     "sections": [
       {
         "file": "01-intro.jpg",
@@ -247,6 +250,7 @@
         "라운드넥"
       ]
     ],
+    "price": 42000,
     "sections": [
       {
         "file": "01-intro.jpg",
@@ -303,6 +307,7 @@
         "무지"
       ]
     ],
+    "price": 42000,
     "sections": [
       {
         "file": "01-intro.jpg",
@@ -359,6 +364,7 @@
         "겹치는 곡선 옆선"
       ]
     ],
+    "price": 42000,
     "sections": [
       {
         "file": "01-intro.jpg",
@@ -415,6 +421,7 @@
         "곡선 옆선"
       ]
     ],
+    "price": 42000,
     "sections": [
       {
         "file": "01-intro.jpg",
@@ -471,6 +478,7 @@
         "흰 심박선"
       ]
     ],
+    "price": 42000,
     "sections": [
       {
         "file": "01-intro.jpg",
@@ -527,6 +535,8 @@
         "발목의 흰 심박선"
       ]
     ],
+    "price": 18900,
+    "priceUnit": "1켤레",
     "sections": [
       {
         "file": "01-intro.jpg",
@@ -583,6 +593,14 @@
         "검정 패드와 회색 스트랩"
       ]
     ],
+    "price": 24900,
+    "priceUnit": "2개 한 쌍",
+    "purchaseOptions": {
+      "label": "구성",
+      "values": [
+        "블랙 2개 한 쌍"
+      ]
+    },
     "sections": [
       {
         "file": "01-intro.jpg",
@@ -639,6 +657,8 @@
         "블랙 · 라임 도트 · 흰 마크"
       ]
     ],
+    "price": 49000,
+    "priceUnit": "1개",
     "sections": [
       {
         "file": "01-intro.jpg",
@@ -695,6 +715,14 @@
         "하프림 · 곡선형 다리"
       ]
     ],
+    "price": 24900,
+    "purchaseOptions": {
+      "label": "렌즈 색상",
+      "values": [
+        "옐로",
+        "스모크"
+      ]
+    },
     "sections": [
       {
         "file": "01-intro.jpg",
@@ -751,6 +779,13 @@
         "긴 손잡이 두 줄"
       ]
     ],
+    "price": 29900,
+    "purchaseOptions": {
+      "label": "디자인",
+      "values": [
+        "러닝 그래픽"
+      ]
+    },
     "sections": [
       {
         "file": "01-intro.jpg",
@@ -807,6 +842,13 @@
         "긴 손잡이 두 줄"
       ]
     ],
+    "price": 29900,
+    "purchaseOptions": {
+      "label": "디자인",
+      "values": [
+        "페이스 그래픽"
+      ]
+    },
     "sections": [
       {
         "file": "01-intro.jpg",
@@ -863,6 +905,15 @@
         "작은 원형 링"
       ]
     ],
+    "price": 12000,
+    "purchaseOptions": {
+      "label": "디자인",
+      "values": [
+        "카티보",
+        "둥근 새싹",
+        "달리는 새싹"
+      ]
+    },
     "sections": [
       {
         "file": "01-intro.jpg",
@@ -919,6 +970,14 @@
         "거울면"
       ]
     ],
+    "price": 5900,
+    "purchaseOptions": {
+      "label": "디자인",
+      "values": [
+        "퍼플 카티보",
+        "옐로 새싹"
+      ]
+    },
     "sections": [
       {
         "file": "01-intro.jpg",
@@ -975,6 +1034,13 @@
         "핑크 원형 캐릭터 그래픽"
       ]
     ],
+    "price": 9900,
+    "purchaseOptions": {
+      "label": "구성",
+      "values": [
+        "쿨타월 1개"
+      ]
+    },
     "sections": [
       {
         "file": "01-intro.jpg",

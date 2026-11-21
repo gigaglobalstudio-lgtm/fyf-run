@@ -9,6 +9,7 @@ import {
 } from "@tosspayments/tosspayments-sdk";
 import { useCart } from "./cart/CartProvider";
 import { formatKRW } from "@/lib/products";
+import { shippingFee } from "@/lib/shipping";
 
 export function CheckoutWidget({
   clientKey,
@@ -20,6 +21,8 @@ export function CheckoutWidget({
   customerName?: string;
 }) {
   const { items, total, hydrated } = useCart();
+  const shipping = shippingFee(total);
+  const payable = total + shipping;
   const widgetsRef = useRef<TossPaymentsWidgets | null>(null);
   const [ready, setReady] = useState(false);
   const [paying, setPaying] = useState(false);
@@ -36,7 +39,7 @@ export function CheckoutWidget({
         const widgets = tossPayments.widgets({ customerKey: ANONYMOUS });
         widgetsRef.current = widgets;
 
-        await widgets.setAmount({ currency: "KRW", value: total });
+        await widgets.setAmount({ currency: "KRW", value: payable });
         await Promise.all([
           widgets.renderPaymentMethods({
             selector: "#payment-method",
@@ -58,10 +61,10 @@ export function CheckoutWidget({
 
   // 수량 변경 등으로 합계가 바뀌면 위젯 금액 동기화
   useEffect(() => {
-    if (ready && widgetsRef.current && total > 0) {
-      widgetsRef.current.setAmount({ currency: "KRW", value: total });
+    if (ready && widgetsRef.current && payable > 0) {
+      widgetsRef.current.setAmount({ currency: "KRW", value: payable });
     }
-  }, [total, ready]);
+  }, [payable, ready]);
 
   if (hydrated && items.length === 0) {
     return (
@@ -116,6 +119,12 @@ export function CheckoutWidget({
 
   return (
     <div className="space-y-5">
+      {hydrated && (
+        <dl className="space-y-2 border-b border-line pb-4 text-sm">
+          <div className="flex justify-between"><dt>상품 금액</dt><dd>{formatKRW(total)}</dd></div>
+          <div className="flex justify-between"><dt>배송비</dt><dd>{shipping === 0 ? "무료" : formatKRW(shipping)}</dd></div>
+        </dl>
+      )}
       <div className="toss-widget-frame">
         <div id="payment-method" />
         <div id="agreement" />
@@ -136,7 +145,7 @@ export function CheckoutWidget({
         {paying
           ? "결제 진행 중..."
           : ready
-            ? `${formatKRW(total)} 결제하기`
+            ? `${formatKRW(payable)} 결제하기`
             : "결제 수단 불러오는 중..."}
       </button>
 

@@ -2,7 +2,10 @@ import photoCatalog from "./photo-catalog.json";
 import { getProduct, type Product } from "./products";
 
 export type ShopCardItem = Pick<Product, "slug" | "name" | "nameKo" | "categoryKo" | "color" | "image" | "badge"> &
-  Partial<Pick<Product, "price" | "listPrice">>;
+  Partial<Pick<Product, "price" | "listPrice">> & { priceUnit?: string };
+
+export type PurchaseItem = Pick<Product, "slug" | "name" | "nameKo" | "price" | "sizes" | "image"> &
+  { optionLabel?: string };
 
 export type PhotoListing = {
   slug: string;
@@ -14,6 +17,9 @@ export type PhotoListing = {
   color: string;
   tagline: string;
   description: string;
+  price?: number;
+  priceUnit?: string;
+  purchaseOptions?: { label: string; values: string[] };
   facts: string[][];
   sections: { file: string; height: number; alt: string }[];
 };
@@ -29,6 +35,16 @@ export function photoCard(photo: PhotoListing): ShopCardItem {
   return {
     slug: photo.slug, name: offer?.name ?? photo.name, nameKo: photo.nameKo,
     categoryKo: photo.categoryKo, color: photo.color, image: photo.directory + "/cover.jpg",
-    price: offer?.price, listPrice: offer?.listPrice, badge: offer?.badge,
+    price: offer?.price ?? photo.price, priceUnit: photo.priceUnit,
+    listPrice: offer?.listPrice, badge: offer?.badge,
+  };
+}
+
+export function photoPurchaseItem(photo: PhotoListing): PurchaseItem | undefined {
+  if (photo.price == null || !photo.purchaseOptions?.values.length) return;
+  return {
+    slug: photo.slug, name: photo.name, nameKo: photo.nameKo,
+    image: photo.directory + "/cover.jpg", price: photo.price,
+    optionLabel: photo.purchaseOptions.label, sizes: photo.purchaseOptions.values,
   };
 }

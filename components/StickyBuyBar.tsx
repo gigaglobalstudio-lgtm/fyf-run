@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { formatKRW, type Product } from "@/lib/products";
 
 /** 구매 영역이 화면에서 벗어나면 하단에 나타나는 슬림 구매 바 */
-export function StickyBuyBar({ product }: { product: Product }) {
+export function StickyBuyBar({ product }: { product: Pick<Product, "name" | "nameKo" | "price"> }) {
   const [show, setShow] = useState(false);
 
   useEffect(() => {

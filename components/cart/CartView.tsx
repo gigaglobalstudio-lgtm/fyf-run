@@ -4,9 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useCart } from "./CartProvider";
 import { formatKRW } from "@/lib/products";
-
-const FREE_SHIPPING = 50000;
-const SHIPPING_FEE = 3000;
+import { FREE_SHIPPING_MINIMUM, shippingFee } from "@/lib/shipping";
 
 export function CartView() {
   const { items, total, hydrated, remove, setQty } = useCart();
@@ -33,7 +31,7 @@ export function CartView() {
     );
   }
 
-  const shipping = total >= FREE_SHIPPING ? 0 : SHIPPING_FEE;
+  const shipping = shippingFee(total);
 
   return (
     <div className="grid gap-10 lg:grid-cols-[1fr_360px]">
@@ -114,7 +112,7 @@ export function CartView() {
           </div>
           {shipping > 0 && (
             <p className="text-xs text-ink/50">
-              {formatKRW(FREE_SHIPPING - total)} 더 담으면 무료배송
+              {formatKRW(FREE_SHIPPING_MINIMUM - total)} 더 담으면 무료배송
             </p>
           )}
           <div className="flex justify-between border-t border-line pt-3 text-base">
