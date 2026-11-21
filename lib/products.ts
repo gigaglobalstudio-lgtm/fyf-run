@@ -412,7 +412,7 @@ export const PRODUCTS: Product[] = [
     ],
     sizes: ["S", "M", "L", "XL"],
     color: "Hot Pink / Neon",
-    image: "/products/race-singlet.jpg",
+    image: "/detail/fyf-goods/graphic-racer-singlet/cover.jpg",
     badge: "NEW",
     storyTitle: "눈에 띄는 게 전략이다",
     storyBody:

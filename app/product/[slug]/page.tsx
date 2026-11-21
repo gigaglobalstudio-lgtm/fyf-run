@@ -1,19 +1,26 @@
 import Image from "next/image";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import type { Metadata } from "next";
 import { AddToCart } from "@/components/AddToCart";
 import { ProductCard } from "@/components/ProductCard";
 import { ProductStory } from "@/components/ProductStory";
+import { PhotoDetails } from "@/components/PhotoDetails";
 import { PulseEditorial } from "@/components/PulseEditorial";
 import { StickyBuyBar } from "@/components/StickyBuyBar";
 import { Stars } from "@/components/Stars";
 import { Reviews } from "@/components/Reviews";
 import { PRODUCTS, formatKRW, getProduct } from "@/lib/products";
+import { PHOTO_LISTINGS, getPhotoListing, photoCard } from "@/lib/photo-catalog";
 import { getReviews } from "@/lib/reviews";
 
 export function generateStaticParams() {
-  return PRODUCTS.map((p) => ({ slug: p.slug }));
+  const slugs = new Set(PRODUCTS.map((p) => p.slug));
+  for (const photo of PHOTO_LISTINGS) {
+    slugs.add(photo.slug);
+    if (photo.alias) slugs.add(photo.alias);
+  }
+  return Array.from(slugs, (slug) => ({ slug }));
 }
 
 export async function generateMetadata({
@@ -22,6 +29,15 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
+  const photo = getPhotoListing(slug);
+  if (photo) {
+    const url = "https://fyf-run.vercel.app/product/" + photo.slug;
+    const title = photo.nameKo + " — FYF";
+    return {
+      title, description: photo.description, alternates: { canonical: url },
+      openGraph: { title, description: photo.description, url, images: [{ url: "https://fyf-run.vercel.app" + photo.directory + "/cover.jpg", width: 900, height: 1200, alt: photo.nameKo }] },
+    };
+  }
   const product = getProduct(slug);
   if (!product) return { title: "FYF" };
   return {
@@ -36,13 +52,18 @@ export default async function ProductPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  const photo = getPhotoListing(slug);
+  if (photo && photo.slug !== slug) permanentRedirect("/product/" + photo.slug);
   const product = getProduct(slug);
-  if (!product) notFound();
+  const display = photo ? photoCard(photo) : product;
+  if (!display) notFound();
 
-  const discount = Math.round(
+  const discount = product && Math.round(
     ((product.listPrice - product.price) / product.listPrice) * 100
   );
-  const others = PRODUCTS.filter((p) => p.slug !== product.slug).slice(0, 4);
+  const others = photo
+    ? PHOTO_LISTINGS.filter((p) => p.slug !== slug && p.categoryKo === photo.categoryKo).slice(0, 4).map(photoCard)
+    : PRODUCTS.filter((p) => p.slug !== slug).slice(0, 4);
   const reviews = getReviews(slug);
 
   return (
@@ -58,23 +79,23 @@ export default async function ProductPage({
             Shop
           </Link>
           <span className="mx-2 text-ink/20">/</span>
-          <span className="text-ink/70">{product.name}</span>
+          <span className="text-ink/70">{display.nameKo}</span>
         </nav>
 
         <div className="mt-8 grid gap-12 pb-24 lg:grid-cols-[1.05fr_1fr] lg:gap-20">
           {/* 이미지 */}
           <div className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-[#ecebe6]">
             <Image
-              src={product.image}
-              alt={product.name}
+              src={display.image}
+              alt={display.nameKo + " · " + display.color}
               fill
               priority
               sizes="(max-width: 1024px) 100vw, 52vw"
               className="object-cover"
             />
-            {product.badge && (
+            {display.badge && (
               <span className="absolute left-5 top-5 rounded-full bg-ink/85 px-3.5 py-1.5 text-[10px] font-medium uppercase tracking-[0.16em] text-paper backdrop-blur">
-                {product.badge === "BEST" ? "Best" : "New"}
+                {display.badge === "BEST" ? "Best" : "New"}
               </span>
             )}
           </div>
@@ -82,13 +103,13 @@ export default async function ProductPage({
           {/* 정보 (스티키) */}
           <div className="lg:sticky lg:top-24 lg:h-fit">
             <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-ink/40">
-              {product.categoryKo} · {product.color}
+              {display.categoryKo} · {display.color}
             </p>
             <h1 className="font-display mt-4 text-[2.5rem] leading-[1.04] md:text-5xl">
-              {product.name}
+              {display.name}
             </h1>
             <p className="mt-2.5 text-[15px] font-medium text-ink/50">
-              {product.nameKo} — {product.tagline}
+              {display.nameKo} — {photo?.tagline ?? product?.tagline}
             </p>
 
             {reviews && (
@@ -106,7 +127,7 @@ export default async function ProductPage({
               </a>
             )}
 
-            <div className="mt-8 flex items-baseline gap-3 border-t border-ink/10 pt-8">
+            {product ? <div className="mt-8 flex items-baseline gap-3 border-t border-ink/10 pt-8">
               <span className="text-[28px] font-semibold tracking-tight">
                 {formatKRW(product.price)}
               </span>
@@ -116,12 +137,13 @@ export default async function ProductPage({
               <span className="text-sm font-medium text-ink/40">
                 −{discount}%
               </span>
-            </div>
+            </div> : <p className="mt-8 border-t border-ink/10 pt-6 text-base font-semibold">판매 준비 중</p>}
 
             <p className="mt-5 max-w-md leading-relaxed text-ink/55">
-              {product.description}
+              {photo?.description ?? product?.description}
             </p>
 
+            {product ? <>
             <div className="mt-8">
               <AddToCart product={product} />
             </div>
@@ -129,9 +151,18 @@ export default async function ProductPage({
             <p className="mt-5 text-center text-xs tracking-wide text-ink/45">
               5만원 이상 무료배송 · 1–3일 내 출고 · 7일 무료 교환
             </p>
+            </> : <a href="#detail" className="mt-7 inline-flex rounded-full bg-ink px-7 py-3.5 text-sm font-semibold text-paper hover:bg-smoke">상품 상세 보기</a>}
 
-            <ul className="mt-8 border-t border-ink/10">
-              {product.details.map((d) => (
+            {photo ? (
+              <dl className="mt-8 border-t border-ink/10">
+                {photo.facts.map(([label, value]) => (
+                  <div key={label} className="grid grid-cols-[6rem_1fr] gap-3 border-b border-ink/10 py-3 text-sm">
+                    <dt className="text-ink/55">{label}</dt><dd className="font-medium">{value}</dd>
+                  </div>
+                ))}
+              </dl>
+            ) : <ul className="mt-8 border-t border-ink/10">
+              {product?.details.map((d) => (
                 <li
                   key={d}
                   className="flex gap-3 border-b border-ink/10 py-3 text-sm text-ink/60"
@@ -140,16 +171,31 @@ export default async function ProductPage({
                   {d}
                 </li>
               ))}
-            </ul>
+            </ul>}
           </div>
         </div>
       </div>
 
       {/* ── 상세 (룩북형 or 기본 에디토리얼) ── */}
-      {product.editorial ? (
+      {photo ? (
+        <PhotoDetails listing={photo} />
+      ) : product?.editorial ? (
         <PulseEditorial product={product} />
-      ) : (
+      ) : product ? (
         <ProductStory product={product} />
+      ) : null}
+      {photo && product && (
+        <details className="mx-auto max-w-3xl border-y border-ink/15 px-5 py-5">
+          <summary className="cursor-pointer font-semibold">판매 사이즈 및 상품 사양</summary>
+          <div className="mt-5 overflow-x-auto">
+            <table className="w-full text-left text-sm">
+              <caption className="sr-only">{display.nameKo} 사이즈표</caption>
+              <thead><tr>{product.sizeChart.cols.map((col) => <th key={col} scope="col" className="p-2">{col}</th>)}</tr></thead>
+              <tbody>{product.sizeChart.rows.map((row) => <tr key={row[0]} className="border-t border-ink/10">{row.map((cell, i) => <td key={i} className="whitespace-nowrap p-2">{cell}</td>)}</tr>)}</tbody>
+            </table>
+          </div>
+          <dl className="mt-5">{product.specs.map(([k, v]) => <div key={k} className="flex gap-4 border-t border-ink/10 py-2 text-sm"><dt className="w-16 shrink-0 text-ink/60">{k}</dt><dd>{v}</dd></div>)}</dl>
+        </details>
       )}
 
       {/* ── 후기 ── */}
@@ -170,7 +216,7 @@ export default async function ProductPage({
         </div>
       </div>
 
-      <StickyBuyBar product={product} />
+      {product && <StickyBuyBar product={product} />}
     </div>
   );
 }
