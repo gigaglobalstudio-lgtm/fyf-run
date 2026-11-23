@@ -120,10 +120,23 @@ export function CheckoutWidget({
   return (
     <div className="space-y-5">
       {hydrated && (
-        <dl className="space-y-2 border-b border-line pb-4 text-sm">
-          <div className="flex justify-between"><dt>상품 금액</dt><dd>{formatKRW(total)}</dd></div>
-          <div className="flex justify-between"><dt>배송비</dt><dd>{shipping === 0 ? "무료" : formatKRW(shipping)}</dd></div>
-        </dl>
+        <>
+          <ul aria-label="주문 상품" className="divide-y divide-line border-y border-line">
+            {items.map((item) => (
+              <li key={`${item.slug}-${item.size}`} className="flex items-start justify-between gap-4 py-3 text-sm">
+                <div>
+                  <p className="font-semibold">{item.nameKo || item.name}</p>
+                  <p className="mt-1 text-ink/65">{item.size} · 수량 {item.qty}</p>
+                </div>
+                <span className="shrink-0">{formatKRW(item.price * item.qty)}</span>
+              </li>
+            ))}
+          </ul>
+          <dl className="space-y-2 border-b border-line pb-4 text-sm">
+            <div className="flex justify-between"><dt>상품 금액</dt><dd>{formatKRW(total)}</dd></div>
+            <div className="flex justify-between"><dt>배송비</dt><dd>{shipping === 0 ? "무료" : formatKRW(shipping)}</dd></div>
+          </dl>
+        </>
       )}
       <div className="toss-widget-frame">
         <div id="payment-method" />

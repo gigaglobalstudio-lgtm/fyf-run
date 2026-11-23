@@ -23,6 +23,10 @@
       ]
     ],
     "price": 42000,
+    "purchaseOptions": {
+      "label": "사이즈",
+      "values": ["S", "M", "L", "XL"]
+    },
     "sections": [
       {
         "file": "01-field-notes.png",
@@ -149,6 +153,10 @@
       ]
     ],
     "price": 69000,
+    "purchaseOptions": {
+      "label": "사이즈",
+      "values": ["S", "M", "L", "XL"]
+    },
     "sections": [
       {
         "file": "01-field-notes.png",
