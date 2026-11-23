@@ -44,6 +44,7 @@ export function CartView() {
             >
               <Image
                 src={item.image}
+                unoptimized={item.image?.endsWith("/gallery/02-studio.jpg")}
                 alt={item.name}
                 fill
                 sizes="96px"

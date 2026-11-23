@@ -17,6 +17,7 @@ export function ProductCard({ product }: { product: ShopCardItem }) {
       <div className="relative aspect-[3/4] overflow-hidden border border-[#e1ded5] bg-white">
         <Image
           src={product.image}
+          unoptimized={product.image.endsWith("/gallery/02-studio.jpg")}
           alt={`${product.nameKo} · ${product.color}`}
           fill
           sizes="(max-width: 768px) 50vw, 25vw"
