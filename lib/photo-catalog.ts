@@ -14,6 +14,7 @@ export type PhotoGalleryImage = { file: string; alt: string; caption: string };
 export type PhotoListing = {
   slug: string;
   alias?: string;
+  previousOption?: { slug: string; value: string };
   directory: string;
   useGalleryCover?: boolean;
   name: string;
@@ -73,3 +74,15 @@ export function photoPurchaseItem(photo: PhotoListing): PurchaseItem | undefined
     linkedOptions: photo.purchaseOptions.links,
   };
 }
+
+export const movedCartOptions = PHOTO_LISTINGS.flatMap((photo) => {
+  const option = photo.previousOption;
+  const item = photoPurchaseItem(photo);
+  if (!option || !item) return [];
+  return [{
+    from: option,
+    to: { slug: item.slug, size: item.sizes[0], name: item.name, nameKo: item.nameKo, image: item.image },
+  }];
+});
+
+export type MovedCartOption = (typeof movedCartOptions)[number];

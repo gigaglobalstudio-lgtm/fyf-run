@@ -38,7 +38,7 @@ export default function ShopPage() {
             <h1 className={styles.shopTitle}>굿즈 <em lang="en">Shop</em></h1>
           </div>
           <div className={styles.shopDeck}>
-            <p>문화런의 카티보를 새긴 에코백과 반팔 티셔츠, 순천문화재단의 틔키피 키링을 한곳에 모았습니다.</p>
+            <p>문화런의 에코백과 반팔 티셔츠, 스포츠 쿨타월부터 순천문화재단 틔키피의 키링과 손거울까지 한곳에서 만나보세요.</p>
             <Link href="/#project" className={styles.textLink}>프로젝트 소개 <span aria-hidden="true">↗</span></Link>
           </div>
         </header>

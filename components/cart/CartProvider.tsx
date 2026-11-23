@@ -8,6 +8,7 @@ import {
   useReducer,
   type ReactNode,
 } from "react";
+import type { MovedCartOption } from "@/lib/photo-catalog";
 
 export type CartItem = {
   slug: string;
@@ -77,7 +78,11 @@ const CartContext = createContext<{
   clear: () => void;
 } | null>(null);
 
-export function CartProvider({ children, productPrices }: { children: ReactNode; productPrices: ReadonlyMap<string, number> }) {
+export function CartProvider({ children, productPrices, movedOptions }: {
+  children: ReactNode;
+  productPrices: ReadonlyMap<string, number>;
+  movedOptions: MovedCartOption[];
+}) {
   const [state, dispatch] = useReducer(reducer, {
     items: [],
     hydrated: false,
@@ -86,15 +91,21 @@ export function CartProvider({ children, productPrices }: { children: ReactNode;
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
       const saved: CartItem[] = raw ? JSON.parse(raw) : [];
-      const items = Array.isArray(saved) ? saved.flatMap((item) => {
-        const price = productPrices.get(item?.slug);
-        return price === undefined ? [] : [{ ...item, price }];
-      }) : [];
+      const items: CartItem[] = [];
+      for (const item of Array.isArray(saved) ? saved : []) {
+        const move = movedOptions.find(({ from }) => from.slug === item?.slug && from.value === item.size);
+        const current = move ? { ...item, ...move.to } : item;
+        const price = productPrices.get(current?.slug);
+        if (price === undefined) continue;
+        const existing = items.find((row) => row.slug === current.slug && row.size === current.size);
+        if (existing) existing.qty += current.qty;
+        else items.push({ ...current, price });
+      }
       dispatch({ type: "hydrate", items });
     } catch {
       dispatch({ type: "hydrate", items: [] });
     }
-  }, [productPrices]);
+  }, [productPrices, movedOptions]);
 
   useEffect(() => {
     if (state.hydrated) {
