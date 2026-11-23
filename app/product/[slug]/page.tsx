@@ -12,7 +12,7 @@ import { StickyBuyBar } from "@/components/StickyBuyBar";
 import { Stars } from "@/components/Stars";
 import { Reviews } from "@/components/Reviews";
 import { PRODUCTS, formatKRW, getProduct } from "@/lib/products";
-import { PHOTO_LISTINGS, getPhotoListing, photoCard, photoPurchaseItem } from "@/lib/photo-catalog";
+import { PHOTO_LISTINGS, getPhotoListing, photoCard, photoCover, photoPurchaseItem } from "@/lib/photo-catalog";
 import { getReviews } from "@/lib/reviews";
 
 export function generateStaticParams() {
@@ -34,9 +34,10 @@ export async function generateMetadata({
   if (photo) {
     const url = "https://fyf-run.vercel.app/product/" + photo.slug;
     const title = photo.nameKo + " — FYF";
+    const cover = photoCover(photo);
     return {
       title, description: photo.description, alternates: { canonical: url },
-      openGraph: { title, description: photo.description, url, images: [{ url: "https://fyf-run.vercel.app" + photo.directory + "/cover.jpg", width: 900, height: 1200, alt: photo.nameKo }] },
+      openGraph: { title, description: photo.description, url, images: [{ ...cover, url: "https://fyf-run.vercel.app" + cover.url, alt: photo.nameKo }] },
     };
   }
   const product = getProduct(slug);

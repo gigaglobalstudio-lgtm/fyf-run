@@ -1,0 +1,312 @@
+@font-face {
+  font-family: "Instrument Serif";
+  src: url("/fonts/instrument-serif/italic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
+
+.publication, .header, .footer {
+  --stock: #f7f5ef;
+  --ink: #20211e;
+  --muted: #5a5b53;
+  --line: #cdcac0;
+  --accent: #ac3926;
+  --gutter: clamp(1.125rem, 4.3vw, 5rem);
+}
+
+.publication {
+  background: var(--stock);
+  color: var(--ink);
+  color-scheme: light;
+}
+
+.container, .headerInner, .footerInner, .eventGoods {
+  width: min(100% - 2 * var(--gutter), 86rem);
+  margin-inline: auto;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--stock);
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+}
+
+.headerInner {
+  min-height: 4.25rem;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.brand, .navigation, .account {
+  display: flex;
+  align-items: center;
+}
+
+.brand { width: fit-content; gap: 0.85rem; }
+.brandProject {
+  border-left: 1px solid var(--line);
+  padding-left: 0.85rem;
+  font-family: var(--font-grotesk), sans-serif;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.navigation { gap: clamp(1.2rem, 2.6vw, 2.8rem); }
+.navigation a, .account > a, .account button {
+  display: inline-flex;
+  min-height: 2.5rem;
+  align-items: center;
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+
+.navigation a:hover, .account a:hover, .account button:hover { color: var(--accent); }
+.account { min-width: 0; justify-content: flex-end; gap: 0.8rem; }
+.userLink { max-width: 7rem; overflow: hidden; white-space: nowrap; }
+
+.publication a:focus-visible, .header a:focus-visible, .header button:focus-visible, .footer a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.hero, .section, .field, .catalogGroup, .publication[id] { scroll-margin-top: 7.2rem; }
+.hero { padding-top: clamp(2.4rem, 4.8vw, 4.8rem); }
+.heroTop, .shopIntro {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(17rem, 0.8fr);
+  gap: clamp(2rem, 5vw, 6rem);
+  align-items: end;
+}
+
+.heroTop { margin-bottom: clamp(1.7rem, 3.1vw, 3.1rem); }
+.kicker {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font: 600 0.73rem/1.4 ui-monospace, Consolas, monospace;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.mark { width: 1.85rem; height: 3px; background: var(--accent); }
+.masthead, .shopTitle {
+  margin-top: 0.62rem;
+  font-family: var(--font-grotesk), var(--font-noto), sans-serif;
+  font-size: clamp(4rem, 9.7vw, 9.1rem);
+  font-weight: 800;
+  line-height: 0.97;
+  letter-spacing: -0.085em;
+  white-space: nowrap;
+}
+
+.masthead em, .shopTitle em {
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: 1.12em;
+  font-weight: 400;
+  letter-spacing: -0.043em;
+}
+
+.heroCopy, .shopDeck { max-width: 31rem; }
+.heroCopy > p:not(.deck), .shopDeck > p, .fieldCopy > p:not(.kicker) {
+  margin-top: 0.65rem;
+  font-size: clamp(0.95rem, 1.14vw, 1.075rem);
+  line-height: 1.75;
+  color: var(--muted);
+}
+
+.deck { font-size: clamp(1.12rem, 1.55vw, 1.46rem); font-weight: 700; letter-spacing: -0.045em; }
+.primary, .textLink {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.9rem;
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+.primary {
+  margin-top: 1.1rem;
+  padding: 0.68rem 1.05rem;
+  color: #fff;
+  background: var(--accent);
+  transition: background-color 160ms ease-out;
+}
+.primary:hover { background: #842d1e; }
+.textLink { min-height: 2.5rem; }
+.textLink:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 4px; }
+
+.keyArt img { display: block; width: 100%; height: auto; }
+.keyArt figcaption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.76rem;
+}
+.keyArt figcaption > span span { margin-inline: 0.28rem; }
+.keyArt .textLink { color: var(--ink); font-size: 0.78rem; white-space: nowrap; }
+
+.section, .field { padding-block: clamp(3.5rem, 7vw, 7rem); }
+.sectionHeading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: clamp(1.4rem, 2.7vw, 2.5rem);
+}
+.sectionHeading h2, .fieldCopy h2, .catalogHeading h2 {
+  margin-top: 0.47rem;
+  font-weight: 700;
+  font-size: clamp(2rem, 3.8vw, 3.9rem);
+  line-height: 1.18;
+  letter-spacing: -0.07em;
+}
+
+.goodsSpread {
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(1.2rem, 3vw, 3.4rem);
+}
+.goodsPicks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.1rem, 2.2vw, 2.25rem); }
+.toteLook, .pick { display: block; min-width: 0; align-self: start; }
+.totePhoto, .pickPhoto {
+  position: relative;
+  background: white;
+  border: 1px solid #e1ded5;
+  overflow: hidden;
+}
+.totePhoto { aspect-ratio: 1 / 1.075; }
+.pickPhoto { aspect-ratio: 1.32 / 1; }
+.totePhoto img, .pickPhoto img { display: block; height: 100%; width: 100%; object-fit: contain; }
+.credit {
+  position: absolute;
+  left: 0.85rem;
+  bottom: 0.65rem;
+  padding: 0.15rem 0.36rem;
+  background: #fff;
+  font-size: 0.66rem;
+  font-weight: 500;
+  color: var(--muted);
+}
+.toteCaption, .pick h3 { font-size: clamp(0.92rem, 1.22vw, 1.13rem); font-weight: 650; letter-spacing: -0.035em; line-height: 1.48; }
+.toteCaption { display: flex; justify-content: space-between; gap: 0.8rem; align-items: baseline; padding: 0.9rem 0; border-bottom: 1px solid var(--line); }
+.toteCaption > span:last-child { white-space: nowrap; font-size: 0.88rem; }
+.toteCaption > span:last-child span { padding-left: 0.35rem; }
+.pick h3 { margin-top: 0.65rem; }
+.pick p { margin-top: 0.17rem; color: var(--muted); font-size: 0.85rem; }
+.pick:hover h3, .toteLook:hover .toteCaption > span:first-child { text-decoration: underline; text-underline-offset: 4px; }
+
+.field, .eventGoods {
+  display: grid;
+  grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
+  align-items: center;
+  gap: clamp(2rem, 5.4vw, 6.25rem);
+}
+.field { border-block: 1px solid var(--line); }
+.fieldCopy { max-width: 31rem; }
+.fieldCopy > p:not(.kicker) { margin-top: 1.2rem; }
+.fieldCopy .textLink { margin-top: 1.1rem; border-bottom: 1px solid var(--ink); }
+.films { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.6rem, 3vw, 3rem); }
+.film { min-width: 0; }
+.film figure { border: 0; border-radius: 0; background: transparent; }
+.film video { display: block; }
+.film figcaption { padding: 0.8rem 0; border-bottom: 1px solid var(--line); }
+.film figcaption p:first-child { color: var(--ink); }
+.film figcaption p:nth-child(2), .film figcaption svg { color: var(--muted); }
+.eventGoods { grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr); max-width: 66rem; padding-block: clamp(3.5rem, 7vw, 6.5rem); }
+
+.shopIntro { padding-block: clamp(2.6rem, 5vw, 5.3rem); }
+.shopTitle { font-size: clamp(3.8rem, 7.7vw, 7.8rem); letter-spacing: -0.075em; }
+.shopTitle em { margin-left: 0.06em; }
+.shopDeck .textLink { margin-top: 0.5rem; }
+.categoryNav {
+  display: flex;
+  flex-wrap: wrap;
+  border-block: 1px solid var(--ink);
+}
+.categoryNav a {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.86rem clamp(0.7rem, 2vw, 1.6rem);
+  font-size: 0.9rem;
+  font-weight: 650;
+}
+.categoryNav a + a { border-left: 1px solid var(--line); }
+.categoryNav a:hover { color: var(--accent); background: #efece4; }
+.catalogGroup { padding-block: clamp(2.4rem, 4.8vw, 4.8rem); }
+.catalogGroup + .catalogGroup { border-top: 1px solid var(--line); }
+.catalogHeading { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; padding-bottom: 1.5rem; }
+.catalogHeading h2 { margin: 0; font-size: clamp(1.65rem, 2.8vw, 2.75rem); }
+.catalogHeading > span { font-size: 0.8rem; color: var(--muted); }
+.catalogGrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2.5rem clamp(0.8rem, 1.8vw, 1.8rem); }
+
+.footer { background: #24231f; color: #f7f5ef; }
+.footerInner { padding-block: clamp(2.8rem, 5vw, 5rem) 1.5rem; }
+.footerTop { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 2rem; }
+.footerProject { margin: 1.25rem 0 0.6rem; font-size: 1.4rem; font-weight: 700; }
+.footerTop > div > p:not(.footerProject), .colophon { color: #c4c2b8; line-height: 1.8; font-size: 0.8rem; }
+.footerTop > div > p span { margin-inline: 0.28rem; }
+.footerLinks { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 1rem; }
+.footerLinks p { font-size: 0.8rem; font-weight: 700; margin-bottom: 0.6rem; }
+.footerLinks a { display: block; width: fit-content; font-size: 0.84rem; line-height: 2.05; color: #dcdbd4; }
+.footerLinks a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.colophon { display: flex; gap: 0.2rem 1.8rem; flex-wrap: wrap; margin-top: 2.4rem; padding-top: 1.15rem; border-top: 1px solid #54544d; font-size: 0.72rem; }
+
+@media (max-width: 880px) {
+  .headerInner { column-gap: 0.8rem; }
+  .brandProject { display: none; }
+  .heroTop, .shopIntro { grid-template-columns: 1.23fr 1fr; gap: 1.2rem; }
+  .masthead { font-size: 8.9vw; }
+  .catalogGrid { grid-template-columns: repeat(3, minmax(0,1fr)); }
+}
+@media (max-width: 700px) {
+  .headerInner { grid-template-columns: 1fr auto; grid-template-areas: "brand account" "nav nav"; gap: 0; }
+  .brand { grid-area: brand; min-height: 3rem; }
+  .brandProject { display: inline; }
+  .account { grid-area: account; gap: 0.65rem; }
+  .navigation { grid-area: nav; justify-content: space-between; gap: 0.35rem; border-top: 1px solid var(--line); }
+  .navigation a { font-size: 0.8rem; min-height: 2.45rem; }
+  .heroTop, .shopIntro { grid-template-columns: 1fr; gap: 1.2rem; }
+  .hero { padding-top: 2rem; }
+  .heroTop { margin-bottom: 1.45rem; }
+  .masthead { font-size: clamp(3.5rem, 15.2vw, 6.4rem); }
+  .heroCopy > p:not(.deck), .shopDeck > p { margin-top: 0.35rem; }
+  .primary { margin-top: 0.8rem; }
+  .keyArt img { aspect-ratio: 2.43 / 1; object-fit: cover; object-position: 47% center; }
+  .keyArt figcaption { gap: 0.45rem; font-size: 0.67rem; }
+  .keyArt .textLink { font-size: 0.7rem; gap: 0.25rem; }
+  .sectionHeading { align-items: center; gap: 0.5rem; }
+  .sectionHeading .textLink { font-size: 0.75rem; gap: 0.35rem; }
+  .goodsSpread, .field, .eventGoods, .films, .footerTop { grid-template-columns: 1fr; }
+  .goodsSpread { gap: 1.6rem; }
+  .totePhoto { aspect-ratio: 1.05 / 1; }
+  .toteCaption { flex-wrap: wrap; }
+  .field, .eventGoods { gap: 1.4rem; }
+  .fieldCopy > p:not(.kicker) { margin-top: 0.6rem; }
+  .fieldCopy .textLink { margin-top: 0.45rem; }
+  .shopIntro { padding-block: 2.2rem 1.5rem; }
+  .categoryNav { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .categoryNav a { font-size: 0.8rem; padding: 0.65rem; }
+  .categoryNav a:nth-child(odd) { border-left: 0; }
+  .categoryNav a:nth-child(n+3) { border-top: 1px solid var(--line); }
+  .catalogGrid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1.6rem 0.8rem; }
+  .footerLinks { margin-top: 0.6rem; }
+}
+@media (max-width: 390px) {
+  .userLink { max-width: 3.7rem; }
+}

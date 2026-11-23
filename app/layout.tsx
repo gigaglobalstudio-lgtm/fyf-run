@@ -14,13 +14,18 @@ const notoSansKr = Noto_Sans_KR({
   subsets: ["latin"],
 });
 
+const projectTitle = "FYF 벙커버스 | 순천 러닝 프로젝트";
+const projectDescription = "순천 남문터광장에서 시작한 FYF 벙커버스. 네 캐릭터의 영상, 순천 문화런 현장과 프로젝트 러닝 굿즈를 만나보세요.";
+
 export const metadata: Metadata = {
-  title: "FYF — Don't follow. Find your Flow.",
-  description:
-    "따라가지 마. 네 리듬을 찾아. 순천에서 시작한 러닝 컬처 브랜드 FYF. 첫 크루, 첫 모자 — 퍼포먼스 캡 ₩39,000.",
+  metadataBase: new URL("https://fyf-run.vercel.app"),
+  title: projectTitle,
+  description: projectDescription,
   openGraph: {
-    title: "FYF — Don't follow. Find your Flow.",
-    description: "따라가지 마. 네 리듬을 찾아. 러닝 컬처 브랜드 FYF.",
+    title: projectTitle,
+    description: projectDescription,
+    siteName: "FYF 벙커버스",
+    images: [{ url: "/project/suncheon-crew.jpg", width: 1672, height: 545, alt: "순천을 달리는 벙커버스 크루" }],
     type: "website",
   },
 };

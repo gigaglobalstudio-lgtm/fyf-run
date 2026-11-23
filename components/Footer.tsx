@@ -1,73 +1,37 @@
 import Link from "next/link";
-import { EcgLine } from "./EcgLogo";
+import { FyfLogo } from "./EcgLogo";
+import styles from "./project.module.css";
+
+const links = [
+  { name: "프로젝트", items: [["벙커버스 이야기", "/world"], ["뮤직비디오", "/world/story"], ["남문터 러닝카페", "/world/cafe"]] },
+  { name: "문화런", items: [["현장 영상과 포스터", "/club/culture-run"], ["러닝 코스", "/course"], ["러닝 클럽", "/club"]] },
+  { name: "굿즈 숍", items: [["전체 상품", "/shop"], ["장바구니", "/cart"], ["마이페이지", "/mypage"], ["로그인", "/login"]] },
+];
 
 export function Footer() {
   return (
-    <footer className="border-t border-darkline/60 bg-ink">
-      <div className="mx-auto max-w-7xl px-5 py-16">
-        <div className="flex flex-col justify-between gap-10 md:flex-row">
+    <footer className={styles.footer}>
+      <div className={styles.footerInner}>
+        <div className={styles.footerTop}>
           <div>
-            <p className="font-display text-3xl tracking-tight">FYF</p>
-            <p className="mt-2.5 text-sm text-paper/50">
-              Don&apos;t follow. Find your Flow.
-            </p>
-            <EcgLine className="mt-4 h-4 w-24 text-paper/30" animate />
+            <Link href="/" aria-label="FYF 벙커버스 홈"><FyfLogo /></Link>
+            <p className={styles.footerProject}>FYF 벙커버스</p>
+            <p>2026 콘텐츠 IP 비즈니스(머천다이징) 지원사업</p>
+            <p>기획·제작 기가글로벌스튜디오 주식회사 <span aria-hidden="true">/</span> 협업 순천문화재단</p>
           </div>
-
-          <div className="grid grid-cols-2 gap-10 text-sm sm:grid-cols-3">
-            <div className="space-y-2.5">
-              <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-paper/35">SHOP</p>
-              <Link href="/shop" className="block text-paper/70 hover:text-paper">
-                전체 상품
-              </Link>
-              <Link
-                href="/product/fyf-performance-cap"
-                className="block text-paper/70 hover:text-paper"
-              >
-                퍼포먼스 캡
-              </Link>
-              <Link href="/cart" className="block text-paper/70 hover:text-paper">
-                장바구니
-              </Link>
-            </div>
-            <div className="space-y-2.5">
-              <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-paper/35">WORLD</p>
-              <Link href="/world" className="block text-paper/70 hover:text-paper">
-                Bunker-Verse
-              </Link>
-              <Link href="/world#crew" className="block text-paper/70 hover:text-paper">
-                크루 소개
-              </Link>
-              <a
-                href="https://www.instagram.com/"
-                target="_blank"
-                rel="noreferrer"
-                className="block text-paper/70 hover:text-paper"
-              >
-                Instagram
-              </a>
-            </div>
-            <div className="space-y-2.5">
-              <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-paper/35">ACCOUNT</p>
-              <Link href="/login" className="block text-paper/70 hover:text-paper">
-                로그인
-              </Link>
-              <Link href="/mypage" className="block text-paper/70 hover:text-paper">
-                마이페이지
-              </Link>
-            </div>
-          </div>
+          <nav aria-label="하단 메뉴" className={styles.footerLinks}>
+            {links.map(({ name, items }) => (
+              <div key={name}>
+                <p>{name}</p>
+                {items.map(([label, url]) => <Link key={url} href={url}>{label}</Link>)}
+              </div>
+            ))}
+          </nav>
         </div>
-
-        <div className="mt-12 border-t border-darkline pt-6 text-xs leading-relaxed text-paper/40">
-          <p>
-            기가글로벌스튜디오 · 대표 최원열 · 전남 순천시 · 사업자등록번호 / 통신판매업
-            신고번호는 실 운영 전 기재
-          </p>
-          <p className="mt-1">
-            © {new Date().getFullYear()} FYF — GIGA GLOBAL STUDIO. All rights
-            reserved. 현재 결제는 토스페이먼츠 샌드박스(테스트) 모드입니다.
-          </p>
+        <div className={styles.colophon}>
+          <p>기가글로벌스튜디오 주식회사 · 대표 최원열 · 전남 순천시</p>
+          <p>현재 결제는 토스페이먼츠 테스트 모드입니다.</p>
+          <p>© {new Date().getFullYear()} FYF · GIGA GLOBAL STUDIO</p>
         </div>
       </div>
     </footer>

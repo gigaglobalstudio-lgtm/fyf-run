@@ -1,369 +1,72 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Marquee } from "@/components/Marquee";
-import { ProductCard } from "@/components/ProductCard";
 import { MvPlayer } from "@/components/MvPlayer";
-import { EcgLine } from "@/components/EcgLogo";
-import { FlowSection } from "@/components/three/FlowSection";
-import { CrewSignup } from "@/components/CrewSignup";
-import { PRODUCTS, CREW, formatKRW, getProduct } from "@/lib/products";
+import { ProjectGoods } from "@/components/ProjectGoods";
 import { sketch } from "@/lib/culture-run";
+import styles from "@/components/project.module.css";
 
 export default function Home() {
-  const cap = getProduct("fyf-performance-cap")!;
-
   return (
-    <>
-      {/* ── HERO ─────────────────────────────────── */}
-      <section className="relative flex min-h-[92svh] items-end overflow-hidden">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          poster="/hero/hero-night-crew.jpg"
-          src="/hero/hero-loop.mp4"
-          aria-label="한강 야간 러닝 중인 FYF 크루 — 남녀 혼성 4인"
-          className="absolute inset-0 h-full w-full object-cover object-top"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/30 to-ink/10" />
-
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-16 pt-40">
-          <EcgLine className="h-5 w-32 text-paper/50" animate />
-          <h1 className="font-display mt-6 text-[12vw] font-extrabold leading-[0.95] md:text-[7rem]">
-            Don&apos;t follow.
-            <br />
-            Find your Flow.
-          </h1>
-          <p className="mt-6 max-w-md text-base font-normal text-paper/70 md:text-lg">
-            따라가지 마. 네 리듬을 찾아. <br className="sm:hidden" />
-            순천의 밤에서 시작한{" "}
-            <span className="whitespace-nowrap">러닝 컬처 — FYF.</span>
-          </p>
-          <div className="mt-9 flex flex-wrap gap-3">
-            <Link
-              href="/shop"
-              className="rounded-full bg-paper px-7 py-3.5 text-sm font-semibold text-ink transition hover:bg-white"
-            >
-              컬렉션 보기
-            </Link>
-            <Link
-              href="/world"
-              className="rounded-full border border-paper/30 px-7 py-3.5 text-sm font-semibold text-paper/90 backdrop-blur transition hover:border-paper hover:text-paper"
-            >
-              Bunker-Verse →
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <Marquee />
-
-      <section id="culture-run" aria-labelledby="culture-run-title" className="scroll-mt-16 border-b border-darkline bg-ink text-paper">
-        <div className="mx-auto grid max-w-7xl gap-8 px-5 py-16 md:grid-cols-[0.72fr_1.28fr] md:items-center md:gap-14 md:py-20">
-          <div>
-            <h2 id="culture-run-title" className="font-display text-5xl md:text-6xl">순천 문화런</h2>
-            <p className="mt-5 max-w-md leading-relaxed text-paper/75">
-              남문터광장을 출발해 동천을 따라 달리는 5K·10K. 첫 문화런의 현장과 11월 28일 코스를 만나보세요.
-            </p>
-            <Link href="/club/culture-run" className="mt-7 inline-flex rounded-full bg-paper px-6 py-3 text-sm font-semibold text-ink transition hover:bg-white">
-              문화런 영상·포스터 보기 <span aria-hidden="true" className="ml-2">→</span>
-            </Link>
-          </div>
-          <MvPlayer {...sketch} />
-        </div>
-      </section>
-
-      {/* ── FEATURED: PERFORMANCE CAP ────────────── */}
-      <section className="bg-paper text-ink">
-        <div className="mx-auto grid max-w-7xl items-center gap-10 px-5 py-20 md:grid-cols-2 md:py-28">
-          <div className="relative aspect-square overflow-hidden rounded-2xl bg-[#ecebe6]">
-            <Image
-              src={cap.image}
-              alt={cap.name}
-              fill
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover"
-            />
-            <span className="absolute left-4 top-4 rounded-full bg-ink/90 px-3 py-1 text-[11px] font-medium tracking-wide text-paper">
-              Best
-            </span>
-          </div>
-          <div>
-            <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-ink/40">
-              First crew, first cap
-            </p>
-            <h2 className="font-display mt-4 text-5xl leading-[0.98] md:text-6xl">
-              Performance Cap
-            </h2>
-            <p className="mt-5 max-w-md leading-relaxed text-ink/60">
-              {cap.description}
-            </p>
-            <p className="mt-7 flex items-baseline gap-3">
-              <span className="text-[28px] font-semibold tracking-tight">
-                {formatKRW(cap.price)}
-              </span>
-              <span className="text-base text-ink/35 line-through">
-                {formatKRW(cap.listPrice)}
-              </span>
-            </p>
-            <div className="mt-8 flex gap-3">
-              <Link
-                href={`/product/${cap.slug}`}
-                className="rounded-full bg-ink px-7 py-3.5 text-sm font-semibold text-paper transition hover:bg-smoke"
-              >
-                자세히 보기
-              </Link>
-              <Link
-                href="/shop"
-                className="rounded-full border border-ink/20 px-7 py-3.5 text-sm font-semibold text-ink transition hover:border-ink"
-              >
-                전체 컬렉션
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── COLLECTION GRID ──────────────────────── */}
-      <section id="collection" className="border-t border-line bg-paper text-ink">
-        <div className="mx-auto max-w-7xl px-5 py-20">
-          <div className="flex items-end justify-between">
+    <div className={styles.publication}>
+      <div className={styles.container}>
+        <section id="project" aria-labelledby="project-title" className={styles.hero}>
+          <div className={styles.heroTop}>
             <div>
-              <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-ink/40">
-                Season 01
-              </p>
-              <h2 className="font-display mt-3 text-4xl md:text-5xl">
-                Performance Collection
-              </h2>
+              <p className={styles.kicker}><span className={styles.mark} aria-hidden="true" /> Suncheon <span aria-hidden="true">/</span> 2026</p>
+              <h1 id="project-title" className={styles.masthead} aria-label="FYF 벙커버스">
+                <span>Bunker</span><em>–Verse</em>
+              </h1>
             </div>
-            <Link
-              href="/shop"
-              className="hidden text-sm font-medium text-ink/60 transition hover:text-ink sm:block"
-            >
-              전체 보기 →
-            </Link>
+            <div className={styles.heroCopy}>
+              <p className={styles.deck}>순천을 달리는 FYF 벙커버스</p>
+              <p>남문터광장의 러닝카페에서 시작한 캐릭터 프로젝트입니다. 카티보와 세 친구의 이야기를 영상, 문화런, 러닝 굿즈에 담았습니다.</p>
+              <Link className={styles.primary} href="/shop">프로젝트 굿즈 보기 <span aria-hidden="true">→</span></Link>
+            </div>
           </div>
-          <div className="mt-10 grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-4">
-            {PRODUCTS.slice(0, 8).map((p) => (
-              <ProductCard key={p.slug} product={p} />
-            ))}
-          </div>
-        </div>
-      </section>
+          <figure className={styles.keyArt}>
+            <Image src="/project/suncheon-crew.jpg" alt="순천의 광장을 함께 달리는 카티보, 로코, 블록, 렌의 콘셉트 아트"
+              width={1672} height={545} sizes="(min-width: 1500px) 1380px, 96vw" preload />
+            <figcaption>
+              <span>벙커버스 콘셉트 아트 <span aria-hidden="true">/</span> 카티보 · 로코 · 블록 · 렌</span>
+              <Link href="/world#crew" className={styles.textLink}>캐릭터 소개 <span aria-hidden="true">↗</span></Link>
+            </figcaption>
+          </figure>
+        </section>
 
-      {/* ── LOOKBOOK / EDITORIAL ─────────────────── */}
-      <section className="relative overflow-hidden bg-ink">
-        <div className="mx-auto grid max-w-7xl items-stretch gap-0 md:grid-cols-2">
-          <div className="relative aspect-[3/4] md:aspect-auto">
-            <Image
-              src="/hero/cap-worn.png"
-              alt="FYF 퍼포먼스 캡을 쓴 러너"
-              fill
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover"
-            />
-          </div>
-          <div className="flex flex-col justify-center px-5 py-20 md:px-14">
-            <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-paper/40">
-              Night run, Suncheon
-            </p>
-            <h2 className="font-display mt-4 text-5xl leading-[1.0] md:text-6xl">
-              평균은
-              <br />
-              너를 모른다
-            </h2>
-            <p className="mt-6 max-w-md leading-relaxed text-paper/60">
-              페이스 차트, 평균 기록, 남들의 기준. 메트로놈 시스템은 모두를
-              같은 박자로 뛰게 만든다. FYF는 반대로 간다 — 네 심박이 곧 네
-              리듬이다.
-            </p>
-            <Link
-              href="/world"
-              className="mt-9 w-fit rounded-full border border-paper/30 px-7 py-3.5 text-sm font-semibold text-paper/90 transition hover:border-paper hover:text-paper"
-            >
-              세계관 읽기
-            </Link>
-          </div>
-        </div>
-      </section>
+        <ProjectGoods />
 
-      {/* ── 3D PULSE (WebGL) ─────────────────────── */}
-      <FlowSection />
-
-      {/* ── RUN MAP 배너 ─────────────────────────── */}
-      <section className="border-t border-darkline bg-ink">
-        <div className="mx-auto grid max-w-7xl items-center gap-10 px-5 py-20 lg:grid-cols-[1fr_380px]">
-          <div>
-            <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-paper/40">
-              FYF Run Map
-            </p>
-            <h2 className="font-display mt-3 text-4xl leading-[1.05] md:text-5xl">
-              오늘 어디 뛸지
-              <br />
-              크루가 그려놨다
-            </h2>
-            <p className="mt-5 max-w-md leading-relaxed text-paper/60">
-              순천 오천그린광장 4K부터 여수 밤바다, 전국 TOP 10까지 — 출발지,
-              반환점, 노면, 주의사항이 담긴 코스 카드 20장.
-            </p>
-            <Link
-              href="/course"
-              className="mt-8 inline-block rounded-full bg-paper px-7 py-3.5 text-sm font-semibold text-ink transition hover:bg-white"
-            >
-              코스 전체 보기 →
-            </Link>
+        <section id="culture-run" className={styles.field} aria-labelledby="culture-title">
+          <div className={styles.fieldCopy}>
+            <p className={styles.kicker} lang="en">Culture Run</p>
+            <h2 id="culture-title">순천 문화런</h2>
+            <p>남문터광장에서 출발해 동천을 따라 달리는 5K·10K. 첫 문화런에 모인 러너들의 하루를 현장 영상으로 만나보세요.</p>
+            <Link className={styles.textLink} href="/club/culture-run">문화런 포스터와 코스 보기 <span aria-hidden="true">→</span></Link>
           </div>
-          <Link
-            href="/course"
-            className="group relative aspect-[4/5] overflow-hidden rounded-2xl border border-darkline/60"
-          >
-            <Image
-              src="/course/jeonnam/01.jpg"
-              alt="FYF RUN MAP 01 — 순천 오천그린광장"
-              fill
-              sizes="(max-width: 1024px) 100vw, 380px"
-              className="object-cover transition duration-500 group-hover:scale-[1.03]"
-            />
-          </Link>
-        </div>
-      </section>
+          <div className={styles.film}>
+            <MvPlayer {...sketch} />
+          </div>
+        </section>
 
-      {/* ── CREW ─────────────────────────────────── */}
-      <section className="border-t border-darkline bg-ink">
-        <div className="mx-auto max-w-7xl px-5 py-20">
-          <div className="flex flex-wrap items-end justify-between gap-4">
+        <section className={styles.section} aria-labelledby="films-title">
+          <div className={styles.sectionHeading}>
             <div>
-              <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-paper/40">
-                Bunker-Verse Crew
-              </p>
-              <h2 className="font-display mt-3 text-4xl md:text-5xl">
-                낮에는 카페, 밤에는 벙커
-              </h2>
+              <p className={styles.kicker} lang="en">Bunker Sound</p>
+              <h2 id="films-title">벙커버스 상영관</h2>
             </div>
-            <Link
-              href="/world"
-              className="text-sm font-medium text-paper/60 transition hover:text-paper"
-            >
-              세계관 전체 보기 →
-            </Link>
+            <Link className={styles.textLink} href="/world/story">스토리와 영상 보기 <span aria-hidden="true">→</span></Link>
           </div>
-
-          <div className="mt-10 grid gap-5 lg:grid-cols-[1.15fr_1fr]">
-            {/* 공식 그룹 아트 */}
-            <Link
-              href="/world"
-              className="group relative min-h-80 overflow-hidden rounded-2xl border border-darkline/60"
-            >
-              <Image
-                src="/crew/crew-cover.jpg"
-                alt="FYF 크루 — 카티보, 렌, 로코, 블록"
-                fill
-                sizes="(max-width: 1024px) 100vw, 55vw"
-                className="object-cover transition duration-700 group-hover:scale-[1.03]"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-transparent to-transparent" />
-              <div className="absolute bottom-0 p-7">
-                <p className="font-display text-3xl text-paper md:text-4xl">
-                  네 개의 심박, 하나의 벙커
-                </p>
-                <p className="mt-1.5 text-sm text-paper/70">
-                  순천의 밤, 메트로놈 시스템에 맞서는 4인 크루
-                </p>
-              </div>
-            </Link>
-
-            {/* 캐릭터 4인 카드 */}
-            <div className="grid grid-cols-2 gap-5">
-              {CREW.map((c) => (
-                <Link
-                  key={c.en}
-                  href="/world#crew"
-                  className="group overflow-hidden rounded-2xl border border-darkline/60 bg-coal transition hover:-translate-y-1 hover:border-paper/25"
-                >
-                  <div className="relative aspect-square bg-white">
-                    <Image
-                      src={c.image}
-                      alt={`${c.name} 캐릭터`}
-                      fill
-                      sizes="(max-width: 1024px) 50vw, 20vw"
-                      className="object-contain p-2 transition duration-500 group-hover:scale-105"
-                    />
-                  </div>
-                  <div className="p-4">
-                    <p className="font-display text-lg tracking-tight">{c.en}</p>
-                    <p className="mt-0.5 text-xs font-medium text-paper/45">
-                      {c.name} · {c.role}
-                    </p>
-                    <p
-                      className="mt-2 text-sm font-semibold leading-snug"
-                      style={{ color: c.color }}
-                    >
-                      “{c.quote}”
-                    </p>
-                  </div>
-                </Link>
-              ))}
+          <div className={styles.films}>
+            <div className={styles.film}>
+              <MvPlayer src="/mv/gabojago.mp4" poster="/mv/gabojago-poster.jpg"
+                title="가보자고" sub="순천 골목에서 보내는 크루의 낮" />
+            </div>
+            <div className={styles.film}>
+              <MvPlayer src="/mv/zombie-eyes.mp4" poster="/mv/zombie-eyes-poster.jpg"
+                title="ZOMBIE EYES" sub="메트로놈을 마주한 카티보의 밤" />
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* ── MV ───────────────────────────────────── */}
-      <section className="border-t border-darkline bg-ink">
-        <div className="mx-auto max-w-7xl px-5 py-20">
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-paper/40">
-                Bunker Sound
-              </p>
-              <h2 className="font-display mt-3 text-4xl md:text-5xl">
-                FYF 뮤직비디오
-              </h2>
-            </div>
-            <Link
-              href="/world/story"
-              className="text-sm font-medium text-paper/60 transition hover:text-paper"
-            >
-              스토리 &amp; MV 전체 →
-            </Link>
-          </div>
-          <div className="mt-10 grid gap-6 lg:grid-cols-2">
-            <MvPlayer
-              src="/mv/gabojago.mp4"
-              poster="/mv/gabojago-poster.jpg"
-              title="가보자고"
-              sub="FYF OFFICIAL MV — 크루의 낮, 순천 골목에서"
-            />
-            <MvPlayer
-              src="/mv/zombie-eyes.mp4"
-              poster="/mv/zombie-eyes-poster.jpg"
-              title="ZOMBIE EYES"
-              sub="FYF OFFICIAL MV — 카티보의 밤, 메트로놈을 노려보다"
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* ── STATS ────────────────────────────────── */}
-      <section className="border-t border-darkline bg-ink">
-        <div className="mx-auto grid max-w-7xl gap-8 px-5 py-14 text-center sm:grid-cols-3">
-          {[
-            ["1,000만", "한국 러닝 인구"],
-            ["+270%", "'러닝' 검색량 증가 (YoY)"],
-            ["2,000+", "전국 러닝 크루"],
-          ].map(([num, label]) => (
-            <div key={label}>
-              <p className="font-display text-5xl text-paper">{num}</p>
-              <p className="mt-2 text-sm text-paper/50">{label}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <CrewSignup />
-
-      <Marquee dark />
-    </>
+        </section>
+      </div>
+    </div>
   );
 }

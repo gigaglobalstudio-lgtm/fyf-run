@@ -15,6 +15,7 @@ export type PhotoListing = {
   slug: string;
   alias?: string;
   directory: string;
+  useGalleryCover?: boolean;
   name: string;
   nameKo: string;
   categoryKo: string;
@@ -35,11 +36,17 @@ export function getPhotoListing(slug: string) {
   return PHOTO_LISTINGS.find((photo) => photo.slug === slug || photo.alias === slug);
 }
 
+export function photoCover(photo: PhotoListing) {
+  const first = photo.useGalleryCover && photo.gallery?.[0];
+  if (first) return { url: photo.directory + "/" + first.file, width: 1000, height: 1000 };
+  return { url: photo.directory + "/cover.jpg", width: 900, height: 1200 };
+}
+
 export function photoCard(photo: PhotoListing): ShopCardItem {
   const offer = getProduct(photo.slug);
   return {
     slug: photo.slug, name: offer?.name ?? photo.name, nameKo: photo.nameKo,
-    categoryKo: photo.categoryKo, color: photo.color, image: photo.directory + "/cover.jpg",
+    categoryKo: photo.categoryKo, color: photo.color, image: photoCover(photo).url,
     price: offer?.price ?? photo.price, priceUnit: photo.priceUnit,
     listPrice: offer?.listPrice, badge: offer?.badge,
   };
@@ -49,7 +56,7 @@ export function photoPurchaseItem(photo: PhotoListing): PurchaseItem | undefined
   if (photo.price == null || !photo.purchaseOptions?.values.length) return;
   return {
     slug: photo.slug, name: photo.name, nameKo: photo.nameKo,
-    image: photo.directory + "/cover.jpg", price: photo.price,
+    image: photoCover(photo).url, price: photo.price,
     optionLabel: photo.purchaseOptions.label, sizes: photo.purchaseOptions.values,
     linkedOptions: photo.purchaseOptions.links,
   };

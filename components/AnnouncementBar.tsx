@@ -1,32 +1,11 @@
-"use client";
-
-import { useEffect, useState } from "react";
-
-const MESSAGES = [
-  "5만원 이상 전 상품 무료배송",
-  "NEW — Pulse Sleeveless 입고",
-  "FYF RUN CLUB — 매주 순천 동천 / 서울 한강",
-  "Don't follow. Find your Flow.",
-];
+import Link from "next/link";
 
 export function AnnouncementBar() {
-  const [i, setI] = useState(0);
-
-  useEffect(() => {
-    const t = setInterval(() => setI((v) => (v + 1) % MESSAGES.length), 3800);
-    return () => clearInterval(t);
-  }, []);
-
   return (
-    <div className="relative z-50 border-b border-darkline/60 bg-ink">
-      <div className="mx-auto flex h-8 max-w-7xl items-center justify-center overflow-hidden px-5">
-        <p
-          key={i}
-          className="animate-rise text-[11px] font-medium uppercase tracking-[0.2em] text-paper/70"
-        >
-          {MESSAGES[i]}
-        </p>
-      </div>
+    <div className="bg-[#24231f] px-4 py-1.5 text-center text-xs text-[#f8f5ed]">
+      <Link href="/club/culture-run" className="inline-flex items-center gap-2 underline-offset-4 hover:underline">
+        순천 문화런 <span aria-hidden="true">·</span> 남문터광장 5K / 10K 코스 보기 <span aria-hidden="true">→</span>
+      </Link>
     </div>
   );
 }

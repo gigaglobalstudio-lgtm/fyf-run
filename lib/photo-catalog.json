@@ -2058,6 +2058,7 @@
   {
     "slug": "cattivo-face-tote",
     "directory": "/detail/fyf-goods/cattivo-face-tote",
+    "useGalleryCover": true,
     "name": "Face Tote",
     "nameKo": "문화런 에코백 · 페이스 그래픽",
     "categoryKo": "문화런 굿즈",
@@ -2161,14 +2162,14 @@
     ],
     "gallery": [
       {
-        "file": "gallery/01-product.jpg",
-        "alt": "문화런 에코백 · 페이스 · 제품 전체",
-        "caption": "제품 전체"
-      },
-      {
         "file": "gallery/02-studio.jpg",
         "alt": "문화런 에코백 · 페이스 · AI 모델 연출 · 손에 든 크기",
         "caption": "AI 모델 연출 · 손에 든 크기"
+      },
+      {
+        "file": "gallery/01-product.jpg",
+        "alt": "문화런 에코백 · 페이스 · 제품 전체",
+        "caption": "제품 전체"
       },
       {
         "file": "gallery/03-detail.jpg",

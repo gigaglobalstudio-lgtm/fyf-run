@@ -3,10 +3,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { MvPlayer } from "@/components/MvPlayer";
 import { editions, film, sketch } from "@/lib/culture-run";
+import { ToteLook } from "@/components/ProjectGoods";
+import styles from "@/components/project.module.css";
 
 export const metadata: Metadata = {
-  title: "순천 문화런 영상·포스터 | FYF RUN CLUB",
+  title: "순천 문화런 영상·포스터 | FYF 벙커버스",
   description: "순천 남문터광장과 동천에서 열린 첫 문화런의 현장 스케치, 홍보영상, 회차별 공식 포스터와 5K·10K 코스 안내.",
+  openGraph: { title: "순천 문화런 | FYF 벙커버스", description: "남문터광장에서 출발하는 문화런의 영상, 포스터와 굿즈.", url: "/club/culture-run", images: [sketch.poster] },
 };
 
 const posterLink = "inline-flex items-center gap-2 py-2 text-sm font-semibold text-paper underline decoration-paper/30 underline-offset-4 transition hover:decoration-paper";
@@ -15,11 +18,15 @@ export default function CultureRunPage() {
   return (
     <article className="bg-ink text-paper">
       <header className="mx-auto max-w-7xl px-5 pb-10 pt-12 md:pb-14 md:pt-16">
-        <Link href="/club" className="text-sm font-medium text-paper/65 hover:text-paper">← FYF RUN CLUB</Link>
+        <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm font-medium text-paper/75">
+          <Link href="/#project" className="hover:text-paper">← 벙커버스 프로젝트</Link>
+          <Link href="/club" className="hover:text-paper">FYF 러닝 클럽</Link>
+        </div>
         <h1 className="font-display mt-7 text-5xl leading-tight md:text-7xl">순천 문화런</h1>
         <p className="mt-4 max-w-2xl leading-relaxed text-paper/75">
           남문터광장 FYF 러닝카페에서 출발해 동천을 따라 달립니다. 현장 영상과 회차별 5K·10K 코스를 확인하세요.
         </p>
+        <a href="#culture-goods" className="mt-4 inline-block text-sm text-paper/85 underline underline-offset-4">문화런 굿즈 보기 ↓</a>
       </header>
 
       <section aria-label="문화런 영상" className="mx-auto grid max-w-7xl gap-5 px-5 pb-14 md:grid-cols-2 md:pb-20">
@@ -72,6 +79,17 @@ export default function CultureRunPage() {
           </div>
         </section>
       ))}
+      <section id="culture-goods" aria-labelledby="culture-goods-title" className={styles.publication}>
+        <div className={styles.eventGoods}>
+          <div className={styles.fieldCopy}>
+            <p className={styles.kicker} lang="en">Culture Run Goods</p>
+            <h2 id="culture-goods-title">손에 든 문화런</h2>
+            <p>에코백 밑단에서 파란 모자를 쓴 카티보가 얼굴을 내밉니다. 문화런 그래픽을 담은 반팔과 틔키피 키링도 굿즈 숍에서 만날 수 있습니다.</p>
+            <Link className={styles.textLink} href="/shop#culture-run">문화런 굿즈 전체 보기 <span aria-hidden="true">→</span></Link>
+          </div>
+          <ToteLook />
+        </div>
+      </section>
     </article>
   );
 }
