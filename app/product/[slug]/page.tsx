@@ -6,6 +6,7 @@ import { AddToCart } from "@/components/AddToCart";
 import { ProductCard } from "@/components/ProductCard";
 import { ProductStory } from "@/components/ProductStory";
 import { PhotoDetails } from "@/components/PhotoDetails";
+import { PhotoGallery } from "@/components/PhotoGallery";
 import { PulseEditorial } from "@/components/PulseEditorial";
 import { StickyBuyBar } from "@/components/StickyBuyBar";
 import { Stars } from "@/components/Stars";
@@ -85,7 +86,10 @@ export default async function ProductPage({
 
         <div className="mt-8 grid gap-12 pb-24 lg:grid-cols-[1.05fr_1fr] lg:gap-20">
           {/* 이미지 */}
-          <div className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-[#ecebe6]">
+          {photo?.gallery?.length ? (
+            <PhotoGallery directory={photo.directory} images={photo.gallery} name={photo.nameKo}
+              badge={display.badge === "BEST" ? "Best" : display.badge ? "New" : undefined} />
+          ) : <div className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-[#ecebe6]">
             <Image
               src={display.image}
               alt={display.nameKo + " · " + display.color}
@@ -99,7 +103,7 @@ export default async function ProductPage({
                 {display.badge === "BEST" ? "Best" : "New"}
               </span>
             )}
-          </div>
+          </div>}
 
           {/* 정보 (스티키) */}
           <div className="lg:sticky lg:top-24 lg:h-fit">

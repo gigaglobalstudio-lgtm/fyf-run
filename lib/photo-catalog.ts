@@ -7,6 +7,8 @@ export type ShopCardItem = Pick<Product, "slug" | "name" | "nameKo" | "categoryK
 export type PurchaseItem = Pick<Product, "slug" | "name" | "nameKo" | "price" | "sizes" | "image"> &
   { optionLabel?: string };
 
+export type PhotoGalleryImage = { file: string; alt: string; caption: string };
+
 export type PhotoListing = {
   slug: string;
   alias?: string;
@@ -21,7 +23,8 @@ export type PhotoListing = {
   priceUnit?: string;
   purchaseOptions?: { label: string; values: string[] };
   facts: string[][];
-  sections: { file: string; height: number; alt: string }[];
+  gallery?: PhotoGalleryImage[];
+  sections: { file: string; width?: number; height: number; alt: string; id?: string; label?: string }[];
 };
 
 export const PHOTO_LISTINGS: PhotoListing[] = photoCatalog;
