@@ -25,7 +25,7 @@ const groups = [
 });
 groups.push({
   id: "cap", title: "퍼포먼스 컬렉션",
-  items: PRODUCTS.filter((p) => !getPhotoListing(p.slug)),
+  items: PRODUCTS.filter((p) => p.category === "cap"),
 });
 
 export default function ShopPage() {

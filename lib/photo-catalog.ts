@@ -1,4 +1,5 @@
 import photoCatalog from "./photo-catalog.json";
+import { catalogCoverImage } from "./catalog-cover-image";
 import { getProduct, PRODUCTS, type Product } from "./products";
 
 export type ShopCardItem = Pick<Product, "slug" | "name" | "nameKo" | "categoryKo" | "color" | "image" | "badge"> &
@@ -45,7 +46,7 @@ export function getPhotoListing(slug: string) {
 export function photoCover(photo: PhotoListing) {
   const first = photo.useGalleryCover && photo.gallery?.[0];
   if (first) return { url: photo.directory + "/" + first.file, width: 1000, height: 1000 };
-  return { url: photo.directory + "/cover.jpg", width: 900, height: 1200 };
+  return { url: catalogCoverImage(photo.directory + "/cover.jpg"), width: 900, height: 1200 };
 }
 
 export function photoCard(photo: PhotoListing): ShopCardItem {

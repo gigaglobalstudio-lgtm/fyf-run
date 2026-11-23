@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useCart } from "./CartProvider";
+import { catalogCoverImage } from "@/lib/catalog-cover-image";
 import { formatKRW } from "@/lib/products";
 import { FREE_SHIPPING_MINIMUM, shippingFee } from "@/lib/shipping";
 
@@ -43,7 +44,7 @@ export function CartView() {
               className="relative h-28 w-24 shrink-0 overflow-hidden rounded-xl bg-[#ecebe6]"
             >
               <Image
-                src={item.image}
+                src={catalogCoverImage(item.image)}
                 unoptimized={item.image?.endsWith("/gallery/02-studio.jpg")}
                 alt={item.name}
                 fill
