@@ -7,7 +7,7 @@ import { AnnouncementBar } from "@/components/AnnouncementBar";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { KakaoChannel } from "@/components/KakaoChannel";
-import { catalogSlugs } from "@/lib/photo-catalog";
+import { catalogPrices } from "@/lib/photo-catalog";
 
 const notoSansKr = Noto_Sans_KR({
   variable: "--font-noto",
@@ -42,7 +42,7 @@ export default function RootLayout({
         <link rel="preload" href="/fonts/inter/latin.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
       </head>
       <body className="flex min-h-full flex-col font-sans">
-        <CartProvider productSlugs={catalogSlugs}>
+        <CartProvider productPrices={catalogPrices}>
           <AnnouncementBar />
           <Header />
           <main className="flex-1">{children}</main>

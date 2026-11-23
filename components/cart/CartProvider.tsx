@@ -40,7 +40,7 @@ function reducer(state: CartState, action: CartAction): CartState {
       );
       const items = existing
         ? state.items.map((i) =>
-            i === existing ? { ...i, qty: i.qty + action.item.qty } : i
+            i === existing ? { ...i, price: action.item.price, qty: i.qty + action.item.qty } : i
           )
         : [...state.items, action.item];
       return { ...state, items };
@@ -77,23 +77,24 @@ const CartContext = createContext<{
   clear: () => void;
 } | null>(null);
 
-export function CartProvider({ children, productSlugs }: { children: ReactNode; productSlugs: string[] }) {
+export function CartProvider({ children, productPrices }: { children: ReactNode; productPrices: ReadonlyMap<string, number> }) {
   const [state, dispatch] = useReducer(reducer, {
     items: [],
     hydrated: false,
   });
-  const listedSlugs = useMemo(() => new Set(productSlugs), [productSlugs]);
-
   useEffect(() => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
       const saved: CartItem[] = raw ? JSON.parse(raw) : [];
-      const items = Array.isArray(saved) ? saved.filter((item) => listedSlugs.has(item?.slug)) : [];
+      const items = Array.isArray(saved) ? saved.flatMap((item) => {
+        const price = productPrices.get(item?.slug);
+        return price === undefined ? [] : [{ ...item, price }];
+      }) : [];
       dispatch({ type: "hydrate", items });
     } catch {
       dispatch({ type: "hydrate", items: [] });
     }
-  }, [listedSlugs]);
+  }, [productPrices]);
 
   useEffect(() => {
     if (state.hydrated) {
@@ -110,7 +111,8 @@ export function CartProvider({ children, productSlugs }: { children: ReactNode; 
       count,
       total,
       add: (item: CartItem) => {
-        if (listedSlugs.has(item.slug)) dispatch({ type: "add", item });
+        const price = productPrices.get(item.slug);
+        if (price !== undefined) dispatch({ type: "add", item: { ...item, price } });
       },
       remove: (slug: string, size: string) =>
         dispatch({ type: "remove", slug, size }),
@@ -118,7 +120,7 @@ export function CartProvider({ children, productSlugs }: { children: ReactNode; 
         dispatch({ type: "setQty", slug, size, qty }),
       clear: () => dispatch({ type: "clear" }),
     };
-  }, [state, listedSlugs]);
+  }, [state, productPrices]);
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }

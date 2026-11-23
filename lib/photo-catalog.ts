@@ -57,6 +57,13 @@ export function photoCard(photo: PhotoListing): ShopCardItem {
   };
 }
 
+export const catalogPrices = new Map<string, number>();
+for (const slug of catalogSlugs) {
+  const photo = getPhotoListing(slug);
+  const price = photo ? photoCard(photo).price : getProduct(slug)?.price;
+  if (price != null) catalogPrices.set(slug, price);
+}
+
 export function photoPurchaseItem(photo: PhotoListing): PurchaseItem | undefined {
   if (photo.price == null || !photo.purchaseOptions?.values.length) return;
   return {
