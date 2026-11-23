@@ -87,7 +87,7 @@ export default async function ProductPage({
         <div className="mt-8 grid gap-12 pb-24 lg:grid-cols-[1.05fr_1fr] lg:gap-20">
           {/* 이미지 */}
           {photo?.gallery?.length ? (
-            <PhotoGallery directory={photo.directory} images={photo.gallery} name={photo.nameKo}
+            <PhotoGallery key={photo.slug} directory={photo.directory} images={photo.gallery} name={photo.nameKo}
               badge={display.badge === "BEST" ? "Best" : display.badge ? "New" : undefined} />
           ) : <div className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-[#ecebe6]">
             <Image
@@ -153,7 +153,7 @@ export default async function ProductPage({
 
             {purchase ? (
               <div className="mt-8">
-                <AddToCart product={purchase} />
+                <AddToCart key={purchase.slug} product={purchase} />
                 <p className="mt-5 text-center text-xs tracking-wide text-ink/45">
                   {product ? "5만원 이상 무료배송 · 1–3일 내 출고 · 7일 무료 교환" : "5만원 이상 무료배송"}
                 </p>

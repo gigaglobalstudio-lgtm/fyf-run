@@ -4,8 +4,10 @@ import { getProduct, type Product } from "./products";
 export type ShopCardItem = Pick<Product, "slug" | "name" | "nameKo" | "categoryKo" | "color" | "image" | "badge"> &
   Partial<Pick<Product, "price" | "listPrice">> & { priceUnit?: string };
 
+type LinkedOption = { label: string; slug: string };
+
 export type PurchaseItem = Pick<Product, "slug" | "name" | "nameKo" | "price" | "sizes" | "image"> &
-  { optionLabel?: string };
+  { optionLabel?: string; linkedOptions?: LinkedOption[] };
 
 export type PhotoGalleryImage = { file: string; alt: string; caption: string };
 
@@ -21,7 +23,7 @@ export type PhotoListing = {
   description: string;
   price?: number;
   priceUnit?: string;
-  purchaseOptions?: { label: string; values: string[] };
+  purchaseOptions?: { label: string; values: string[]; links?: LinkedOption[] };
   facts: string[][];
   gallery?: PhotoGalleryImage[];
   sections: { file: string; width?: number; height: number; alt: string; id?: string; label?: string }[];
@@ -49,5 +51,6 @@ export function photoPurchaseItem(photo: PhotoListing): PurchaseItem | undefined
     slug: photo.slug, name: photo.name, nameKo: photo.nameKo,
     image: photo.directory + "/cover.jpg", price: photo.price,
     optionLabel: photo.purchaseOptions.label, sizes: photo.purchaseOptions.values,
+    linkedOptions: photo.purchaseOptions.links,
   };
 }

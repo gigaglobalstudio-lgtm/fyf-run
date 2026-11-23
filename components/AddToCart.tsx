@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCart } from "./cart/CartProvider";
 import type { PurchaseItem } from "@/lib/photo-catalog";
@@ -43,6 +44,15 @@ export function AddToCart({ product }: { product: PurchaseItem }) {
             >
               {s}
             </button>
+          ))}
+          {product.linkedOptions?.map((option) => (
+            <Link
+              key={option.slug}
+              href={`/product/${option.slug}`}
+              className="min-w-14 rounded-full border border-ink/15 bg-white px-5 py-2.5 text-center text-sm font-bold text-ink transition hover:border-ink/50"
+            >
+              {option.label}
+            </Link>
           ))}
         </div>
       </div>
