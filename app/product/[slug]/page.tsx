@@ -12,16 +12,11 @@ import { StickyBuyBar } from "@/components/StickyBuyBar";
 import { Stars } from "@/components/Stars";
 import { Reviews } from "@/components/Reviews";
 import { PRODUCTS, formatKRW, getProduct } from "@/lib/products";
-import { PHOTO_LISTINGS, getPhotoListing, photoCard, photoCover, photoPurchaseItem } from "@/lib/photo-catalog";
+import { PHOTO_LISTINGS, catalogSlugs, getPhotoListing, photoCard, photoCover, photoPurchaseItem } from "@/lib/photo-catalog";
 import { getReviews } from "@/lib/reviews";
 
 export function generateStaticParams() {
-  const slugs = new Set(PRODUCTS.map((p) => p.slug));
-  for (const photo of PHOTO_LISTINGS) {
-    slugs.add(photo.slug);
-    if (photo.alias) slugs.add(photo.alias);
-  }
-  return Array.from(slugs, (slug) => ({ slug }));
+  return catalogSlugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({

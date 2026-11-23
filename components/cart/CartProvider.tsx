@@ -77,20 +77,23 @@ const CartContext = createContext<{
   clear: () => void;
 } | null>(null);
 
-export function CartProvider({ children }: { children: ReactNode }) {
+export function CartProvider({ children, productSlugs }: { children: ReactNode; productSlugs: string[] }) {
   const [state, dispatch] = useReducer(reducer, {
     items: [],
     hydrated: false,
   });
+  const listedSlugs = useMemo(() => new Set(productSlugs), [productSlugs]);
 
   useEffect(() => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      dispatch({ type: "hydrate", items: raw ? JSON.parse(raw) : [] });
+      const saved: CartItem[] = raw ? JSON.parse(raw) : [];
+      const items = Array.isArray(saved) ? saved.filter((item) => listedSlugs.has(item?.slug)) : [];
+      dispatch({ type: "hydrate", items });
     } catch {
       dispatch({ type: "hydrate", items: [] });
     }
-  }, []);
+  }, [listedSlugs]);
 
   useEffect(() => {
     if (state.hydrated) {
@@ -106,14 +109,16 @@ export function CartProvider({ children }: { children: ReactNode }) {
       hydrated: state.hydrated,
       count,
       total,
-      add: (item: CartItem) => dispatch({ type: "add", item }),
+      add: (item: CartItem) => {
+        if (listedSlugs.has(item.slug)) dispatch({ type: "add", item });
+      },
       remove: (slug: string, size: string) =>
         dispatch({ type: "remove", slug, size }),
       setQty: (slug: string, size: string, qty: number) =>
         dispatch({ type: "setQty", slug, size, qty }),
       clear: () => dispatch({ type: "clear" }),
     };
-  }, [state]);
+  }, [state, listedSlugs]);
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }

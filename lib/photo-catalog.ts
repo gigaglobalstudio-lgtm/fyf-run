@@ -1,5 +1,5 @@
 import photoCatalog from "./photo-catalog.json";
-import { getProduct, type Product } from "./products";
+import { getProduct, PRODUCTS, type Product } from "./products";
 
 export type ShopCardItem = Pick<Product, "slug" | "name" | "nameKo" | "categoryKo" | "color" | "image" | "badge"> &
   Partial<Pick<Product, "price" | "listPrice">> & { priceUnit?: string };
@@ -31,6 +31,11 @@ export type PhotoListing = {
 };
 
 export const PHOTO_LISTINGS: PhotoListing[] = photoCatalog;
+
+export const catalogSlugs = Array.from(new Set([
+  ...PRODUCTS.map((product) => product.slug),
+  ...PHOTO_LISTINGS.flatMap(({ slug, alias }) => alias ? [slug, alias] : [slug]),
+]));
 
 export function getPhotoListing(slug: string) {
   return PHOTO_LISTINGS.find((photo) => photo.slug === slug || photo.alias === slug);
