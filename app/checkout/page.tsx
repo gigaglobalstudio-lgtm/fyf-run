@@ -18,7 +18,7 @@ export default async function CheckoutPage() {
         <p className="mt-2 text-sm text-ink/60">
           {session?.user
             ? `${session.user.name ?? "러너"}님, 주문을 완료해주세요.`
-            : "비회원 주문 — 로그인하면 주문 내역이 계정에 연결됩니다."}
+            : "비회원으로 바로 주문할 수 있습니다. 주문 내역은 이 브라우저에 저장됩니다."}
         </p>
 
         {!session?.user && (
