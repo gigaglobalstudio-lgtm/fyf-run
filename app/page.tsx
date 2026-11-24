@@ -64,6 +64,10 @@ export default function Home() {
               <MvPlayer src="/mv/zombie-eyes.mp4" poster="/mv/zombie-eyes-poster.jpg"
                 title="ZOMBIE EYES" sub="메트로놈을 마주한 카티보의 밤" />
             </div>
+            <div className={styles.film}>
+              <MvPlayer src="/mv/find-your-flow-rock.mp4" poster="/mv/find-your-flow-rock-poster.jpg"
+                title="FIND YOUR FLOW" sub="노을을 향해 달리는 크루의 저녁 · ROCK VER." />
+            </div>
           </div>
         </section>
       </div>

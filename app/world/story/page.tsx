@@ -9,7 +9,7 @@ import { SEASON1, NEXT_CREW } from "@/lib/products";
 export const metadata: Metadata = {
   title: "STORY & MV — BUNKER-VERSE",
   description:
-    "시즌 1 'Bunker Opens' 12화 스토리와 FYF 공식 뮤직비디오 — ZOMBIE EYES, 가보자고.",
+    "시즌 1 'Bunker Opens' 12화 스토리와 FYF 공식 뮤직비디오 — ZOMBIE EYES, 가보자고, FIND YOUR FLOW(ROCK VER.).",
 };
 
 export default function StoryPage() {
@@ -24,11 +24,11 @@ export default function StoryPage() {
           Bunker Sound
         </h1>
         <p className="mt-4 max-w-xl leading-relaxed text-paper/70">
-          벙커에서 만든 사운드. FYF 공식 뮤직비디오 두 편 — 카티보의 밤과
-          크루의 낮.
+          벙커에서 만든 사운드. FYF 공식 뮤직비디오 세 편 — 크루의 낮,
+          카티보의 밤, 그리고 노을을 달리는 락 버전.
         </p>
 
-        <div className="mt-10 grid gap-6 lg:grid-cols-2">
+        <div className="mt-10 grid gap-6 lg:grid-cols-3">
           <MvPlayer
             src="/mv/gabojago.mp4"
             poster="/mv/gabojago-poster.jpg"
@@ -40,6 +40,12 @@ export default function StoryPage() {
             poster="/mv/zombie-eyes-poster.jpg"
             title="ZOMBIE EYES"
             sub="FYF OFFICIAL MV — 카티보의 밤, 메트로놈을 노려보다"
+          />
+          <MvPlayer
+            src="/mv/find-your-flow-rock.mp4"
+            poster="/mv/find-your-flow-rock-poster.jpg"
+            title="FIND YOUR FLOW"
+            sub="FYF OFFICIAL MV — 크루의 저녁, 노을 속 락 버전"
           />
         </div>
       </section>
