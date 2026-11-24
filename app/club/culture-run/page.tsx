@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { MvPlayer } from "@/components/MvPlayer";
-import { editions, film, sketch } from "@/lib/culture-run";
+import { editions, film, shorts, sketch } from "@/lib/culture-run";
 import { ToteLook } from "@/components/ProjectGoods";
 import styles from "@/components/project.module.css";
 
@@ -32,6 +32,39 @@ export default function CultureRunPage() {
       <section aria-label="문화런 영상" className="mx-auto grid max-w-7xl gap-5 px-5 pb-14 md:grid-cols-2 md:pb-20">
         <MvPlayer {...sketch} />
         <MvPlayer {...film} />
+      </section>
+
+      <section aria-labelledby="shorts-title" className="border-t border-darkline">
+        <div className="mx-auto grid max-w-7xl gap-8 px-5 py-12 md:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] md:gap-12 md:py-16">
+          <div>
+            <h2 id="shorts-title" className="font-display text-3xl md:text-4xl">숏츠 홍보</h2>
+            <p className="mt-4 max-w-md leading-relaxed text-paper/75">
+              2회차 문화런을 알리는 세로 숏츠 두 편입니다.
+            </p>
+            <time dateTime={editions[0].iso} className="mt-3 block text-sm font-medium text-paper/65">{editions[0].date}</time>
+          </div>
+          <div className="grid grid-cols-2 gap-4 md:gap-6">
+            {shorts.map((short) => (
+              <figure key={short.src}>
+                <video
+                  aria-label={`문화런 홍보 숏츠 — ${short.title}`}
+                  src={short.src}
+                  poster={short.poster}
+                  width={720}
+                  height={1280}
+                  controls
+                  playsInline
+                  preload="none"
+                  className="block aspect-[9/16] w-full rounded-2xl border border-darkline bg-coal object-cover"
+                />
+                <figcaption className="mt-3">
+                  <h3 className="text-base font-semibold">{short.title}</h3>
+                  <p className="mt-0.5 text-sm text-paper/60">{short.sub}</p>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
       </section>
 
       {editions.map((edition) => (
