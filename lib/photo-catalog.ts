@@ -29,6 +29,7 @@ export type PhotoListing = {
   purchaseOptions?: { label: string; values: string[]; links?: LinkedOption[] };
   facts: string[][];
   gallery?: PhotoGalleryImage[];
+  compactDetails?: { highlights: string[][]; photos: string[]; faq: string[][] };
   sections: { file: string; width?: number; height: number; alt: string; id?: string; label?: string }[];
 };
 
