@@ -9,7 +9,7 @@ import { SEASON1, NEXT_CREW } from "@/lib/products";
 export const metadata: Metadata = {
   title: "STORY & MV — BUNKER-VERSE",
   description:
-    "시즌 1 'Bunker Opens' 12화 스토리와 FYF 공식 뮤직비디오 — ZOMBIE EYES, 가보자고, FIND YOUR FLOW(ROCK VER.).",
+    "시즌 1 'Bunker Opens' 12화 스토리와 FYF 공식 뮤직비디오 — ZOMBIE EYES, 가보자고, FIND YOUR FLOW(ROCK VER.), TICK-TACK GRID SHAKE(3D VER.).",
 };
 
 export default function StoryPage() {
@@ -24,11 +24,11 @@ export default function StoryPage() {
           Bunker Sound
         </h1>
         <p className="mt-4 max-w-xl leading-relaxed text-paper/70">
-          벙커에서 만든 사운드. FYF 공식 뮤직비디오 세 편 — 크루의 낮,
-          카티보의 밤, 그리고 노을을 달리는 락 버전.
+          벙커에서 만든 사운드. FYF 공식 뮤직비디오 네 편 — 크루의 낮,
+          카티보의 밤, 노을을 달리는 락 버전, 그리고 네온 무대의 밴드 라이브.
         </p>
 
-        <div className="mt-10 grid gap-6 lg:grid-cols-3">
+        <div className="mt-10 grid gap-6 lg:grid-cols-2">
           <MvPlayer
             src="/mv/gabojago.mp4"
             poster="/mv/gabojago-poster.jpg"
@@ -46,6 +46,12 @@ export default function StoryPage() {
             poster="/mv/find-your-flow-rock-poster.jpg"
             title="FIND YOUR FLOW"
             sub="FYF OFFICIAL MV — 크루의 저녁, 노을 속 락 버전"
+          />
+          <MvPlayer
+            src="/mv/tick-tack-grid-shake.mp4"
+            poster="/mv/tick-tack-grid-shake-poster.jpg"
+            title="TICK-TACK GRID SHAKE"
+            sub="FYF OFFICIAL MV — 크루의 밴드 라이브, 네온 무대의 3D 버전"
           />
         </div>
       </section>

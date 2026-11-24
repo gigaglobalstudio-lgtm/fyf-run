@@ -68,6 +68,10 @@ export default function Home() {
               <MvPlayer src="/mv/find-your-flow-rock.mp4" poster="/mv/find-your-flow-rock-poster.jpg"
                 title="FIND YOUR FLOW" sub="노을을 향해 달리는 크루의 저녁 · ROCK VER." />
             </div>
+            <div className={styles.film}>
+              <MvPlayer src="/mv/tick-tack-grid-shake.mp4" poster="/mv/tick-tack-grid-shake-poster.jpg"
+                title="TICK-TACK GRID SHAKE" sub="네온 무대에 선 크루의 밴드 라이브 · 3D VER." />
+            </div>
           </div>
         </section>
       </div>
